@@ -11,6 +11,8 @@ class Discounts_code extends Model
 
     protected $table = 'discounts_codes';
 
+    protected $fillable = ['code','price','start_time', 'end_time', 'product_id', 'created_by','updated_by','status'];
+
     public function products() {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }

@@ -11,8 +11,10 @@ class Like_comment_product extends Model
 
     protected $table = 'like_comment_products';
 
-    public function products() {
-        return $this->belongsTo(Product::class, 'product_id', 'id');
+    protected $fillable = ['comment_product_id','user_id'];
+
+    public function comment_products() {
+        return $this->hasMany(Comment_product::class, 'comment_product_id', 'id');
     }
 
     public function users() {

@@ -11,6 +11,8 @@ class Product_detail extends Model
 
     protected $table = 'product_details';
 
+    protected $fillable = ['name','description', 'products_id'];
+
     public function products() {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }

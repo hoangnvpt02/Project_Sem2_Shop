@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Point extends Model
 {
     use HasFactory;
+
+    protected $table = 'points';
+
+    protected $fillable = ['points_amount','images'];
 }

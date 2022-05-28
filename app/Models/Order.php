@@ -11,6 +11,8 @@ class Order extends Model
 
     protected $table = 'order_details';
 
+    protected $fillable = ['note','delivery_time', 'product_id','user_id', 'infomation_user_id','status'];
+
     public function users() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

@@ -11,6 +11,8 @@ class Infomation_user extends Model
 
     protected $table = 'infomation_users';
 
+    protected $fillable = ['phone','address','user_id'];
+
     public function users() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

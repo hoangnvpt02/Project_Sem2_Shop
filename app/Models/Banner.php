@@ -11,6 +11,8 @@ class Banner extends Model
 
     protected $table = 'banners';
 
+    protected $fillable = ['image','category_id','created_by','updated_by','status'];
+
     public function categories() {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }

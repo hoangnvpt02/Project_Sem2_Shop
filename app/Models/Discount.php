@@ -11,6 +11,8 @@ class Discount extends Model
 
     protected $table = 'discounts';
 
+    protected $fillable = ['title','price','start_time', 'end_time', 'created_by','updated_by','status'];
+
     public function products() {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }

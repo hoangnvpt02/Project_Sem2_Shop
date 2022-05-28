@@ -15,6 +15,8 @@ class CreateLikeCommentProductsTable extends Migration
     {
         Schema::create('like_comment_products', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('comment_product_id');
+            $table->foreign('comment_product_id')->references('id')->on('comment_products')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

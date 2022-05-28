@@ -11,6 +11,8 @@ class Category extends Model
 
     protected $table = 'categorys';
 
+    protected $fillable = ['name','slug','created_by','updated_by','status'];
+
     public function banners() {
         return $this->HasMany(Banner::class, 'category_id', 'id');
     }
