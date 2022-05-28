@@ -17,7 +17,8 @@ class CreateInfomationUsersTable extends Migration
             $table->id();
             $table->string('phone')->unique();
             $table->string('address');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

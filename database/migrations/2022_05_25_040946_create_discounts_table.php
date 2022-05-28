@@ -19,7 +19,8 @@ class CreateDiscountsTable extends Migration
             $table->string('start_time');
             $table->string('end_time');
             $table->tinyInteger('status')->Default(0);
-            $table->integer('product_id');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
             $table->string('created_by')->Default(null);
             $table->string('updated_by')->Default(null);
             $table->timestamps();

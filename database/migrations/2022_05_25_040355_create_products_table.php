@@ -21,7 +21,8 @@ class CreateProductsTable extends Migration
             $table->string('thumb');
             $table->string('description');
             $table->tinyInteger('status')->Default(0);
-            $table->integer('category_id');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->string('created_by')->Default(null);
             $table->string('updated_by')->Default(null);
             $table->timestamps();

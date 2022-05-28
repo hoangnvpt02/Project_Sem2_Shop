@@ -18,8 +18,9 @@ class CreateOrdersTable extends Migration
             $table->string('note')->Default(null);
             $table->datetime('delivery_time');
             $table->tinyInteger('status')->Default(0);
-            $table->integer('user_id');
-            $table->integer('infomation_user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('infomation_user_id');
             $table->timestamps();
         });
     }

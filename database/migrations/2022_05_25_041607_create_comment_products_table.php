@@ -18,8 +18,10 @@ class CreateCommentProductsTable extends Migration
             $table->string('content');
             $table->integer('like')->Default(0);
             $table->integer('comment_and_reply')->Default(0);
-            $table->integer('user_id');
-            $table->integer('product_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
