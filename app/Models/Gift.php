@@ -10,4 +10,5 @@ class Gift extends Model
     use HasFactory;
 
     protected $table = 'gifts';
+    protected $fillable = ['points','images','status', 'created_by','updated_by'];
 }

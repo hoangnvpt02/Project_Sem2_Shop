@@ -9,11 +9,12 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $table = 'categorys';
+    protected $table = 'categories';
 
     protected $fillable = ['name','slug','created_by','updated_by','status'];
 
     public function banners() {
         return $this->HasMany(Banner::class, 'category_id', 'id');
     }
+   
 }
