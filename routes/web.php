@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdController;
-use App\Http\Controllers\GiftController;
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DiscountController;
-use App\Http\Controllers\DiscountCodeController;
+use App\Http\Controllers\Admin\AdController;
+use App\Http\Controllers\Admin\GiftController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\DiscountCodeController;
+use App\Http\Controllers\Admin\HomeController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,9 +47,7 @@ Route::get('/blank', function () {
 //admin
 
 Route::prefix('admin')->middleware('auth')->group(function(){
-    Route::get('home', function () {
-        return view('home');
-    });
+    Route::get('/',[HomeController::class,'index'])->name('admin.main');
     Route::prefix('admins')->group(function(){
         Route::get('/',[AdController::class,'index'])->name('admin.admins.index');
         

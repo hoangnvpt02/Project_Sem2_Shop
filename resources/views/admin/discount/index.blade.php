@@ -27,15 +27,15 @@ Trang chủ
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col" class="col-md-3">STT</th>
-                                <th scope="col" class="col-md-6">Price</th>
-                                <th scope="col" class="col-md-6">Start Time</th>
-                                <th scope="col" class="col-md-6">End Time</th>
-                                <th scope="col" class="col-md-6">Product</th>
-                                <th scope="col" class="col-md-6">Người đăng</th>
-                                <th scope="col" class="col-md-6">Người cập nhật</th>
-                                <th scope="col" class="col-md-6">Status</th>
-                                <th scope="col" class="col-md-3">Action</th>
+                                <th scope="col">STT</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Start Time</th>
+                                <th scope="col">End Time</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Người đăng</th>
+                                <th scope="col">Người cập nhật</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>

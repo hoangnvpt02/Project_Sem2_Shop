@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->integer('price');
             $table->string('thumb');
-            $table->string('description');
+            $table->longText('description');
             $table->tinyInteger('status')->Default(0);
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
