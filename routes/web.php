@@ -19,6 +19,7 @@ use App\Http\Controllers\DiscountCodeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
     return view('home');
@@ -43,7 +44,7 @@ Route::get('/blank', function () {
 
 //admin
 
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->middleware('auth')->group(function(){
     Route::get('home', function () {
         return view('home');
     });
