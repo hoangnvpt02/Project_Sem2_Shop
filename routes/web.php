@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SearchControllerClient;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,8 @@ Route::get('/checkout', function () {
 Route::get('/blank', function () {
     return view('blank');
 });
+
+Route::get('/search-product/{text}', [SearchControllerClient::class, 'search'])->name('search-product');
 
 
 //admin

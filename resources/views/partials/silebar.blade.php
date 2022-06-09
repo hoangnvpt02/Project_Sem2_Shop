@@ -11,7 +11,12 @@
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-                <a  href="{{ route('logout') }}" class="text-primary">Log Out</a>
+                <a  href="{{ route('logout') }}" class="text-primary" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">Log Out</a>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
         </div>
         <div class="form-inline">
