@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SearchControllerClient;
+use App\Http\Controllers\LoginControllerClient;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,14 @@ use App\Http\Controllers\SearchControllerClient;
 */
 Auth::routes();
 
+Route::get('/user/login', function () {
+    return view('login');
+})->name('user.login');
+Route::post('/user/login', [LoginControllerClient::class, 'login'])->name('user.login');
+
 Route::get('/', function () {
     return view('home');
-});
+})->name('home.client');
 
 Route::get('/store', function () {
     return view('store');

@@ -8,8 +8,8 @@
 				<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 			</ul>
 			<ul class="header-links pull-right">
-				<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-				<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+				<!-- <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li> -->
+				<li><a href="{{ route('user.login') }}"><i class="fa fa-user-o"></i> Login/Logout</a></li>
 			</ul>
 		</div>
 	</div>
@@ -25,7 +25,7 @@
 				<div class="col-md-3">
 					<div class="header-logo">
 						<a href="#" class="logo">
-							<img src="./img/logo.png" alt="">
+							<img style="width:200px" src="./img/shop_tech.png" alt="">
 						</a>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 				<div class="col-md-6">
 					<div class="header-search">
 							<div style="position:relative">
-								<input class="form-control" id="search" placeholder="Nhập sản phầm cần tìm kiếm...">
+								<input class="form-control" id="search-product" placeholder="Search product here...">
 								<div class="showhint" style="position: absolute; top:35px; border-radius:4px;z-index: 11;"></div>
 						</div>
 					</div>
@@ -137,31 +137,32 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-	$('#search').on('keyup',function(){
+	$('#search-product').on('keyup',function(){
 		var text = $(this).val();
+		console.log(text);
+		var html= '';
+		$('.showhint').css("display", "none");
 		$.ajax({
 			type: 'GET',
 			url: '/search-product/'+text,
 			success: function(res){
 				if (res.length > 0){
-					$('.showhint').css("width", "100%");
-					var html= '';
 					for (var data of res) {
 						html+= '<a class="media-thumb" href="#">';	
 						html+= '<img src="https://hanoicomputercdn.com/media/product/250_63806_laptop_acer_gaming_aspire_7_a715_75g_18.jpeg" alt="logo" style="width:70px">'
-						html+= '<p style="width: 65%">'+data.name+'</p>'
-						html+= '<p style="width: 20%" class="text-primary">'+data.price+'&nbsp;VND</p>'
+						html+= '<p style="width: 60%">'+data.name+'</p>'
+						html+= '<p style="width: 30%; font-style:italic" class="text-primary">Giá:&nbsp;'+data.price+'&nbsp;VND</p>'
 						html+= '</a>'
 						html+= '<hr>'
 					}
 				}
 				else {
-					var html= '<p style="padding:10px">Không tìm thấy sản phẩm phù hợp với tìm kiếm</p>';
+					html= '<p style="padding:10px">No products found matching your search</p>';
 				}
+				$('.showhint').css("display", "block");
+				$('.showhint').css("width", "100%");
 				$('.showhint').html(html);
 			},
 		})
-
 	})
-	
 </script>
