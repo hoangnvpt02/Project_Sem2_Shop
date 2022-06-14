@@ -125,7 +125,7 @@ ul, ol {
 
 textarea.input {
   padding: 15px;
-  min-height: 90px;
+  min-height: 14.5em;
 }
 
 /*-- Number input --*/
@@ -1764,35 +1764,11 @@ textarea.input {
 
 .reviews-pagination {
   text-align: center;
+  text-align: center; 
+  margin-left: 11em; 
+  margin-top: -13px
 }
 
-.reviews-pagination li {
-  display: inline-block;
-  width: 35px;
-  height: 35px;
-  line-height: 35px;
-  text-align: center;
-  background-color: #FFF;
-  border: 1px solid #E4E7ED;
-  -webkit-transition: 0.2s all;
-  transition: 0.2s all;
-}
-
-.reviews-pagination li:hover {
-  background-color: #E4E7ED;
-  color: #D10024;
-}
-
-.reviews-pagination li.active {
-  background-color: #D10024;
-  border-color: #D10024;
-  color: #FFF;
-  cursor: default;
-}
-
-.reviews-pagination li a {
-  display: block;
-}
 
 /*-- Review Form --*/
 
