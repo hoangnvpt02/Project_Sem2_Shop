@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SearchControllerClient;
 use App\Http\Controllers\LoginControllerClient;
 
+use App\Http\Controllers\ProductClientController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,8 +40,9 @@ Route::get('/store', function () {
     return view('store');
 });
 
-Route::get('/product', function () {
-    return view('product');
+Route::prefix('product')->group(function() {
+    Route::get('/', [ProductClientController::class, 'indexProduct']);
+    Route::post('/comment_product', [ProductClientController::class,'commentProduct']);
 });
 
 Route::get('/checkout', function () {
