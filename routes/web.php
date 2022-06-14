@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\WebController;
 use App\Http\Controllers\GiftController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ProductController;
@@ -21,13 +22,15 @@ use App\Http\Controllers\DiscountCodeController;
 */
 Auth::routes();
 
-Route::get('/', function () {
-    return view('home');
-});
+//home
+Route::get('/',[WebController::class,'index'])->name('web.home.index');
 
-Route::get('/store', function () {
-    return view('store');
-});
+//category
+Route::get('category',[WebController::class,'category'])->name('web.category');
+Route::get('category_test/{slug}',[WebController::class,'category_search_test'])->name('web.category.search_test');
+Route::get('category/{price_min}/{price_max}',[WebController::class,'category_search_price'])->name('web.category.search');
+
+Route::get('category/{slug}',[WebController::class,'category_search'])->name('web.category.search');
 
 Route::get('/product', function () {
     return view('product');
@@ -154,3 +157,6 @@ Route::prefix('admin')->middleware('auth')->group(function(){
 
     });
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

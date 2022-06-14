@@ -16,4 +16,7 @@ class Banner extends Model
     public function categories() {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+    public function urlImage(){
+        return '/image/post/'.$this->image;
+   }
 }
