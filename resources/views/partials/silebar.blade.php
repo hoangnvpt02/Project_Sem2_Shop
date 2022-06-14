@@ -11,7 +11,12 @@
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-                <a  href="{{ route('logout') }}" class="text-primary">Log Out</a>
+                <a  href="{{ route('logout') }}" class="text-primary" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">Log Out</a>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
         </div>
         <div class="form-inline">
@@ -27,7 +32,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                    <a href="{{ route('admin.category.index')}}" class="nav-link">
+                    <a href="{{ route('admin.admins.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Quản lý admin

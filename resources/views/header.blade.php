@@ -8,8 +8,8 @@
 				<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 			</ul>
 			<ul class="header-links pull-right">
-				<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-				<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+				<!-- <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li> -->
+				<li><a href="{{ route('user.login') }}"><i class="fa fa-user-o"></i> Login/Logout</a></li>
 			</ul>
 		</div>
 	</div>
@@ -25,7 +25,7 @@
 				<div class="col-md-3">
 					<div class="header-logo">
 						<a href="#" class="logo">
-							<img src="./img/logo.png" alt="">
+							<img style="width:200px" src="./img/shop_tech.png" alt="">
 						</a>
 					</div>
 				</div>
@@ -34,15 +34,10 @@
 				<!-- SEARCH BAR -->
 				<div class="col-md-6">
 					<div class="header-search">
-						<form>
-							<select class="input-select">
-								<option value="0">All Categories</option>
-								<option value="1">Category 01</option>
-								<option value="1">Category 02</option>
-							</select>
-							<input class="input" placeholder="Search here">
-							<button class="search-btn">Search</button>
-						</form>
+							<div style="position:relative">
+								<input class="form-control" id="search-product" placeholder="Search product here...">
+								<div class="showhint" style="position: absolute; top:35px; border-radius:4px;z-index: 11;"></div>
+						</div>
 					</div>
 				</div>
 				<!-- /SEARCH BAR -->
@@ -121,3 +116,53 @@
 	</div>
 	<!-- /MAIN HEADER -->
 </header>
+<style>
+.showhint {
+  background-color: #fff;
+  height:400px;
+	overflow: auto;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	
+  /* color:red; */
+	/* z-index: 1; */
+	/* padding: 10px; */
+	/* display:none */
+}
+.media-thumb {
+	display: flex;
+	align-items: center;
+	cursor: pointer!important;
+	margin-top:3px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$('#search-product').on('keyup',function(){
+		var text = $(this).val();
+		console.log(text);
+		var html= '';
+		$('.showhint').css("display", "none");
+		$.ajax({
+			type: 'GET',
+			url: '/search-product/'+text,
+			success: function(res){
+				if (res.length > 0){
+					for (var data of res) {
+						html+= '<a class="media-thumb" href="#">';	
+						html+= '<img src="https://hanoicomputercdn.com/media/product/250_63806_laptop_acer_gaming_aspire_7_a715_75g_18.jpeg" alt="logo" style="width:70px">'
+						html+= '<p style="width: 60%">'+data.name+'</p>'
+						html+= '<p style="width: 30%; font-style:italic" class="text-primary">Giá:&nbsp;'+data.price+'&nbsp;VND</p>'
+						html+= '</a>'
+						html+= '<hr>'
+					}
+				}
+				else {
+					html= '<p style="padding:10px">No products found matching your search</p>';
+				}
+				$('.showhint').css("display", "block");
+				$('.showhint').css("width", "100%");
+				$('.showhint').html(html);
+			},
+		})
+	})
+</script>
