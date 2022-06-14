@@ -43,6 +43,14 @@ Route::get('/blank', function () {
     return view('blank');
 });
 
+Route::get('/order', function () {
+    return view('order');
+});
+
+Route::get('/order-detail', function () {
+    return view('order_detail');
+});
+
 
 //admin
 
