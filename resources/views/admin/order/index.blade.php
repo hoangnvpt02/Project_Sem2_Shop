@@ -17,49 +17,46 @@ Trang chủ
     @endif
     <div class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="{{ route('admin.product.add')}}" class="btn btn-success float-right m-2">Add</a>
-                </div>
-                <div class="col-md-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên Sản Phẩm</th>
-                                <th scope="col">Giá</th>
-                                <th scope="col">Hình ảnh</th>
-                                <th scope="col">Mô tả</th>
-                                <th scope="col">Danh mục</th>
-                                <th scope="col">Trạng thái</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($products as $product)
-                            <tr>
-                                <th scope="row">{{ $product->id }}</th>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->price }}</td>
-                                <td>{{ $product->thumb}}</td>
-                                <td>{{ $product->description }}</td>
-                                <td>{{ $product->category->name }}</td>
-                                <td>{{ $product->status == 0 ? 'không hoạt động' : 'hoạt động'}}</td>
-                                <td>
-                                    <a href="{{ route('admin.product.edit',['id'=>$product->id])}}"
-                                        class="btn btn-success">Edit</a>
-                                    <a href="" data-url="{{ route('admin.product.delete',['id'=>$product->id])}}"
-                                        class="btn btn-danger action_delete">Delete</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-12">
-                    {!! $products->links() !!}
-                </div>
-            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="width: 50px">ID</th>
+                    <th>Tên Khách Hàng</th>
+                    <th>Số Điện Thoại</th>
+                    <th>Email</th>
+                    {{-- <th>Địa Chỉ</th> --}}
+                    <th>Ngày Đặt Hàng</th>
+                    <th>Xác nhận</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($orders as $key => $order)
+                    <tr>
+                        <td>{{ $order->id }}</td>
+                        <td>{{ $order->users->name }}</td>
+                        <td>{{ $order->users->phone }}</td>
+                        <td>{{ $order->users->email }}</td>
+                        {{-- <td>{{ $order->users->address }}</td> --}}
+                        <td>{{ $order->users->created_at }}</td>
+                        <td>{{ $order->users->status == 1 ? 'Chưa xác nhận' : 'Đã hủy' }}</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" onclick="updateRow({{ $order->id }}, '/admin/order->userss/confirm')">
+                                <i class="fa-solid fa-check"></i>
+                            </a>
+                            <a class="btn btn-primary btn-sm" href="/admin/order/detail/{{ $order->id }}">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                            <a class="btn btn-danger btn-sm" onclick="removeRow({{ $order->id }}, '/admin/customers/destroy')">
+                                <i class="fa-solid fa-xmark"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        
+            {!! $orders->links() !!}
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>

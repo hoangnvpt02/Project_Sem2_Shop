@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrderManagerController;
 use App\Http\Controllers\OrderClientController;
 use Illuminate\Support\Facades\Auth;
 
@@ -157,5 +159,10 @@ Route::prefix('admin')->middleware('auth')->group(function(){
         Route::get('delete/{id}',[AdminReceiptController::class,'delete'])->name('admin.receipt.delete');
 
         Route::get('detailReceipt/{id}',[AdminReceiptController::class,'detailList'])->name('admin.detailReceipt.index');
+    });
+
+    Route::prefix('order')->group(function(){
+        Route::get('/',[OrderManagerController::class,'index'])->name('admin.order.index');
+        Route::get('/detail/{id}',[OrderManagerController::class,'orderDetail'])->name('admin.order.detail');
     });
 });
