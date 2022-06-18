@@ -9,11 +9,21 @@
     {{-- @include('breadcrumb') --}}
     <!-- /BREADCRUMB -->
     <div class="container-fluid">
-
-        <div class="container">
+        <div class="container" style="margin-top: 10px;">
             <!-- Title -->
+            @foreach($orders as $order)
+            @if(session('success'))
+                <div class="alert alert-success col-md-3">
+                    {{ session('success') }}
+                </div>
+                @endif
+                @if(session('danger'))
+                <div class="alert alert-danger col-md-3">
+                    {{ session('danger') }}
+                </div>
+                @endif
             <div class="d-flex justify-content-between align-items-center py-3">
-                <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #16123222</h2>
+                <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #{{ $order->id }}</h2>
             </div>
 
             <!-- Main content -->
@@ -22,96 +32,73 @@
                     <!-- Details -->
                     <div class="card mb-4">
                         <div class="card-body">
-                            <div class="mb-3 d-flex justify-content-between">
+                            <div class="mb-3 d-flex justify-content-between" style="margin-bottom: 10px;">
                                 <div>
                                     <span class="me-3">22-11-2021</span>
-                                    <span class="me-3">#16123222</span>
-                                    <span class="me-3">Visa -1234</span>
-                                    <span class="badge rounded-pill bg-info">SHIPPING</span>
-                                </div>
-                                <div class="d-flex">
-                                    <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text"><i
-                                            class="bi bi-download"></i> <span class="text">Invoice</span></button>
-                                    <div class="dropdown">
-                                        <button class="btn btn-link p-0 text-muted" type="button" data-bs-toggle="dropdown">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i> Edit</a>
-                                            </li>
-                                            <li><a class="dropdown-item" href="#"><i class="bi bi-printer"></i> Print</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <span class="me-3">#{{ $order->id }}</span>
+                                    @if ($order->status == 1)
+                                            <span class="badge rounded-pill">Đang chờ xác nhận</span>
+                                        @elseif ($order->status == 2)
+                                        <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
+                                        @elseif ($order->status == 3)
+                                        <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
+                                        @else
+                                            <span class="badge rounded-pill" style="background-color: red">Đã hủy</span>
+                                        @endif
                                 </div>
                             </div>
+                            
                             <table class="table table-borderless">
                                 <tbody>
+                                    @php
+                                        $total = 0;
+                                    @endphp
+                                    @foreach ($order->order_details as $order_details)
+                                    @php
+                                        $total += $order_details->price * $order_details->quantity;
+                                    @endphp
                                     <tr>
-                                        <td>
-                                            <div class="d-flex mb-2">
-                                                <div class="flex-shrink-0">
+                                        <td style="width: 38vw;">
+                                            <div style="display: flex;">
+                                                <div>
                                                     <img src="https://via.placeholder.com/280x280/87CEFA/000000" alt=""
-                                                        width="35" class="img-fluid">
+                                                        width="100" class="img-fluid">
                                                 </div>
-                                                <div class="flex-lg-grow-1 ms-3">
-                                                    <h6 class="small mb-0"><a href="#" class="text-reset">Wireless
-                                                            Headphones with Noise Cancellation Tru Bass Bluetooth HiFi</a>
+                                                <div style="margin-left: 20px">
+                                                    <h6>
+                                                        <a href="#" style="font-size: 17px;">{{ $order_details->products->name }}</a>
                                                     </h6>
-                                                    <span class="small">Color: Black</span>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>1</td>
-                                        <td class="text-end">$79.99</td>
+                                        <td>{{ $order_details->quantity }}</td>
+                                        <td class="text-end">{{ number_format($order_details->price, 0, ',', ' ') }} đ</td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex mb-2">
-                                                <div class="flex-shrink-0">
-                                                    <img src="https://via.placeholder.com/280x280/FF69B4/000000" alt=""
-                                                        width="35" class="img-fluid">
-                                                </div>
-                                                <div class="flex-lg-grow-1 ms-3">
-                                                    <h6 class="small mb-0"><a href="#" class="text-reset">Smartwatch
-                                                            IP68 Waterproof GPS and Bluetooth Support</a></h6>
-                                                    <span class="small">Color: White</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>1</td>
-                                        <td class="text-end">$79.99</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <td colspan="2">Subtotal</td>
-                                        <td class="text-end">$159,98</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Shipping</td>
-                                        <td class="text-end">$20.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Discount (Code: NEWYEAR)</td>
-                                        <td class="text-danger text-end">-$10.00</td>
-                                    </tr>
                                     <tr class="fw-bold">
                                         <td colspan="2">TOTAL</td>
-                                        <td class="text-end">$169,98</td>
+                                        <td class="text-end">{{ number_format($total, 0, ',', ' ') }} đ</td>
                                     </tr>
                                 </tfoot>
                             </table>
+                            @if ($order->status == 1)  
+                                <form action="/order-cancel/{{$order->id}}" method="post" enctype="multipart/form">
+                                    <button type="submit" class="btn btn-danger">Hủy đơn hàng</button>
+                                    @csrf
+                                </form>
+                            @endif
                         </div>
                     </div>
-                    <!-- Payment -->
+                    {{-- <!-- Payment -->
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <h3 class="h6">Payment Method</h3>
                                     <p>Visa -1234 <br>
-                                        Total: $169,98 <span class="badge bg-success rounded-pill">PAID</span></p>
+                                        Total: {{ number_format($total, 0, ',', ' ') }} đ <span class="badge bg-success rounded-pill">PAID</span></p>
                                 </div>
                                 <div class="col-lg-6">
                                     <h3 class="h6">Billing address</h3>
@@ -124,7 +111,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-lg-4">
                     <!-- Customer Notes -->
@@ -154,6 +141,7 @@
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
     <!-- NEWSLETTER -->

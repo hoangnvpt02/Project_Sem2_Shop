@@ -1,164 +1,82 @@
 @extends('main')
 @section('head')
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
-    <style>
-        body{
-background:#eee;
-}
-.panel-order .row {
-	border-bottom: 1px solid #ccc;
-}
-.panel-order .row:last-child {
-	border: 0px;
-}
-.panel-order .row .col-md-1  {
-	text-align: center;
-	padding-top: 15px;
-}
-.panel-order .row .col-md-1 img {
-	width: 50px;
-	max-height: 50px;
-}
-.panel-order .row .row {
-	border-bottom: 0;
-}
-.panel-order .row .col-md-11 {
-	border-left: 1px solid #ccc;
-}
-.panel-order .row .row .col-md-12 {
-	padding-top: 7px;
-	padding-bottom: 7px; 
-}
-.panel-order .row .row .col-md-12:last-child {
-	font-size: 11px; 
-	color: #555;  
-	background: #efefef;
-}
-.panel-order .btn-group {
-	margin: 0px;
-	padding: 0px;
-}
-.panel-order .panel-body {
-	padding-top: 0px;
-	padding-bottom: 0px;
-}
-.panel-order .panel-deading {
-	margin-bottom: 0;
-}                    
-    </style>
+
 @endsection
 @section('content')
     <!-- BREADCRUMB -->
     {{-- @include('breadcrumb') --}}
     <!-- /BREADCRUMB -->
-    <div class="container bootdey">
-        <div class="panel panel-default panel-order">
-            <div class="panel-heading">
-                <strong>Order history</strong>
-                <div class="btn-group pull-right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Filter
-                            history <i class="fa fa-filter"></i></button>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="#">Approved orders</a></li>
-                            <li><a href="#">Pending orders</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
+    <div class="container">
+        @foreach($orders as $order)
+        <div class="panel panel-default" style="margin-top: 25px; margin-bottom: 0;">
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg"
-                            class="media-object img-thumbnail" /></div>
-                    <div class="col-md-11">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="pull-right"><label class="label label-danger">rejected</label></div>
-                                <span><strong>Order name</strong></span> <span class="label label-info">group
-                                    name</span><br />
-                                Quantity : 2, cost: $323.13 <br />
-                                <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#"
-                                    title="View"></a>
-                                <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#"
-                                    title="Danger"></a>
-                                <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#"
-                                    title="Danger"></a>
-                            </div>
-                            <div class="col-md-12">order made on: 05/31/2014 by <a href="#">Jane Doe </a></div>
-                        </div>
-                    </div>
+                <!-- Title -->
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    <h2 class="h5 mb-0"><a href="/order-detail/{{$order->id}}">Order #{{ $order->id }}</a></h2>
                 </div>
-
+                <!-- Main content -->
                 <div class="row">
-                    <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_1.jpg"
-                            class="media-object img-thumbnail" /></div>
-                    <div class="col-md-11">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="pull-right"><label class="label label-info">pending</label></div>
-                                <span><strong>Order name</strong></span> <span class="label label-info">group
-                                    name</span><br />
-                                Quantity : 12, cost: $12623.13<br />
-                                <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#"
-                                    title="View"></a>
-                                <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#"
-                                    title="Danger"></a>
-                                <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#"
-                                    title="Danger"></a>
+                    <div class="col-lg-12">
+                        <!-- Details -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="mb-3 d-flex justify-content-between" style="margin-bottom: 10px;">
+                                    <div>
+                                        <span class="me-3">22-11-2021</span>
+                                        <span class="me-3">#{{ $order->id }}</span>
+                                        @if ($order->status == 1)
+                                            <span class="badge rounded-pill">Đang chờ xác nhận</span>
+                                        @elseif ($order->status == 2)
+                                        <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
+                                        @elseif ($order->status == 3)
+                                        <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
+                                        @else
+                                            <span class="badge rounded-pill" style="background-color: red">Đã hủy</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        @php
+                                            $total = 0;
+                                        @endphp
+                                        @foreach ($order->order_details as $order_details)
+                                        @php
+                                            $total += $order_details->price * $order_details->quantity;
+                                        @endphp
+                                        <tr>
+                                            <td style="width: 60vw;">
+                                                <div style="display: flex;">
+                                                    <div>
+                                                        <img src="https://via.placeholder.com/280x280/87CEFA/000000" alt=""
+                                                            width="100" class="img-fluid">
+                                                    </div>
+                                                    <div style="margin-left: 20px">
+                                                        <h6>
+                                                            <a href="#" style="font-size: 17px;">{{ $order_details->products->name }}</a>
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ $order_details->quantity }}</td>
+                                            <td class="text-end">{{ number_format($order_details->price, 0, ',', ' ') }} đ</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="fw-bold">
+                                            <td colspan="2">TOTAL</td>
+                                            <td class="text-end">{{ number_format($total, 0, ',', ' ') }} đ</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
-                            <div class="col-md-12">order made on: 06/12/2014 by <a href="#">Jane Doe </a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg"
-                            class="media-object img-thumbnail" /></div>
-                    <div class="col-md-11">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="pull-right"><label class="label label-success">Approved</label></div>
-                                <span><strong>Order name</strong></span> <span class="label label-info">group
-                                    name</span><br />
-                                Quantity : 4, cost: $523.13<br />
-                                <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#"
-                                    title="View"></a>
-                                <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#"
-                                    title="Danger"></a>
-                                <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#"
-                                    title="Danger"></a>
-                            </div>
-                            <div class="col-md-12">order made on: 06/20/2014 by <a href="#">Jane Doe</a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_2.jpg"
-                            class="media-object img-thumbnail" /></div>
-                    <div class="col-md-11">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="pull-right"><label class="label label-info">pending</label></div>
-                                <span><strong>Order name</strong></span> <span class="label label-info">group
-                                    name</span><br />
-                                Quantity : 4, cost: $523.13<br />
-                                <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#"
-                                    title="View"></a>
-                                <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#"
-                                    title="Danger"></a>
-                                <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#"
-                                    title="Danger"></a>
-                            </div>
-                            <div class="col-md-12">order made on: 06/20/2014 by <a href="#">Jane Doe</a></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="panel-footer">Put here some note for example: bootdey si a gallery of free bootstrap snippets
-                bootdeys</div>
         </div>
+        @endforeach
     </div>
     <!-- NEWSLETTER -->
     @include('newsletter')

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\OrderClientController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -43,13 +44,11 @@ Route::get('/blank', function () {
     return view('blank');
 });
 
-Route::get('/order', function () {
-    return view('order');
-});
+Route::get('/order', [OrderClientController::class, 'order'])->name('order');
 
-Route::get('/order-detail', function () {
-    return view('order_detail');
-});
+Route::get('/order-detail/{id}', [OrderClientController::class, 'orderDetail'])->name('order-detail');
+Route::post('/order-cancel/{id}', [OrderClientController::class, 'cancelOrder'])->name('order-cancel');
+
 
 
 //admin
@@ -158,7 +157,5 @@ Route::prefix('admin')->middleware('auth')->group(function(){
         Route::get('delete/{id}',[AdminReceiptController::class,'delete'])->name('admin.receipt.delete');
 
         Route::get('detailReceipt/{id}',[AdminReceiptController::class,'detailList'])->name('admin.detailReceipt.index');
-
-
     });
 });
