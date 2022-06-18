@@ -5,7 +5,7 @@
 	@include('head')
 </head>
 
-<body>
+<body id="bodya">
 	<!-- HEADER -->
 	@include('header')
 	<!-- /HEADER -->
@@ -18,7 +18,7 @@
 	
 	<!-- FOOTER -->
 	@include('footer')
-
+	@yield('js')
 </body>
 
 </html>

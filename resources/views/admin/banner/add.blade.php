@@ -18,11 +18,11 @@ Trang chủ
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <form action="{{ route('admin.banner.store')}}" method="Post">
+                    <form action="{{ route('admin.banner.store')}}" method="Post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label>Hình ảnh</label>
-                            <input name="image" class="form-control" placeholder="Nhập tên danh mục">
+                            <input type="file" name="image" class="form-control-file">
                         </div>
                         <div class="form-group">
                             <label>Danh mục</label>
