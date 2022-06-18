@@ -197,7 +197,7 @@
                             <div id="tab2" class="tab-pane fade in active">
                                 <div class="products-slick" data-nav="#slick-nav-2">
                                     <!-- product -->
-                                    <div class="product">
+                                    <div class="product" data-prd-id="{{ $product->id }}">
                                         <div class="product-img">
                                             <img src="./img/product06.png" alt="">
                                             <div class="product-label">
@@ -229,7 +229,7 @@
                                     <!-- /product -->
 
                                     <!-- product -->
-                                    <div class="product">
+                                    <div class="product" data-prd-id="{{ $product->id }}">
                                         <div class="product-img">
                                             <img src="./img/product07.png" alt="">
                                             <div class="product-label">
@@ -260,7 +260,7 @@
                                     <!-- /product -->
 
                                     <!-- product -->
-                                    <div class="product">
+                                    <div class="product" data-prd-id="{{ $product->id }}">
                                         <div class="product-img">
                                             <img src="./img/product08.png" alt="">
                                             <div class="product-label">
@@ -286,7 +286,7 @@
                                     <!-- /product -->
 
                                     <!-- product -->
-                                    <div class="product">
+                                    <div class="product" data-prd-id="{{ $product->id }}">
                                         <div class="product-img">
                                             <img src="./img/product09.png" alt="">
                                         </div>
@@ -314,7 +314,7 @@
                                     <!-- /product -->
 
                                     <!-- product -->
-                                    <div class="product">
+                                    <div class="product" data-prd-id="{{ $product->id }}">
                                         <div class="product-img">
                                             <img src="./img/product01.png" alt="">
                                         </div>

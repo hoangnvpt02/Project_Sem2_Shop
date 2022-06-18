@@ -109,7 +109,7 @@ function search_price() {
                 <div class="row" id="kqdh">
                     @foreach($products as $product)
                     <div class="col-md-4" style="height:600px">
-                        <div class="product">
+                        <div class="product" data-prd-id="{{ $product->id }}">
                             <div class="product-img">
                                 <img src="/img/product01.png" alt="">
                                 <div class="product-label">
