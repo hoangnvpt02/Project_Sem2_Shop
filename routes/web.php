@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\DiscountCodeController;
+use App\Http\Controllers\Admin\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,14 +37,17 @@ Route::get('/product', function () {
     return view('product');
 });
 
-Route::get('/checkout', function () {
-    return view('checkout');
-});
-
 Route::get('/blank', function () {
     return view('blank');
 });
 
+
+Route::get("/show-cart-modal", [OrderController::class, 'showCartModal'])->name('showCartModal');
+Route::post("/add-to-cart", [OrderController::class, 'addToCart'])->name('addToCart');
+
+Route::get('/checkout', [OrderController::class, 'showCheckout'])->name("checkout");
+
+Route::post("/checkout", [OrderController::class, 'doCheckout'])->name('do.checkout');
 
 //admin
 

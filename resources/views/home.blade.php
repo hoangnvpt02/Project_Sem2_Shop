@@ -65,7 +65,7 @@
                                 <div class="products-slick" data-nav="#slick-nav-1">
                                     <!-- product -->
                                     @foreach($products as $product)
-                                    <div class="product">
+                                    <div class="product" data-prd-id="{{ $product->id }}">
                                         <div class="product-img">
                                             <img src="/img/product01.png" alt="">
                                             <div class="product-label">
