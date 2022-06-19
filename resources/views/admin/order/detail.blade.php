@@ -7,26 +7,30 @@ Trang chủ
 <link href="/vendors/select2/select2.min.css" rel="stylesheet" />
 <link href="/adminpb/product/add/add.css" rel="stylesheet" />
 @endsection
+@section('js')
+<script src="https://kit.fontawesome.com/8d4be1a171.js" crossorigin="anonymous"></script>
+@endsection
 
 @section('content')
 <div class="content-wrapper">
-    <div class="customer">
-        @foreach($orders as $key => $order)
-            <ul>
-                <li>Tên Khách Hàng: {{ $order->users->name }} </li>
-                <li>Số Điện Thoại: {{ $order->users->phone }} </li>
-                <li>Email: {{ $order->users->email }}</li>
-                <li>Địa Chỉ:{{ $order->users->address }} </li>
-                <li>Ngày Đặt Hàng: {{ $order->created_at }}</li>
-            </ul>
-        @endforeach
-        <div class="container">
+    <div class="container">
+        <div class="customer">
+            @foreach($orders as $key => $order)
+                <h3 class="pt-3">Chi tiết đơn hàng</h3>
+                <ul>
+                    <li>Tên Khách Hàng: {{ $order->users->name }} </li>
+                    <li>Số Điện Thoại: {{ $order->users->phone }} </li>
+                    <li>Email: {{ $order->users->email }}</li>
+                    <li>Địa Chỉ:{{ $order->users->address }} </li>
+                    <li>Ngày Đặt Hàng: {{ $order->created_at }}</li>
+                </ul>
+            @endforeach
             @php
                 $total = 0;
             @endphp
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card mt-2">
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap">
@@ -48,9 +52,9 @@ Trang chủ
                                             <tr>
                                                 <td>{{ $order_detail->products->name }}</td>
                                                 <td><img style="width: 100px" src="" alt=""></td>
-                                                <td>{{ $order_detail->price }}</td>
+                                                <td>{{ number_format($order_detail->price, 0, ',', ' ') }}</td>
                                                 <td>{{ $order_detail->quantity }}</td>
-                                                <td>{{ $order_detail->price * $order_detail->quantity }}</td>
+                                                <td>{{ number_format($order_detail->price * $order_detail->quantity, 0, ',', ' ') }}</td>
                                             </tr>
                                         @endforeach
                                     @endforeach
@@ -59,7 +63,7 @@ Trang chủ
                                             <td></td>
                                             <td></td>
                                             <td class="text-right">Tổng tiền</td>
-                                            <td>{{ $total }}</td>
+                                            <td>{{ number_format($total, 0, ',', ' ') }}</td>
                                         </tr>
                                 </tbody>
                             </table>

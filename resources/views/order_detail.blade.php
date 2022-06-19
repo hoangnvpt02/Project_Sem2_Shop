@@ -16,12 +16,12 @@
                 <div class="alert alert-success col-md-3">
                     {{ session('success') }}
                 </div>
-                @endif
-                @if(session('danger'))
+            @endif
+            @if(session('danger'))
                 <div class="alert alert-danger col-md-3">
                     {{ session('danger') }}
                 </div>
-                @endif
+            @endif
             <div class="d-flex justify-content-between align-items-center py-3">
                 <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #{{ $order->id }}</h2>
             </div>
@@ -37,14 +37,14 @@
                                     <span class="me-3">22-11-2021</span>
                                     <span class="me-3">#{{ $order->id }}</span>
                                     @if ($order->status == 1)
-                                            <span class="badge rounded-pill">Đang chờ xác nhận</span>
-                                        @elseif ($order->status == 2)
+                                        <span class="badge rounded-pill">Đang chờ xác nhận</span>
+                                    @elseif ($order->status == 2)
                                         <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
-                                        @elseif ($order->status == 3)
+                                    @elseif ($order->status == 3)
                                         <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
-                                        @else
-                                            <span class="badge rounded-pill" style="background-color: red">Đã hủy</span>
-                                        @endif
+                                    @else
+                                        <span class="badge rounded-pill" style="background-color: red">Đã hủy</span>
+                                    @endif
                                 </div>
                             </div>
                             

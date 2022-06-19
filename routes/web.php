@@ -164,5 +164,7 @@ Route::prefix('admin')->middleware('auth')->group(function(){
     Route::prefix('order')->group(function(){
         Route::get('/',[OrderManagerController::class,'index'])->name('admin.order.index');
         Route::get('/detail/{id}',[OrderManagerController::class,'orderDetail'])->name('admin.order.detail');
+        Route::post('/confirm', [OrderManagerController::class, 'updateConfirmOrder']);
+        Route::DELETE('/destroy', [OrderManagerController::class, 'destroy']);
     });
 });

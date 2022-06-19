@@ -6,14 +6,24 @@ Trang chủ
 @section('js')
 <script src="/vendors/sweetAlert/sweetalert2@11.js"></script>
 <script src="/adminpb/product/index/list.js"></script>
+<script src="/js/order.js"></script>
+<script src="https://kit.fontawesome.com/8d4be1a171.js" crossorigin="anonymous"></script>
+@endsection
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
 <div class="content-wrapper">
     @include('partials.content-header',['name'=>'Product','key'=>'List'])
     @if(session('success'))
-    <div class="alert alert-success col-md-3">
-        {{ session('success') }}
-    </div>
+        <div class="alert alert-success col-md-3">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('danger'))
+        <div class="alert alert-danger col-md-3">
+            {{ session('danger') }}
+        </div>
     @endif
     <div class="content">
         <div class="container-fluid">
@@ -39,15 +49,25 @@ Trang chủ
                         <td>{{ $order->users->email }}</td>
                         {{-- <td>{{ $order->users->address }}</td> --}}
                         <td>{{ $order->users->created_at }}</td>
-                        <td>{{ $order->users->status == 1 ? 'Chưa xác nhận' : 'Đã hủy' }}</td>
                         <td>
-                            <a class="btn btn-primary btn-sm" onclick="updateRow({{ $order->id }}, '/admin/order->userss/confirm')">
+                            @if ($order->status == 1)
+                                <span class="badge rounded-pill">Đang chờ xác nhận</span>
+                            @elseif ($order->status == 2)
+                                <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
+                            @elseif ($order->status == 3)
+                                <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
+                            @else
+                                <span class="badge rounded-pill" style="background-color: red">Đã hủy</span>
+                            @endif
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" onclick="updateRow({{ $order->id }}, '/admin/order/confirm')">
                                 <i class="fa-solid fa-check"></i>
                             </a>
                             <a class="btn btn-primary btn-sm" href="/admin/order/detail/{{ $order->id }}">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-                            <a class="btn btn-danger btn-sm" onclick="removeRow({{ $order->id }}, '/admin/customers/destroy')">
+                            <a class="btn btn-danger btn-sm" onclick="removeRow({{ $order->id }}, '/admin/order/destroy')">
                                 <i class="fa-solid fa-xmark"></i>
                             </a>
                         </td>
