@@ -39,12 +39,13 @@ class OrderController extends Controller
     public function doCheckout(Request $request) {
         $info = $request->input("checkout_info");
 
-        Order::create([
+        $id = Order::create([
             'note'=> $info["order_note"],
-            'status'=> 0,
+            'status'=> 1,
             'user_id'=> 1,
             'infomation_user_id'=> 1,
-        ]);
+            'delivery_time' => date('Y-m-d')
+        ])->id;
 
         // $data_cart = json_decode($info["data_cart"], true);
 
@@ -54,12 +55,11 @@ class OrderController extends Controller
 
         for ($i = 0; $i < count($data_cart); $i++) {
             Order_detail::create([
+                'order_id' => $id,
                 'quantity'=> array_values($data_cart)[$i]["qty"],
                 'price' => array_values($data_cart)[$i]["price"],
                 'product_id' => array_values($data_cart)[$i]["id"],
-                'infomation_user_id' => 1,
                 'discounts_code_id' => 1,
-                'status'=> 0,
             ]);
         }
 
