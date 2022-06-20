@@ -13,6 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
+    <script src="https://kit.fontawesome.com/8d4be1a171.js" crossorigin="anonymous"></script>
     <!-- Theme style -->
     <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css">
     @yield('css')

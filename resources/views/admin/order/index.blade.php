@@ -7,7 +7,6 @@ Trang chủ
 <script src="/vendors/sweetAlert/sweetalert2@11.js"></script>
 <script src="/adminpb/product/index/list.js"></script>
 <script src="/js/order.js"></script>
-<script src="https://kit.fontawesome.com/8d4be1a171.js" crossorigin="anonymous"></script>
 @endsection
 @section('css')
     <meta name="csrf-token" content="{{ csrf_token() }}">

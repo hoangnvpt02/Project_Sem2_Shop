@@ -50,7 +50,7 @@ Trang chủ
                                                 $total += $order_detail->price * $order_detail->quantity;
                                             @endphp
                                             <tr>
-                                                <td>{{ $order_detail->products->name }}</td>
+                                                <td style="width: 36vw; word-break: break-word; white-space: pre-line;;">{{ $order_detail->products->name }}</td>
                                                 <td><img style="width: 100px" src="" alt=""></td>
                                                 <td>{{ number_format($order_detail->price, 0, ',', ' ') }}</td>
                                                 <td>{{ $order_detail->quantity }}</td>
