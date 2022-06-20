@@ -56,7 +56,7 @@ Route::get('/product', function () {
 
 Route::get('/checkout', function () {
     return view('checkout');
-});
+})->middleware('auth:user')->name('checkout');
 
 Route::get('/blank', function () {
     return view('blank');
@@ -67,7 +67,7 @@ Route::get('/search-product/{text}', [SearchControllerClient::class, 'search'])-
 
 //admin
 
-Route::prefix('admin')->middleware('auth')->group(function(){
+Route::prefix('admin')->middleware('auth:admin')->group(function(){
     Route::get('/',[HomeController::class,'index'])->name('admin.main');
     Route::prefix('admins')->group(function(){
         Route::get('/',[AdController::class,'index'])->name('admin.admins.index');
