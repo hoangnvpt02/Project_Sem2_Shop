@@ -39,7 +39,7 @@ Trang chủ
                             @foreach($banners as $banner)
                             <tr>
                                 <th scope="row">{{ $banner->id }}</th>
-                                <td>{{ $banner->image }}</td>
+                                <td><img src="{{ $banner->urlImage() }}" width="50px" height="auto"></td>
                                 <td>{{ $banner->categories->name }}</td>
                                 <td>{{ $banner->created_by }}</td>
                                 <td>{{ $banner->updated_by }}</td>

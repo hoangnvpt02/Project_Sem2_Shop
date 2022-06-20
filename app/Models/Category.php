@@ -16,5 +16,7 @@ class Category extends Model
     public function banners() {
         return $this->HasMany(Banner::class, 'category_id', 'id');
     }
-   
+    public function products() {
+        return $this->HasMany(Product::class, 'category_id', 'id');
+    }
 }

@@ -8,14 +8,12 @@ function search_cat(slug) {
         type: 'GET',
         data: $(this).serialize(),
     }).done(function(reponse) {
-        console.log(reponse);
 
         $("#kqdh").html(reponse);
-
+        
     })
 }
-
-function search_price() {
+function search_price(){
     price_min = $('#price-min').val();
     price_max = $('#price-max').val();
     $.ajax({
@@ -25,7 +23,7 @@ function search_price() {
     }).done(function(reponse) {
 
         $("#kqdh").html(reponse);
-
+        
     })
 }
 </script>
@@ -44,8 +42,7 @@ function search_price() {
                             <input type="checkbox" id="category-{{ $category->id }}">
                             <label for="category-{{ $category->id }}">
                                 <span></span>
-                                <a href="javascript:" onclick="search_cat('{{ $category->slug }}')">
-                                    {{ $category->name }}</a>
+                                <a href="javascript:" onclick="search_cat('{{ $category->slug }}')"> {{ $category->name }}</a>
                                 <small>{{ $category->products->count() }}</small>
                             </label>
                         </div>
@@ -109,7 +106,7 @@ function search_price() {
                 <div class="row" id="kqdh">
                     @foreach($products as $product)
                     <div class="col-md-4" style="height:600px">
-                        <div class="product" data-prd-id="{{ $product->id }}">
+                        <div class="product">
                             <div class="product-img">
                                 <img src="/img/product01.png" alt="">
                                 <div class="product-label">
@@ -120,16 +117,14 @@ function search_price() {
                                             if(strtotime($today) - strtotime($product->updated_at) < 864000)
                                             echo 'NEW';
                                             else echo'OLD';
-                                        ?>
+                                         ?>
                                     </span>
                                 </div>
                             </div>
                             <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#"><span
-                                            height="300px">{{ $product->name }}</span></a></h3>
-                                <h4 class="product-price">{{ $product->price }} <del
-                                        class="product-old-price">$990.00</del></h4>
+                                <p class="product-category">{{ $product->category->name}}</p>
+                                <h3 class="product-name"><a  href="#"><span height="300px">{{ $product->name }}</span></a></h3>
+                                <h4 class="product-price">{{ $product->price }} <del class="product-old-price">$990.00</del></h4>
                                 <div class="product-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -153,11 +148,11 @@ function search_price() {
                     </div>
                     @endforeach
                     <div class="col-md-12">
-                        {!! $products->links() !!}
-                    </div>
-                </div>
+                    {!! $products->links() !!}
+                     </div>
             </div>
         </div>
     </div>
-    @include('newsletter')
-    @endsection
+</div>
+@include('newsletter')
+@endsection
