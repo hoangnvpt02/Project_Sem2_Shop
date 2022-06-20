@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SearchControllerClient;
 use App\Http\Controllers\LoginControllerClient;
+use App\Http\Controllers\RegisterControllerClient;
+use App\Http\Controllers\ResetPasswordControllerClient;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,16 @@ Route::get('/user/login', function () {
     return view('login');
 })->name('user.login');
 Route::post('/user/login', [LoginControllerClient::class, 'login'])->name('user.login');
+
+Route::get('/user/register', function () {    
+    return view('register');
+})->name('user.register');
+Route::post('/user/register', [RegisterControllerClient::class, 'register'])->name('user.register');
+
+Route::get('/user/reset', function () {
+    return view('resetpassword');
+})->name('user.reset');
+Route::post('/user/reset', [ResetPasswordControllerClient::class, 'reset'])->name('user.reset');
 
 Route::get('/', function () {
     return view('home');

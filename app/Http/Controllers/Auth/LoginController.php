@@ -28,7 +28,7 @@ class LoginController extends Controller
      * @var string
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
-    protected $redirectTo = '/admin/admins';
+    protected $redirectTo = '/admin';
 
 
     /**
@@ -48,4 +48,25 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
+    // public function login(Request $request)
+    // {
+    //     $credentials = $request->only('email', 'password');
+    //     // Auth::guard('admin')->attempt($credentials)
+    //     if (Auth::guard('admin')->attempt($credentials)) {
+    //         // Authentication passed...
+    //         return redirect()->route('admin.main');
+    //         // return redirect()->intended('dashboard');
+    //     }
+    //     else {
+    //         return \Redirect::back()->withErrors(
+    //             [
+    //                 'errorlogin' => 'Email address or Password is incorrect',
+    //             ]
+    //         );
+    //     }
+    // }
+    // public function guard()
+    // {
+    //     return Auth::guard('admin');
+    // }
 }

@@ -151,7 +151,7 @@
 						html+= '<a class="media-thumb" href="#">';	
 						html+= '<img src="https://hanoicomputercdn.com/media/product/250_63806_laptop_acer_gaming_aspire_7_a715_75g_18.jpeg" alt="logo" style="width:70px">'
 						html+= '<p style="width: 60%">'+data.name+'</p>'
-						html+= '<p style="width: 30%; font-style:italic" class="text-primary">Giá:&nbsp;'+data.price+'&nbsp;VND</p>'
+						html+= '<p style="width: 30%; font-style:italic;color:">Giá:&nbsp;'+data.price+'&nbsp;VND</p>'
 						html+= '</a>'
 						html+= '<hr>'
 					}
