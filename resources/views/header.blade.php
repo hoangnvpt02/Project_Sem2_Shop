@@ -9,7 +9,18 @@
 			</ul>
 			<ul class="header-links pull-right">
 				<!-- <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li> -->
-				<li><a href="{{ route('user.login') }}"><i class="fa fa-user-o"></i> Login/Logout</a></li>
+				{{-- {{ dump(Auth::check()) }} --}}
+				@if( !(Auth::check()) )
+					<li><a href="{{ route('user.login') }}"><i class="fa fa-user-o"></i> Log In</a></li>
+				@else
+						<a href="#" class="d-block" style="color: red">{{ Auth::user()->name }}&nbsp;
+							<li><a href="{{ route('user.logout') }}" onclick="event.preventDefault();
+								document.getElementById('form-logout').submit();">Log Out</a></li>
+						</a>
+						<form id="form-logout" action="{{ route('user.logout') }}" method="POST" class="d-none">
+								@csrf
+						</form>
+				@endif
 			</ul>
 		</div>
 	</div>
@@ -92,7 +103,7 @@
 								</div>
 								<div class="cart-btns">
 									<a href="#">View Cart</a>
-									<a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+									<a href="{{ route('checkout') }}">Checkout <i class="fa fa-arrow-circle-right"></i></a>
 								</div>
 							</div>
 						</div>
@@ -122,8 +133,6 @@
   height:400px;
 	overflow: auto;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	
-  /* color:red; */
 	/* z-index: 1; */
 	/* padding: 10px; */
 	/* display:none */
@@ -151,7 +160,7 @@
 						html+= '<a class="media-thumb" href="#">';	
 						html+= '<img src="https://hanoicomputercdn.com/media/product/250_63806_laptop_acer_gaming_aspire_7_a715_75g_18.jpeg" alt="logo" style="width:70px">'
 						html+= '<p style="width: 60%">'+data.name+'</p>'
-						html+= '<p style="width: 30%; font-style:italic" class="text-primary">Giá:&nbsp;'+data.price+'&nbsp;VND</p>'
+						html+= '<p style="width: 30%; font-style:italic;color:red">Price:&nbsp;'+data.price+'&nbsp;VND</p>'
 						html+= '</a>'
 						html+= '<hr>'
 					}

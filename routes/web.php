@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SearchControllerClient;
 use App\Http\Controllers\LoginControllerClient;
+use App\Http\Controllers\RegisterControllerClient;
+use App\Http\Controllers\ResetPasswordControllerClient;
 
 use App\Http\Controllers\ProductClientController;
 
@@ -31,6 +33,17 @@ Route::get('/user/login', function () {
     return view('login');
 })->name('user.login');
 Route::post('/user/login', [LoginControllerClient::class, 'login'])->name('user.login');
+Route::post('/user/logout', [LoginControllerClient::class, 'logout'])->name('user.logout');
+
+Route::get('/user/register', function () {    
+    return view('register');
+})->name('user.register');
+Route::post('/user/register', [RegisterControllerClient::class, 'register'])->name('user.register');
+
+Route::get('/user/reset', function () {
+    return view('resetpassword');
+})->name('user.reset');
+Route::post('/user/reset', [ResetPasswordControllerClient::class, 'reset'])->name('user.reset');
 
 Route::get('/', function () {
     return view('home');
@@ -47,7 +60,7 @@ Route::prefix('product_detail')->group(function() {
 
 Route::get('/checkout', function () {
     return view('checkout');
-});
+})->middleware('auth.user')->name('checkout');
 
 Route::get('/blank', function () {
     return view('blank');
@@ -58,7 +71,7 @@ Route::get('/search-product/{text}', [SearchControllerClient::class, 'search'])-
 
 //admin
 
-Route::prefix('admin')->middleware('auth')->group(function(){
+Route::prefix('admin')->middleware('auth:admin')->group(function(){
     Route::get('/',[HomeController::class,'index'])->name('admin.main');
     Route::prefix('admins')->group(function(){
         Route::get('/',[AdController::class,'index'])->name('admin.admins.index');

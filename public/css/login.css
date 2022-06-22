@@ -37,10 +37,14 @@ span {
 }
 
 a {
-	color: #333;
-	font-size: 14px;
+	color: #940019;
+	font-size: 15px;
 	text-decoration: none;
-	margin: 15px 0;
+	margin: 3px 0;
+  font-style: italic;
+}
+a:hover{
+  color:#ff395a;
 }
 
 button {
@@ -57,9 +61,10 @@ button {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
   cursor: pointer;
+  margin: 13px;
 }
 button:hover {
-	background-color: #ff395a;;
+	background-color: #ff395a;
 }
 
 button:active {
@@ -81,7 +86,7 @@ form {
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	padding: 0 50px;
+	padding: 0 150px;
 	height: 100%;
 	text-align: center;
 }
@@ -120,7 +125,7 @@ input:focus {
 
 .sign-in-container {
 	left: 0;
-	width: 50%;
+	width: 100%;
 	z-index: 2;
 }
 
@@ -242,4 +247,13 @@ input:focus {
   padding: 1px;
   margin: 1px;
   font-size: 13px;
+  text-align: left;
+	display:block      
+}
+.success {
+	background-color: #DEF0D8;
+	color: #3A7645;
+	padding:8px;
+	border-radius: 5px;
+	margin:0;
 }
