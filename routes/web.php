@@ -40,8 +40,8 @@ Route::get('/store', function () {
     return view('store');
 });
 
-Route::prefix('product')->group(function() {
-    Route::get('/', [ProductClientController::class, 'indexProduct']);
+Route::prefix('product_detail')->group(function() {
+    Route::get('/{slug}', [ProductClientController::class, 'indexProduct'])->name('product_detail.index');
     Route::post('/comment_product', [ProductClientController::class,'commentProduct']);
 });
 
@@ -115,6 +115,7 @@ Route::prefix('admin')->middleware('auth')->group(function(){
         Route::post('update/{id}',[ProductController::class,'update'])->name('admin.product.update');
 
         Route::get('delete/{id}',[ProductController::class,'delete'])->name('admin.product.delete');
+        Route::get('deleteImage/{id}',[ProductController::class,'deleteImage'])->name('admin.product.deleteImage');
     });
     Route::prefix('discount')->group(function(){
         Route::get('/',[DiscountController::class,'index'])->name('admin.discount.index');

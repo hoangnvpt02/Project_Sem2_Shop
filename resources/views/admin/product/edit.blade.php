@@ -34,8 +34,27 @@ Trang chủ
                         </div>
                         <div class="form-group">
                             <label>Ảnh đại diện SP</label>
-                            <input type="text" name="thumb" value="{{ $product->thumb }}">
-                            
+                            <input type="file" name="thumb" id="upload-file-imagethumb" class="form-control-file" multiple>
+                            <a class="deleteImage-subphoto" href="{{ route('admin.product.deleteImage',['id'=>$product->id])}}">Delete</a>
+                            <img width="50%" id="preview-imagethumb" src="{{ asset("$product->thumb") }}" alt="your image" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>List ảnh phụ SP
+                                <input type="number" value="1" id="amount-upload-file-subphoto" oninput="changeAmountUploadFileSubPhoto()">
+                            </label>
+                            <div class="image-subphoto">
+                                <div class="subphoto">
+                                    <input type="file" name="subphoto[]" id="upload-file-subphoto" class="form-control-file" multiple>
+                                    <img id="preview-subphoto" src="#" alt="your image" />
+                                </div>
+                                @foreach($product_image as $image)
+                                    <div class="subphoto">
+                                        <a class="deleteImage-subphoto" href="{{ route('admin.product.deleteImage',['id'=>$image->id])}}">Delete</a>
+                                        <img width="50%" id="preview-subphoto{{ $image->id }}" src="{{ asset("/storage/$image->image") }}"/>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                         
                         <div class="form-group">
@@ -64,7 +83,7 @@ Trang chủ
                             </select>
                         </div>
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary tttttttttttt">Submit</button>
                     </div>
                 </div>
             </div>
@@ -88,5 +107,20 @@ Trang chủ
 <script src="https://cdn.tiny.cloud/1/2q5uk7z5qukawqm3hr88calcjg059jjdxuwxmlw5n1qheali/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 <script src="/adminpb/product/add/add.js"></script>
+<script>
+    function changeAmountUploadFileSubPhoto() {
+        var amount = $('#amount-upload-file-subphoto').val();
 
+        if (amount != 0 && amount >= 1) {
+            for (let i = 1; i < amount; i++) {
+                $('.image-subphoto').append(`
+                    <div class="subphoto">
+                        <input type="file" name="subphoto[]" id="upload-file-subphoto" class="form-control-file" multiple>
+                        <img id="preview-subphoto${i}" src="#" alt="your image" />
+                    </div>
+                `);
+            }
+        }
+    }
+</script>
 @endsection

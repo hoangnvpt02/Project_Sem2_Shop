@@ -34,7 +34,19 @@ Trang chủ
                         </div>
                         <div class="form-group">
                             <label>Ảnh đại diện SP</label>
-                            <input type="text" name="thumb" class="form-control-file">
+                            <input type="file" name="thumb" id="upload-file-imagethumb" class="form-control-file" multiple>
+                            <img id="preview-imagethumb" src="#" alt="your image" />
+                        </div>
+                        <div class="form-group">
+                            <label>Thêm ảnh phụ SP
+                                <input type="number" value="1" id="amount-upload-file-subphoto" oninput="changeAmountUploadFileSubPhoto()">
+                            </label>
+                            <div class="image-subphoto">
+                                <div class="subphoto">
+                                    <input type="file" name="subphoto[]" id="upload-file-subphoto" class="form-control-file" multiple>
+                                    <img id="preview-subphoto" src="#" alt="your image" />
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Chọn danh mục</label>
@@ -89,5 +101,31 @@ Trang chủ
 <script src="https://cdn.tiny.cloud/1/2q5uk7z5qukawqm3hr88calcjg059jjdxuwxmlw5n1qheali/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 <script src="/adminpb/product/add/add.js"></script>
+<script>
+    var imgInp = document.getElementById('upload-file-imagethumb');
+    var preview_image = document.getElementById('preview-imagethumb');
 
+    imgInp.onchange = evt => {
+    const [file] = imgInp.files
+        if (file) {
+            preview_image.src = URL.createObjectURL(file)
+        }
+    }
+
+    function changeAmountUploadFileSubPhoto() {
+        var amount = $('#amount-upload-file-subphoto').val();
+
+        if (amount != 0 && amount >= 1) {
+            for (let i = 1; i < amount; i++) {
+                $('.image-subphoto').append(`
+                    <div class="subphoto">
+                        <input type="file" name="subphoto[]" id="upload-file-subphoto" class="form-control-file" multiple>
+                        <img id="preview-subphoto${i}" src="#" alt="your image" />
+                    </div>
+                `);
+            }
+        }
+    }
+
+</script>
 @endsection

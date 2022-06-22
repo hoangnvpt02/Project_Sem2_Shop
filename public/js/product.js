@@ -1,11 +1,11 @@
-(function($) {
+(function ($) {
     $('#comment_product').submit(function (e) {
         e.preventDefault();
         var formData = new FormData(this);
-        console.log(formData.get('star'));
+
         $.ajax({
             method: 'POST',
-            url: '/product/comment_product',
+            url: '/product_detail/comment_product',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -13,7 +13,9 @@
             contentType: false,
             data: formData,
             success: function (res) {
-                alert('ok');
+                Swal.fire("Good job!", "Cảm ơn bạn đã thêm bình luận về sản Phẩm!", "success").then(function(){
+                    location.reload();
+                });
             },
             error: function (jqXHR, textStatus, errorTh) {
                 console.log(errorTh);

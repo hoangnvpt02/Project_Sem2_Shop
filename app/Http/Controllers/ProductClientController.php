@@ -21,7 +21,7 @@ class ProductClientController extends Controller
         $products_comments_star = [];
 
         $products = Product::query()
-        ->where('slug', 'laptop-dell-vostro-3510')
+        ->where('slug', $request->slug)
         ->with('avg_rating_comment')
         ->with('products_images')
         ->with('products_color')
@@ -37,11 +37,23 @@ class ProductClientController extends Controller
         ->first();
 
         $products_comments = Comment_product::query()
-        ->where('product_id', $products->id)
-        ->with('users')
+        ->leftJoin('users', 'users.id', 'comment_products.user_id')
+        ->where('comment_products.product_id', $products->id)
+        ->select([
+            'comment_products.id',
+            'comment_products.content',
+            'comment_products.star',
+            'comment_products.name as fullname',
+            'comment_products.created_at',
+            'users.id',
+            'users.name',
+            'users.email',
+            'users.name',
+        ])
         ->paginate(3);
+
         $products_relateds = Product::query()
-        ->where('category_id', $products->category_id)
+        ->where([ ['id', '!=', $products->id], ['category_id', $products->category_id] ])
         ->take(4)
         ->get();
 
@@ -63,13 +75,16 @@ class ProductClientController extends Controller
 
     public function commentProduct(Request $request) 
     {
-        $Comment_product = new Comment_product();
-        $Comment_product->content = $request->content;
-        $Comment_product->star = $request->star;
-        $Comment_product->user_id = Auth::id();
-        $Comment_product->product_id = $request->product_id;
-        $Comment_product->save();
-
-        return response('', 200);
+        $comment_product = new Comment_product();
+        $comment_product->content = $request->content;
+        $comment_product->star = $request->star;
+        if (Auth::check()) {
+            $comment_product->user_id = 1;
+        } else {
+            $comment_product->name = $request->name;
+            $comment_product->email = $request->email;
+        }
+        $comment_product->product_id = $request->product_id;
+        $comment_product->save();
     }
 }

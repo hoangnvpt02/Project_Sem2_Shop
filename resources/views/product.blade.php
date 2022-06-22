@@ -14,19 +14,7 @@
                 <div class="col-md-5 col-md-push-2">
                     <div id="product-main-img">
                         <div class="product-preview">
-                            <img src="./img/product01.png" alt="">
-                        </div>
-
-                        <div class="product-preview">
-                            <img src="./img/product03.png" alt="">
-                        </div>
-
-                        <div class="product-preview">
-                            <img src="./img/product06.png" alt="">
-                        </div>
-
-                        <div class="product-preview">
-                            <img src="./img/product08.png" alt="">
+                            <img src="{{ $products->thumb }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -35,21 +23,13 @@
                 <!-- Product thumb imgs -->
                 <div class="col-md-2  col-md-pull-5">
                     <div id="product-imgs">
-                        <div class="product-preview">
-                            <img src="./img/product01.png" alt="">
-                        </div>
-
-                        <div class="product-preview">
-                            <img src="./img/product03.png" alt="">
-                        </div>
-
-                        <div class="product-preview">
-                            <img src="./img/product06.png" alt="">
-                        </div>
-
-                        <div class="product-preview">
-                            <img src="./img/product08.png" alt="">
-                        </div>
+                        @if (!empty($products->products_images))
+                            @foreach ($products->products_images as $images)
+                                <div class="product-preview">
+                                    <img src="{{ $images->image }}" alt="">
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 <!-- /Product thumb imgs -->
@@ -65,32 +45,13 @@
                                         <i class="fa fa-star"></i>
                                     @endfor
 
-                                    @switch ($rating->average_star)
-                                        @case(1)
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            @break;
-                                        @case(2)
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            @break;
-                                        @case(3)
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            @break;
-                                        @case(4)
-                                            <i class="fa fa-star-o"></i>
-                                            @break;
-                                    @endswitch
+                                    {{ show_star_comment_product($rating->average_star) }}
                                 @endforeach
                             </div>
                             <a class="review-link" href="#">{{ $products->comment_products->count() }} Review(s) | Add your review</a>
                         </div>
                         <div>
-                            <h3 class="product-price">${{ $products->price }} <del class="product-old-price">$990.00</del></h3>
+                            <h3 class="product-price">{{ currency_format($products->price) }} <del class="product-old-price">{{ currency_format($products->price) }}</del></h3>
                             <span class="product-available">In Stock</span>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -146,9 +107,8 @@
                     <div id="product-tab">
                         <!-- product tab nav -->
                         <ul class="tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-                            <li><a data-toggle="tab" href="#tab2">Details</a></li>
-                            <li><a data-toggle="tab" href="#tab3">Reviews ({{ $products->comment_products->count() }})</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab1">Reviews ({{ $products->comment_products->count() }})</a></li>
+                            <li><a data-toggle="tab" href="#tab2">Description</a></li>
                         </ul>
                         <!-- /product tab nav -->
 
@@ -156,26 +116,6 @@
                         <div class="tab-content">
                             <!-- tab1  -->
                             <div id="tab1" class="tab-pane fade in active">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <p>{{ $products->description }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /tab1  -->
-
-                            <!-- tab2  -->
-                            <div id="tab2" class="tab-pane fade in">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /tab2  -->
-
-                            <!-- tab3  -->
-                            <div id="tab3" class="tab-pane fade in">
                                 <div class="row" >
                                     <!-- Reviews -->
                                     <div class="col-md-6" style="margin-left: 12em">
@@ -184,33 +124,18 @@
                                                 @foreach ($products_comments as $comment)
                                                     <li>
                                                         <div class="review-heading">
-                                                            <h5 class="name">{{ $comment->users->name }}</h5>
+                                                            @if (empty($comment->fullname))
+                                                                <h5 class="name">{{ $comment->name }}</h5>
+                                                            @else 
+                                                                <h5 class="name">{{ $comment->fullname }}</h5>
+                                                            @endif
                                                             <p class="date">{{ $comment->created_at }}</p>
                                                             <div class="review-rating">
                                                                 @for ($i = 0; $i < $comment->star; $i++) 
                                                                     <i class="fa fa-star"></i>
                                                                 @endfor
 
-                                                                @switch ($comment->star)
-                                                                    @case(1)
-                                                                        <i class="fa fa-star-o empty"></i>
-                                                                        <i class="fa fa-star-o empty"></i>
-                                                                        <i class="fa fa-star-o empty"></i>
-                                                                        <i class="fa fa-star-o empty"></i>
-                                                                        @break;
-                                                                    @case(2)
-                                                                        <i class="fa fa-star-o empty"></i>
-                                                                        <i class="fa fa-star-o empty"></i>
-                                                                        <i class="fa fa-star-o empty"></i>
-                                                                        @break;
-                                                                    @case(3)
-                                                                        <i class="fa fa-star-o empty"></i>
-                                                                        <i class="fa fa-star-o empty"></i>
-                                                                        @break;
-                                                                    @case(4)
-                                                                        <i class="fa fa-star-o empty"></i>
-                                                                        @break;
-                                                                @endswitch
+                                                                {{ show_star_comment_product($comment->star) }}
                                                             </div>
                                                         </div>
                                                         <div class="review-body">
@@ -231,7 +156,13 @@
                                         <div id="review-form">
                                             <form class="review-form" id="comment_product" enctype="multipart/form-data">
                                                 <input type="hidden" name="product_id" value="{{ $products->id }}">
-                                                <textarea class="input content-comment_product" name="content" placeholder="Your Review"></textarea>
+                                                @if (!Auth::check())
+                                                    <input class="input" type="text" name="name" placeholder="Your Name" require>
+                                                    <input class="input" type="email" name="email" placeholder="Your Email" require>
+                                                    <textarea class="input" style="min-height: 6.5em" name="content" placeholder="Your Review" require></textarea>
+                                                @else
+                                                    <textarea class="input content-comment_product" name="content" placeholder="Your Review" require></textarea>
+                                                @endif
                                                 <div class="input-rating">
                                                     <span>Your Rating: </span>
                                                     <div class="stars">
@@ -249,7 +180,17 @@
                                     <!-- /Review Form -->
                                 </div>
                             </div>
-                            <!-- /tab3  -->
+                            <!-- /tab1  -->
+
+                            <!-- tab2  -->
+                            <div id="tab2" class="tab-pane fade in">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p>{{ $products->description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /tab2  -->
                         </div>
                         <!-- /product tab content  -->
                     </div>
@@ -276,22 +217,26 @@
                 </div>
 
                 <!-- product -->
-                @foreach ($products_relateds as $product)
+                @foreach ($products_relateds as $relateds)
                     <div class="col-md-3 col-xs-6">
                         <div class="product">
                             <div class="product-img">
-                                <img src="./img/product01.png" alt="">
+                                <img src="{{ $relateds->thumb }}" alt="">
                             </div>
                             <div class="product-body">
                                 <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">{{ $product->name }}</a></h3>
-                                <h4 class="product-price">${{ $product->price }} <del class="product-old-price">$990.00</del></h4>
+                                <h3 class="product-name"><a href="#">{{ $relateds->name }}</a></h3>
+                                <h4 class="product-price">{{ currency_format($relateds->price) }} <del class="product-old-price">{{ currency_format($relateds->price) }}</del></h4>
                                 <div class="product-rating">
                                 </div>
                                 <div class="product-btns">
                                     <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
                                     <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                    <button class="quick-view">
+                                        <a href="/product_detail/{{ $relateds->slug }}">
+                                            <i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
+                                        </a>
+                                    </button>
                                 </div>
                             </div>
                             <div class="add-to-cart">

@@ -100,5 +100,6 @@
 <script src="js/jquery.zoom.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/product.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @yield('footer')
