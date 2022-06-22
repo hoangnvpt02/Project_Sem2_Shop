@@ -9,26 +9,18 @@
 			</ul>
 			<ul class="header-links pull-right">
 				<!-- <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li> -->
-				{{ dump(Auth::user()) }}
+				{{-- {{ dump(Auth::check()) }} --}}
 				@if( !(Auth::check()) )
 					<li><a href="{{ route('user.login') }}"><i class="fa fa-user-o"></i> Log In</a></li>
 				@else
 						<a href="#" class="d-block" style="color: red">{{ Auth::user()->name }}&nbsp;
-							<li><a href="{{ route('user.login') }}">Log Out</a></li>
+							<li><a href="{{ route('user.logout') }}" onclick="event.preventDefault();
+								document.getElementById('form-logout').submit();">Log Out</a></li>
 						</a>
+						<form id="form-logout" action="{{ route('user.logout') }}" method="POST" class="d-none">
+								@csrf
+						</form>
 				@endif
-				{{-- @auth
-						// The user is authenticated...
-						<a href="#" class="d-block" style="color: red">{{ Auth::user()->name }}&nbsp;
-							<li><a href="{{ route('user.login') }}">Log Out</a></li>
-						</a>
-				@endauth --}}
-{{-- 				
-				@guest
-						// The user is not authenticated...
-					<li><a href="{{ route('user.login') }}"><i class="fa fa-user-o"></i> Log In</a></li>
-
-				@endguest --}}
 			</ul>
 		</div>
 	</div>

@@ -35,4 +35,11 @@ class LoginControllerClient extends Controller
             );
         }
     }
+    public function logout(Request $request)
+    {
+        Auth::guard('user')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('user.login');
+    }
 }

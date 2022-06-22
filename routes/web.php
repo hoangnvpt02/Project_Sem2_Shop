@@ -33,6 +33,7 @@ Route::get('/user/login', function () {
     return view('login');
 })->name('user.login');
 Route::post('/user/login', [LoginControllerClient::class, 'login'])->name('user.login');
+Route::post('/user/logout', [LoginControllerClient::class, 'logout'])->name('user.logout');
 
 Route::get('/user/register', function () {    
     return view('register');
@@ -59,7 +60,7 @@ Route::prefix('product')->group(function() {
 
 Route::get('/checkout', function () {
     return view('checkout');
-})->middleware('auth:user')->name('checkout');
+})->middleware('auth.user')->name('checkout');
 
 Route::get('/blank', function () {
     return view('blank');

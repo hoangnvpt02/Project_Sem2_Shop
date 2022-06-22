@@ -23,12 +23,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') @enderror" name="password" required autocomplete="current-password">
-                                @error('email')
-                                    <p role="alert" class="alert-danger fst-italic mt-2">
-                                        {{ $message }}
-                                    </p>
-                                @enderror
-                                @error('password')
+                                @error('errorlogin')
                                     <p role="alert" class="alert-danger fst-italic mt-2">
                                         {{ $message }}
                                     </p>

@@ -43,10 +43,26 @@ class LoginController extends Controller
     
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/login');
+    }
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+ 
+        if (Auth::guard('admin')->attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->route('admin.main');
+        }
+        else {
+            return \Redirect::back()->withErrors(
+                [
+                    'errorlogin' => 'Email address or Password is incorrect',
+                ]
+            );
+        }
     }
     // public function login(Request $request)
     // {

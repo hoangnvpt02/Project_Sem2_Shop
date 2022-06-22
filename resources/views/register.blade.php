@@ -16,7 +16,8 @@
 			<input type="email" name="email" value="{{ old('email') }}" class="" placeholder="Email" required/>
 			<input type="text" name="name" value="{{ old('name') }}" class="" placeholder="Name" required />
 			<input type="text" name="phone" value="{{ old('phone') }}" class="" placeholder="Phone" required />
-			<input type="password" name="password" class="" placeholder="Password" required />
+			<input type="password" name="password" class="" placeholder="Input Password" required />
+      <input id="password-confirm" type="password" name="password_confirmation" placeholder="Input Password Again" required autocomplete="new-password">
       @foreach ($errors->all() as $error)
                 <li class="errors">{{ $error }}</li>
       @endforeach
