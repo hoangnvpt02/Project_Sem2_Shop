@@ -19,10 +19,11 @@ use App\Http\Controllers\RegisterControllerClient;
 use App\Http\Controllers\ResetPasswordControllerClient;
 
 use App\Http\Controllers\ProductClientController;
+use App\Http\Controllers\WebController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| W
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -51,10 +52,15 @@ Route::post('/user/reset', [ResetPasswordControllerClient::class, 'reset'])->nam
 Route::get('/', function () {
     return view('home');
 })->name('home.client');
+//home
+Route::get('/',[WebController::class,'index'])->name('web.home.index');
 
-Route::get('/store', function () {
-    return view('store');
-});
+//category
+Route::get('category',[WebController::class,'category'])->name('web.category');
+Route::get('category_test/{slug}',[WebController::class,'category_search_test'])->name('web.category.search_test');
+Route::get('category/{price_min}/{price_max}',[WebController::class,'category_search_price'])->name('web.category.search');
+
+Route::get('category/{slug}',[WebController::class,'category_search'])->name('web.category.search');
 
 Route::prefix('product_detail')->group(function() {
     Route::get('/{slug}', [ProductClientController::class, 'indexProduct'])->name('product_detail.index');
@@ -76,6 +82,13 @@ Route::get('/order-detail/{id}', [OrderClientController::class, 'orderDetail'])-
 Route::post('/order-cancel/{id}', [OrderClientController::class, 'cancelOrder'])->name('order-cancel');
 
 
+
+Route::get("/show-cart-modal", [OrderController::class, 'showCartModal'])->name('showCartModal');
+Route::post("/add-to-cart", [OrderController::class, 'addToCart'])->name('addToCart');
+
+Route::get('/checkout', [OrderController::class, 'showCheckout'])->name("checkout");
+
+Route::post("/checkout", [OrderController::class, 'doCheckout'])->name('do.checkout');
 
 //admin
 
@@ -193,3 +206,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
         Route::DELETE('/destroy', [OrderManagerController::class, 'destroy']);
     });
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

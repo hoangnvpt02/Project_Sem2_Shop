@@ -93,13 +93,134 @@
 </footer>
 
 <!-- jQuery Plugins -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/jquery.zoom.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/product.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/slick.min.js"></script>
+<script src="/js/nouislider.min.js"></script>
+<script src="/js/jquery.zoom.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/product.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/main.js"></script>
+<script>
+	// $(document).ready(function() {
+		loadCart()
+		
+		function loadCart() {
+			var data_cart = JSON.parse(localStorage.getItem("data_cart"));
 
+			if (!data_cart) return
+			
+			var product_widgets = ""
+			var cart_summary = ""
+			var cart_qty = 0
+			var cart_subtotal = 0
+			for (var prd_id in data_cart) {
+				product_widgets += `
+					<div class="product-widget" data-prd-id="${data_cart[prd_id].id}">
+						<div class="product-img">
+							<img src="./img/product02.png" alt="">
+						</div>
+						<div class="product-body">
+							<h3 class="product-name"><a href="#">${data_cart[prd_id].name.substring(0, 30)}</a></h3>
+							<h4 class="product-price"><span class="qty">${data_cart[prd_id].qty}x</span>${formatStringToCurrency(data_cart[prd_id].qty * data_cart[prd_id].price, " VNĐ")}</h4>
+						</div>
+						<button class="delete" onclick="removeCart(this)"><i class="fa fa-close"></i></button>
+					</div>
+				`
+
+				cart_qty += data_cart[prd_id].qty
+				cart_subtotal += data_cart[prd_id].qty * data_cart[prd_id].price
+			}
+
+			if(!Object.keys(data_cart).length) {
+				product_widgets = `
+					<div class="product-widget">
+						<h4 class="text-center">
+							<span class="text-muted">Empty</span>
+						</h4>
+					</div>
+				`
+			}
+
+			cart_summary = `
+				<small>${cart_qty} Item(s) selected</small>
+				<h5>SUBTOTAL: ${formatStringToCurrency(cart_subtotal, " VNĐ")}</h5>
+			`
+
+			$(".header-ctn .dropdown .qty").html(cart_qty)
+			$(".header-ctn .dropdown .cart-list").html(product_widgets)
+			$(".header-ctn .dropdown .cart-summary").html(cart_summary)
+		}
+
+		function removeCart(obj) {
+			var prd_id = $(obj).closest(".product-widget").data("prd-id")
+
+			var data_cart = JSON.parse(localStorage.getItem("data_cart"));
+
+			if (data_cart[`prd_${prd_id}`]) {
+				data_cart[`prd_${prd_id}`].qty = data_cart[`prd_${prd_id}`].qty - 1
+
+				if (data_cart[`prd_${prd_id}`].qty == 0) {
+					delete data_cart[`prd_${prd_id}`]
+				}
+			}
+
+			localStorage.setItem('data_cart', JSON.stringify(data_cart))
+
+			loadCart()
+		}
+		
+		$(".add-to-cart-btn").click(function(e) {
+			e.preventDefault()
+
+			var prd_id = $(this).closest(".product").data("prd-id")
+
+			$.ajax({
+				type: "POST",
+				url: "{{ route('addToCart') }}",
+				data: {
+					prd_id: parseInt(prd_id),
+					_token: "{{ csrf_token() }}"
+				},
+				success: function(response) {
+
+					var data_cart = localStorage.getItem("data_cart");
+
+					if (data_cart === "" || data_cart === null) {
+						data_cart = {}
+					} else {
+						data_cart = JSON.parse(data_cart)
+					}
+					
+					if (data_cart[`prd_${response.id}`]) {
+						// filterd_data_cart[`prd_${response.id}`].id = response.id
+						data_cart[`prd_${response.id}`].qty = data_cart[`prd_${response.id}`].qty + 1
+						data_cart[`prd_${response.id}`].name = response.name
+						// data_cart[`prd_${response.id}`].price = data_cart[`prd_${response.id}`].price + response.price
+					} else {
+						data_cart[`prd_${response.id}`] = {}
+						data_cart[`prd_${response.id}`].id = response.id
+						data_cart[`prd_${response.id}`].qty = 1
+						data_cart[`prd_${response.id}`].name = response.name
+						data_cart[`prd_${response.id}`].price = response.price
+					}
+
+					localStorage.setItem('data_cart', JSON.stringify(data_cart))
+					
+					loadCart()
+					
+					$(".header-ctn .dropdown").addClass("open")
+
+					localStorage.setItem('data_cart', JSON.stringify(data_cart))
+
+				}
+			});
+		})
+	// })
+	
+	function formatStringToCurrency(n, currency) {
+		return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + currency;
+	}
+</script>
 @yield('footer')

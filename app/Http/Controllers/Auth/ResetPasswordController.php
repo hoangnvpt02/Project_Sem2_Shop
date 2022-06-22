@@ -42,4 +42,5 @@ class ResetPasswordController extends Controller
     {
         return \Redirect::back()->with('message','Operation Successful !');
     }
+    protected $redirectTo = RouteServiceProvider::HOME;
 }
