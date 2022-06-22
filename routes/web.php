@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrderManagerController;
+use App\Http\Controllers\OrderClientController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SearchControllerClient;
 use App\Http\Controllers\LoginControllerClient;
@@ -67,6 +70,11 @@ Route::get('/blank', function () {
 });
 
 Route::get('/search-product/{text}', [SearchControllerClient::class, 'search'])->name('search-product');
+Route::get('/order', [OrderClientController::class, 'order'])->name('order');
+
+Route::get('/order-detail/{id}', [OrderClientController::class, 'orderDetail'])->name('order-detail');
+Route::post('/order-cancel/{id}', [OrderClientController::class, 'cancelOrder'])->name('order-cancel');
+
 
 
 //admin
@@ -176,7 +184,12 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
         Route::get('delete/{id}',[AdminReceiptController::class,'delete'])->name('admin.receipt.delete');
 
         Route::get('detailReceipt/{id}',[AdminReceiptController::class,'detailList'])->name('admin.detailReceipt.index');
+    });
 
-
+    Route::prefix('order')->group(function(){
+        Route::get('/',[OrderManagerController::class,'index'])->name('admin.order.index');
+        Route::get('/detail/{id}',[OrderManagerController::class,'orderDetail'])->name('admin.order.detail');
+        Route::post('/confirm', [OrderManagerController::class, 'updateConfirmOrder']);
+        Route::DELETE('/destroy', [OrderManagerController::class, 'destroy']);
     });
 });
