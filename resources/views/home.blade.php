@@ -22,8 +22,6 @@
                 </div>
                 @endforeach
                 <!-- /shop -->
-
-               
             </div>
             <!-- /row -->
         </div>
@@ -67,7 +65,10 @@
                                     @foreach($products as $product)
                                     <div class="product" data-prd-id="{{ $product->id }}">
                                         <div class="product-img">
-                                            <img src="{{$product->products_images[0]->image}}" alt="">
+                                            @if (count($product->products_images) > 0) {
+                                                <img src="{{ $product->products_images[0]->image }}" alt="">
+                                            }
+                                            @endif
                                             <div class="product-label">
                                                 <span class="sale">-30%</span>
                                                 <span class="new">
