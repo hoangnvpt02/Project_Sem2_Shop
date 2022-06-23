@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -28,8 +31,6 @@ class LoginController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
     protected $redirectTo = '/admin';
-
-    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -57,7 +58,7 @@ class LoginController extends Controller
             return redirect()->route('admin.main');
         }
         else {
-            return \Redirect::back()->withErrors(
+            return Redirect::back()->withErrors(
                 [
                     'errorlogin' => 'Email address or Password is incorrect',
                 ]

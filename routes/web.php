@@ -49,9 +49,6 @@ Route::get('/user/reset', function () {
 })->name('user.reset');
 Route::post('/user/reset', [ResetPasswordControllerClient::class, 'reset'])->name('user.reset');
 
-Route::get('/', function () {
-    return view('home');
-})->name('home.client');
 //home
 Route::get('/',[WebController::class,'index'])->name('web.home.index');
 
