@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
@@ -14,6 +15,8 @@ class ProductClientController extends Controller
 {
     public function indexProduct(Request $request)
     {
+        $categories = Category::where('status',1)->take(5)->get();
+
         $products = [];
         $products_colors = [];
         $products_relateds = [];
@@ -21,7 +24,7 @@ class ProductClientController extends Controller
         $products_comments_star = [];
 
         $products = Product::query()
-        ->where('slug', $request->slug)
+        ->where('id', $request->id)
         ->with('avg_rating_comment')
         ->with('products_images')
         ->with('products_color')
@@ -70,6 +73,7 @@ class ProductClientController extends Controller
             'products_comments' => $products_comments,
             'products_comments_star' => $products_comments_star,
             'products_colors' => $products_colors,
+            'categories' => $categories,
         ]);
     }
 

@@ -108,7 +108,7 @@ function search_price(){
                     <div class="col-md-4" style="height:600px">
                         <div class="product" data-prd-id="{{ $product->id }}">
                             <div class="product-img">
-                                <img src="/img/product01.png" alt="">
+                                <img src="{{ $product->products_images[0]->image }}" alt="">
                                 <div class="product-label">
                                     <span class="sale">-30%</span>
                                     <span class="new">
@@ -117,7 +117,7 @@ function search_price(){
                                             if(strtotime($today) - strtotime($product->updated_at) < 864000)
                                             echo 'NEW';
                                             else echo'OLD';
-                                         ?>
+                                        ?>
                                     </span>
                                 </div>
                             </div>

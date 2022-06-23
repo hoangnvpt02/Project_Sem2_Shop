@@ -60,13 +60,9 @@ Route::get('category/{price_min}/{price_max}',[WebController::class,'category_se
 Route::get('category/{slug}',[WebController::class,'category_search'])->name('web.category.search');
 
 Route::prefix('product_detail')->group(function() {
-    Route::get('/{slug}', [ProductClientController::class, 'indexProduct'])->name('product_detail.index');
+    Route::get('/{id}', [ProductClientController::class, 'indexProduct'])->name('product_detail.index');
     Route::post('/comment_product', [ProductClientController::class,'commentProduct']);
 });
-
-Route::get('/checkout', function () {
-    return view('checkout');
-})->middleware('auth.user')->name('checkout');
 
 Route::get('/blank', function () {
     return view('blank');
@@ -83,7 +79,7 @@ Route::post('/order-cancel/{id}', [OrderClientController::class, 'cancelOrder'])
 Route::get("/show-cart-modal", [OrderController::class, 'showCartModal'])->name('showCartModal');
 Route::post("/add-to-cart", [OrderController::class, 'addToCart'])->name('addToCart');
 
-Route::get('/checkout', [OrderController::class, 'showCheckout'])->name("checkout");
+Route::get('/checkout', [OrderController::class, 'showCheckout'])->middleware('auth.user')->name('checkout');
 
 Route::post("/checkout", [OrderController::class, 'doCheckout'])->name('do.checkout');
 

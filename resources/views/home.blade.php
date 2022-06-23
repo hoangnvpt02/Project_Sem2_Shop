@@ -67,7 +67,7 @@
                                     @foreach($products as $product)
                                     <div class="product" data-prd-id="{{ $product->id }}">
                                         <div class="product-img">
-                                            <img src="/img/product01.png" alt="">
+                                            <img src="{{$product->products_images[0]->image}}" alt="">
                                             <div class="product-label">
                                                 <span class="sale">-30%</span>
                                                 <span class="new">
@@ -82,7 +82,7 @@
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category">{{ $product->category->name}}</p>
-                                            <h3 class="product-name"><a href="#">{{ $product->name }}</a></h3>
+                                            <h3 class="product-name"><a href="/product_detail/{{$product->id}}">{{ $product->name }}</a></h3>
                                             <h4 class="product-price">{{ number_format($product->price)}} VND <del class="product-old-price">$990.00</del></h4>
                                             <div class="product-rating">
                                                 <i class="fa fa-star"></i>
