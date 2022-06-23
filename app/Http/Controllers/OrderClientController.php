@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +15,14 @@ class OrderClientController extends Controller
 
         $orders = Order::where('user_id', 1)->with('order_details.products')
         ->paginate(10);
+
+        $categories = Category::where('status',1)->take(5)->get();
     
         // dd($orders);
 
         return view('order', [
-            'orders' => $orders
+            'orders' => $orders,
+            'categories' => $categories
         ]);
     }
 
@@ -28,8 +32,11 @@ class OrderClientController extends Controller
         $orders = Order::where('user_id', 1)->where('id', $request->id)->with('order_details.products')
         ->paginate(10);
 
+        $categories = Category::where('status',1)->take(5)->get();
+
         return view('order_detail', [
-            'orders' => $orders
+            'orders' => $orders,
+            'categories' => $categories
         ]);
     }
 
