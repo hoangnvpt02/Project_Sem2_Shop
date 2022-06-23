@@ -50,23 +50,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.gift.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Gift
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{ route('admin.product.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Sản Phẩm</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.discount.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>Discount</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -81,20 +67,18 @@
                         <p>Banner</p>
                     </a>
                 </li>
-                <!-- <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.user.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
-                        <p>Danh sách nhân viên </p>
+                        <p>Quản lý user</p>
                     </a>
-                </li> -->
-              
-              
-                <!-- <li class="nav-item">
-                    <a href="{{ route('admin.receipt.index')}}" class="nav-link">
+                </li> --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.order.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
-                        <p>Quản lý đơn hàng</p>
+                        <p>Quản lý hóa đơn</p>
                     </a>
-                </li> -->
+                </li>
             </ul>
         </nav>
     </div>

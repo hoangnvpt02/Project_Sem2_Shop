@@ -26,7 +26,7 @@ class OrderController extends Controller
     public function addToCart(Request $request) {
         $prd_id = $request->input("prd_id");
 
-        $product = Product::find($prd_id);
+        $product = Product::where(['id' => $prd_id])->with('products_images')->first();
         
         return $product;
     }
