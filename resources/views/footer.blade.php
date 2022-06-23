@@ -102,7 +102,7 @@
 <script src="/js/jquery.zoom.min.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/product.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/main.js"></script>
 <script>
 	// $(document).ready(function() {
@@ -121,7 +121,7 @@
 				product_widgets += `
 					<div class="product-widget" data-prd-id="${data_cart[prd_id].id}">
 						<div class="product-img">
-							<img src="./img/product02.png" alt="">
+							<img src="${data_cart[prd_id].image}" alt="">
 						</div>
 						<div class="product-body">
 							<h3 class="product-name"><a href="#">${data_cart[prd_id].name.substring(0, 30)}</a></h3>
@@ -198,7 +198,7 @@
 					if (data_cart[`prd_${response.id}`]) {
 						// filterd_data_cart[`prd_${response.id}`].id = response.id
 						data_cart[`prd_${response.id}`].qty = data_cart[`prd_${response.id}`].qty + 1
-						data_cart[`prd_${response.id}`].name = response.name
+						// data_cart[`prd_${response.id}`].name = response.name
 						// data_cart[`prd_${response.id}`].price = data_cart[`prd_${response.id}`].price + response.price
 					} else {
 						data_cart[`prd_${response.id}`] = {}
@@ -206,6 +206,7 @@
 						data_cart[`prd_${response.id}`].qty = 1
 						data_cart[`prd_${response.id}`].name = response.name
 						data_cart[`prd_${response.id}`].price = response.price
+						data_cart[`prd_${response.id}`].image = response.products_images[0].image
 					}
 
 					localStorage.setItem('data_cart', JSON.stringify(data_cart))
