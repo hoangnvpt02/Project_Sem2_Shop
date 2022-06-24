@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Order_detail;
 use Illuminate\Http\Request;
 
 
@@ -17,7 +18,39 @@ class WebController extends Controller
         $products = Product::latest()->take(5)->get();
         $banners = Banner::latest()->take(3)->get();
 
-        return view('home',compact('categories','products','banners',));
+        $list_sell = [];
+        $order_details = Order_detail::all();
+        foreach ($order_details as $order_detail) {
+            if (!isset($list_sell[$order_detail->product_id])) {
+                $list_sell[$order_detail->product_id] = $order_detail->quantity;
+                continue;
+            }
+            $list_sell[$order_detail->product_id] += $order_detail->quantity;
+        }
+        // $price = array();
+        // foreach ($list_sell as $key => $row)
+        // {
+        //     $price[$key] = $row['quantity'];
+        // }
+        // array_multisort($price, SORT_DESC, $list_sell);
+        // $price = array_column($list_sell, 'quantity');
+        // array_multisort($price, SORT_DESC, $list_sell);
+        arsort($list_sell);
+        $top_sell = [];
+        $i = 0;
+        foreach($list_sell as $key => $value) {
+            $i++;
+            $top_sell[] = $key;
+            if ($i == 6) {
+                break;
+            }
+        }
+
+        $products_top = Product::whereIn('id', $top_sell)->get();
+
+           
+        // dd(json_encode($products_top));
+        return view('home',compact('categories','products','banners','products_top',));
     }
     //category
     public function category(){
