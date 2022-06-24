@@ -21,18 +21,18 @@ Trang chủ
                 <div class="col-md-12">
                     <a href="{{ route('admin.product.add')}}" class="btn btn-success float-right m-2">Add</a>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 col-12">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên Sản Phẩm</th>
-                                <th scope="col">Giá</th>
-                                <th scope="col">Hình ảnh</th>
-                                <th scope="col">Mô tả</th>
-                                <th scope="col">Danh mục</th>
-                                <th scope="col">Trạng thái</th>
-                                <th scope="col">Action</th>
+                                <th>STT</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Giá</th>
+                                <th>Hình ảnh</th>
+                                <th>Mô tả</th>
+                                <th>Danh mục</th>
+                                <th>Trạng thái</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
