@@ -27,9 +27,11 @@
                                         @if ($order->status == 1)
                                             <span class="badge rounded-pill">Đang chờ xác nhận</span>
                                         @elseif ($order->status == 2)
-                                        <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
+                                            <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
                                         @elseif ($order->status == 3)
-                                        <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
+                                            <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
+                                        @elseif ($order->status == 4)
+                                            <span class="badge rounded-pill" style="background-color: green">Đã nhận hàng thành công</span>
                                         @else
                                             <span class="badge rounded-pill" style="background-color: red">Đã hủy</span>
                                         @endif

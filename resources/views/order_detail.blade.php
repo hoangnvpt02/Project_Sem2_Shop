@@ -1,9 +1,4 @@
 @extends('main')
-@section('head')
-    <style>
-        
-    </style>
-@endsection
 @section('content')
     <!-- BREADCRUMB -->
     {{-- @include('breadcrumb') --}}
@@ -42,6 +37,8 @@
                                         <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
                                     @elseif ($order->status == 3)
                                         <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
+                                    @elseif ($order->status == 4)
+                                        <span class="badge rounded-pill" style="background-color: green">Đã nhận hàng thành công</span>
                                     @else
                                         <span class="badge rounded-pill" style="background-color: red">Đã hủy</span>
                                     @endif
@@ -88,6 +85,9 @@
                                     <button type="submit" class="btn btn-danger">Hủy đơn hàng</button>
                                     @csrf
                                 </form>
+                            @endif
+                            @if ($order->status == 3)
+                                    <button onclick="received({{ $order->id }}, '/order-received')" type="button" class="btn btn-primary">Đã nhận được hàng</button>
                             @endif
                         </div>
                     </div>
@@ -147,4 +147,7 @@
     <!-- NEWSLETTER -->
     @include('newsletter')
     <!-- /NEWSLETTER -->
+@endsection
+@section('js')
+    <script src="/js/order.js"></script>
 @endsection

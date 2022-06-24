@@ -6,7 +6,7 @@
                 <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy7nFdX1g_CVR4WyP5LgKOGytP0J8PE53_RQ&usqp=CAU" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Hello {{ Auth::user()->name }}</a>
+                <a href="/admin" class="d-block">Hello {{ Auth::user()->name }}</a>
                 <a  href="{{ route('logout') }}" class="text-warning" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">Log Out</a>
                 </a>
@@ -63,12 +63,12 @@
                         <p>Banner</p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a href="{{ route('admin.user.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Quản lý user</p>
                     </a>
-                </li> --}}
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.order.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>

@@ -36,7 +36,7 @@ Trang chủ
                             <label>Ảnh đại diện SP</label>
                             <input type="file" name="thumb" id="upload-file-imagethumb" class="form-control-file" multiple>
                             <a class="deleteImage-subphoto" href="{{ route('admin.product.deleteImage',['id'=>$product->id])}}">Delete</a>
-                            <img width="50%" id="preview-imagethumb" src="{{ asset("$product->thumb") }}" alt="your image" />
+                            <img width="50%" id="preview-imagethumb" src="{{ asset("storage/$product->thumb") }}" alt="your image" />
                         </div>
 
                         <div class="form-group">
@@ -44,10 +44,12 @@ Trang chủ
                                 <input type="number" value="1" id="amount-upload-file-subphoto" oninput="changeAmountUploadFileSubPhoto()">
                             </label>
                             <div class="image-subphoto">
+                                @foreach($product_image as $image)
                                 <div class="subphoto">
                                     <input type="file" name="subphoto[]" id="upload-file-subphoto" class="form-control-file" multiple>
-                                    <img id="preview-subphoto" src="#" alt="your image" />
+                                    <img id="preview-subphoto" src="{{ asset("/storage/$image->image") }}" alt="your image" />
                                 </div>
+                                @endforeach
                                 @foreach($product_image as $image)
                                     <div class="subphoto">
                                         <a class="deleteImage-subphoto" href="{{ route('admin.product.deleteImage',['id'=>$image->id])}}">Delete</a>

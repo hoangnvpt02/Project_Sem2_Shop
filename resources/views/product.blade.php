@@ -47,7 +47,7 @@
                                         <i class="fa fa-star"></i>
                                     @endfor
 
-                                    {{ show_star_comment_product($rating->average_star) }}
+                                    {{ ($rating->average_star) }}
                                 @endforeach
                             </div>
                             <a class="review-link" href="#">{{ $products->comment_products->count() }} Review(s) | Add your review</a>
@@ -137,7 +137,7 @@
                                                                     <i class="fa fa-star"></i>
                                                                 @endfor
 
-                                                                {{ show_star_comment_product($comment->star) }}
+                                                                {{ ($comment->star) }}
                                                             </div>
                                                         </div>
                                                         <div class="review-body">
@@ -223,7 +223,9 @@
                     <div class="col-md-3 col-xs-6">
                         <div class="product">
                             <div class="product-img">
+                                @if (count($relateds->products_images) > 0) 
                                 <img src="{{ $relateds->products_images[0]->image }}" alt="">
+                                @endif
                             </div>
                             <div class="product-body">
                                 <p class="product-category">Category</p>
