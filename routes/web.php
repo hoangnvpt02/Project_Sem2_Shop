@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderManagerController;
 use App\Http\Controllers\OrderClientController;
@@ -163,15 +164,15 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
     });
 
     Route::prefix('users')->group(function(){
-        Route::get('/',[AdminUserController::class,'index'])->name('admin.user.index')->middleware('can:list_user');
+        Route::get('/',[AdminUserController::class,'index'])->name('admin.user.index');
         
-        Route::get('add',[AdminUserController::class,'create'])->name('admin.user.add')->middleware('can:add_user');
+        Route::get('add',[AdminUserController::class,'create'])->name('admin.user.add');
         Route::post('store',[AdminUserController::class,'store'])->name('admin.user.store');
 
-        Route::get('edit/{id}',[AdminUserController::class,'edit'])->name('admin.user.edit')->middleware('can:edit_user');
+        Route::get('edit/{id}',[AdminUserController::class,'edit'])->name('admin.user.edit');
         Route::post('update/{id}',[AdminUserController::class,'update'])->name('admin.user.update');
 
-        Route::get('delete/{id}',[AdminUserController::class,'delete'])->name('admin.user.delete')->middleware('can:delete_user');
+        Route::get('delete/{id}',[AdminUserController::class,'delete'])->name('admin.user.delete');
     });
 
     Route::prefix('order')->group(function(){

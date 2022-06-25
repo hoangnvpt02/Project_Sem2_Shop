@@ -28,6 +28,7 @@ Trang chủ
                                 <th scope="col">STT</th>
                                 <th scope="col">Tên </th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Địa chỉ</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -37,6 +38,7 @@ Trang chủ
                                 <th scope="row">{{ $user->id }}</th>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>{{ $user->address }}</td>
                                 <td>
                                     <a href="{{ route('admin.user.edit',['id'=>$user->id])}}"
                                         class="btn btn-success">Edit</a>
