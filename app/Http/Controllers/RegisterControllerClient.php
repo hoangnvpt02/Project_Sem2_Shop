@@ -18,12 +18,16 @@ class RegisterControllerClient extends Controller
     $user->name = $request->name;
     $user->email = $request->email;
     $user->phone = $request->phone;
+    $user->address = $request->address;
     $user->avatar = 1;
     $user->referral_code = 1;
     $user->password = Hash::make($request->password);
     $user->save();
     if($user->save()){
       return view('register')->with('success','Register Account Successfully!');
+      // sleep(2);
+      // echo "<script>setTimeout(function(){ window.location.href = '/user/login'; }, 000);</script>";
+      // return redirect()->route('user.login');
     }
     }
 }
