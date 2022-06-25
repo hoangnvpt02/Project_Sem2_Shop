@@ -43,7 +43,7 @@
 				<!-- /LOGO -->
 
 				<!-- SEARCH BAR -->
-				<div class="col-md-7">
+				<div class="col-md-6">
 					<div class="header-search">
 							<div style="position:relative">
 								<input class="form-control" id="search-product" placeholder="Search product here...">
@@ -54,21 +54,50 @@
 				<!-- /SEARCH BAR -->
 
 				<!-- ACCOUNT -->
-				<div class="col-md-2 clearfix">
+				<div class="col-md-3 clearfix">
 					<div class="header-ctn">
-						<!-- Wishlist -->
-						{{-- <div>
-							<a href="#">
-								<i class="fa fa-heart-o"></i>
-								<span>Your Wishlist</span>
-								<div class="qty">2</div>
+
+						<div class="dropdown">
+							<a class="dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown" aria-expanded="true">
+								{{-- <i class="fa fa-shopping-cart"></i> --}}
+								<img src="https://icon-library.com/images/view-details-icon/view-details-icon-7.jpg" style="width:16.72px;height:18px" alt="">
+								<span style="display: block;">Order Details</span>
+								{{-- <div class="qty">0</div> --}}
 							</a>
-						</div> --}}
-						<!-- /Wishlist -->
+							{{-- <div class="cart-dropdown">
+								<div class="cart-list">
+									<!-- <div class="product-widget">
+										<div class="product-img">
+											<img src="./img/product01.png" alt="">
+										</div>
+										<div class="product-body">
+											<h3 class="product-name"><a href="#">product name goes here</a></h3>
+											<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+										</div>
+										<button class="delete"><i class="fa fa-close"></i></button>
+									</div> -->
+
+									<div class="product-widget">
+										<h4 class="text-center">
+											<span class="text-muted">Empty</span>
+										</h4>
+									</div>
+								</div>
+								<div class="cart-summary">
+									<small>0 Item(s) selected</small>
+									<h5>SUBTOTAL: 0 VNĐ</h5>
+								</div>
+								<div class="cart-btns">
+									<a href="#">View Cart</a>
+									<a href="{{ route('checkout') }}">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+								</div>
+							</div> --}}
+						</div>
+
 
 						<!-- Cart -->
 						<div class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+							<a class="dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown" aria-expanded="true">
 								<i class="fa fa-shopping-cart"></i>
 								<span>Your Cart</span>
 								<div class="qty">0</div>
@@ -143,30 +172,58 @@
 <script type="text/javascript">
 	$('#search-product').on('keyup',function(){
 		var text = $(this).val();
-		console.log(text);
 		var html= '';
 		$('.showhint').css("display", "none");
 		$.ajax({
 			type: 'GET',
 			url: '/search-product/'+text,
 			success: function(res){
+				// console.log(res);
 				if (res.length > 0){
 					for (var data of res) {
-						html+= '<a class="media-thumb" href="#">';	
-						html+= '<img src="https://hanoicomputercdn.com/media/product/250_63806_laptop_acer_gaming_aspire_7_a715_75g_18.jpeg" alt="logo" style="width:70px">'
-						html+= '<p style="width: 60%">'+data.name+'</p>'
-						html+= '<p style="width: 30%; font-style:italic;color:red">Price:&nbsp;'+data.price+'&nbsp;VND</p>'
-						html+= '</a>'
-						html+= '<hr>'
+				// console.log(data.id);
+					let price = number_format(data.price);
+					$('.showhint').html(`
+						<a class="media-thumb" href="/product_detail/${data.id}">
+						<img src="https://hanoicomputercdn.com/media/product/250_63806_laptop_acer_gaming_aspire_7_a715_75g_18.jpeg" alt="logo" style="width:70px">
+						<p style="width: 60%">${data.name}</p>
+						<p style="width: 30%; font-style:italic;color:red">Price:&nbsp;${price}&nbsp;VND</p>
+						</a>
+						<hr>
+					`)
 					}
 				}
 				else {
-					html= '<p style="padding:10px">No products found matching your search</p>';
+					$('.showhint').html(`<p style="padding:10px">No products found matching your search</p>`);
 				}
 				$('.showhint').css("display", "block");
 				$('.showhint').css("width", "100%");
-				$('.showhint').html(html);
 			},
 		})
 	})
+
+
+	function number_format (number, decimals, dec_point, thousands_sep) {
+    // Strip all characters but numerical ones.
+    number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+    var n = !isFinite(+number) ? 0 : +number,
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+        s = '',
+        toFixedFix = function (n, prec) {
+            var k = Math.pow(10, prec);
+            return '' + Math.round(n * k) / k;
+        };
+    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+    if (s[0].length > 3) {
+        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+    }
+    if ((s[1] || '').length < prec) {
+        s[1] = s[1] || '';
+        s[1] += new Array(prec - s[1].length + 1).join('0');
+    }
+    return s.join(dec);
+}
 </script>

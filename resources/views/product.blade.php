@@ -87,24 +87,24 @@
                             <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
                         </div>
 
-                        <ul class="product-btns">
+                        {{-- <ul class="product-btns">
                             <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
                             <li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
-                        </ul>
-
+                        </ul> --}}
+{{-- 
                         <ul class="product-links">
                             <li>Category:</li>
                             <li><a href="#">Headphones</a></li>
                             <li><a href="#">Accessories</a></li>
-                        </ul>
+                        </ul> --}}
 
-                        <ul class="product-links">
+                        {{-- <ul class="product-links">
                             <li>Share:</li>
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-                        </ul>
+                        </ul> --}}
 
                     </div>
                 </div>

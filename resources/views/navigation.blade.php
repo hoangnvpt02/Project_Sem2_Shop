@@ -5,7 +5,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 @foreach($categories as $category)
                 <li><a href="{{ route('web.category.search',['slug'=>$category->slug])}}">{{ $category->name }}</a></li>
                 @endforeach
