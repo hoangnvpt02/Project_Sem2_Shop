@@ -1,8 +1,5 @@
 @extends('main')
 @section('content')
-    <!-- BREADCRUMB -->
-    @include('breadcrumb')
-    <!-- /BREADCRUMB -->
 
     <!-- SECTION -->
     <div class="section">
@@ -13,46 +10,31 @@
                 <div class="row">
                     <div class="col-md-7">
                         <!-- Billing Details -->
+                        @if (Auth::check())
                         <div class="billing-details">
                             <div class="section-title">
                                 <h3 class="title">Billing address</h3>
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="first-name" placeholder="First Name">
+                                <input class="input" type="text" name="first-name" placeholder="Name" value="{{ Auth::user()->name }}">
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="last-name" placeholder="Last Name">
+                                <input class="input" type="email" name="email" placeholder="Email" value="{{ Auth::user()->email }}>
                             </div>
                             <div class="form-group">
-                                <input class="input" type="email" name="email" placeholder="Email">
+                                <input class="input" type="text" name="address" placeholder="Address" value="{{ Auth::user()-> }}>
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="address" placeholder="Address">
+                                <input class="input" type="text" name="city" placeholder="City" value="{{ Auth::user()->name }}>
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="city" placeholder="City">
+                                <input class="input" type="text" name="country" placeholder="Country" value="{{ Auth::user()->name }}>
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="country" placeholder="Country">
+                                <input class="input" type="text" name="zip-code" placeholder="ZIP Code" value="{{ Auth::user()->name }}>
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="tel" name="tel" placeholder="Telephone">
-                            </div>
-                            <div class="form-group">
-                                <div class="input-checkbox">
-                                    <input type="checkbox" name="create_account" id="create-account">
-                                    <label for="create-account">
-                                        <span></span>
-                                        Create Account?
-                                    </label>
-                                    <div class="caption">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                                        <input class="input" type="password" name="password" placeholder="Enter Your Password">
-                                    </div>
-                                </div>
+                                <input class="input" type="tel" name="tel" placeholder="Telephone" value="{{ Auth::user()->name }}>
                             </div>
                         </div>
                         <!-- /Billing Details -->
@@ -97,6 +79,7 @@
                             </div>
                         </div>
                         <!-- /Shiping Details -->
+                        @endif
 
                         <!-- Order notes -->
                         <div class="order-notes">
@@ -133,55 +116,6 @@
                                 <div><strong>TOTAL</strong></div>
                                 <div><strong class="order-total">0 VNĐ</strong></div>
                             </div>
-                        </div>
-                        <div class="payment-method">
-                            <div class="input-radio">
-                                <input type="radio" name="payment" value="cod id="cod" checked>
-                                <label for="cod">
-                                    <span></span>
-                                    COD
-                                </label>
-                                <div class="caption">
-                                    <p>Thanh toán khi nhận hàng.</p>
-                                </div>
-                            </div>
-                            <div class="input-radio">
-                                <input type="radio" name="payment" id="payment-1" disabled="disabled">
-                                <label for="payment-1">
-                                    <span></span>
-                                    Direct Bank Transfer
-                                </label>
-                                <div class="caption">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </div>
-                            <div class="input-radio">
-                                <input type="radio" name="payment" id="payment-2" disabled="disabled">
-                                <label for="payment-2">
-                                    <span></span>
-                                    Cheque Payment
-                                </label>
-                                <div class="caption">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </div>
-                            <div class="input-radio">
-                                <input type="radio" name="payment" id="payment-3" disabled="disabled">
-                                <label for="payment-3">
-                                    <span></span>
-                                    Paypal System
-                                </label>
-                                <div class="caption">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-checkbox">
-                            <input type="checkbox" name="confirm_terms_conditions" id="terms">
-                            <label for="terms">
-                                <span></span>
-                                I've read and accept the <a href="#">terms & conditions</a>
-                            </label>
                         </div>
                         <button class="btn primary-btn order-submit">Place order</button>
                     </div>

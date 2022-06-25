@@ -121,10 +121,10 @@
 				product_widgets += `
 					<div class="product-widget" data-prd-id="${data_cart[prd_id].id}">
 						<div class="product-img">
-							<img src="${data_cart[prd_id].image}" alt="">
+							<img src="/storage/${data_cart[prd_id].image}" alt="">
 						</div>
 						<div class="product-body">
-							<h3 class="product-name"><a href="#">${data_cart[prd_id].name.substring(0, 30)}</a></h3>
+							<h3 class="product-name"><a href="/product_detail/${data_cart[prd_id].id}">${data_cart[prd_id].name.substring(0, 30)}</a></h3>
 							<h4 class="product-price"><span class="qty">${data_cart[prd_id].qty}x</span>${formatStringToCurrency(data_cart[prd_id].qty * data_cart[prd_id].price, " VNĐ")}</h4>
 						</div>
 						<button class="delete" onclick="removeCart(this)"><i class="fa fa-close"></i></button>
@@ -206,7 +206,7 @@
 						data_cart[`prd_${response.id}`].qty = 1
 						data_cart[`prd_${response.id}`].name = response.name
 						data_cart[`prd_${response.id}`].price = response.price
-						data_cart[`prd_${response.id}`].image = response.products_images[0].image
+						data_cart[`prd_${response.id}`].image = response.thumb
 					}
 
 					localStorage.setItem('data_cart', JSON.stringify(data_cart))

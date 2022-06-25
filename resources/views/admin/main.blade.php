@@ -21,11 +21,11 @@ Trang chủ
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                    <h3>150</h3>
+                    <h3>{{ count($orders) }}</h3>
     
                     <p>Quản lý đơn hàng</p>
                     </div>
@@ -36,11 +36,11 @@ Trang chủ
                 </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                    <h3>{{ count($products) }}</h3>
     
                     <p>Tất cả sản phẩm</p>
                     </div>
@@ -51,11 +51,11 @@ Trang chủ
                 </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                    <h3>44</h3>
+                    <h3>{{ count($users) }}</h3>
     
                     <p>Quản lý người dùng</p>
                     </div>
@@ -65,22 +65,6 @@ Trang chủ
                     <a href="/admin/user" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
                 </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                    <h3>65</h3>
-    
-                    <p>Quản lý mã giảm giá</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-ios-paper-outline"></i>
-                    </div>
-                    <a href="/admin/discountcode" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-                </div>
-                <!-- ./col -->
             </div>
         </div>
     </div>

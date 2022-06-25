@@ -13,9 +13,12 @@
                 <!-- Product main img -->
                 <div class="col-md-5 col-md-push-2">
                     <div id="product-main-img">
+                        <div class="product-preview">
+                            <img src="/storage/{{ $products->thumb }}" alt="">
+                        </div>
                         @foreach($products->products_images as $images)
                         <div class="product-preview">
-                            <img src="{{ $images->image }}" alt="">
+                            <img src="/storage/{{ $images->image }}" alt="">
                         </div>
                         @endforeach
                     </div>
@@ -25,10 +28,13 @@
                 <!-- Product thumb imgs -->
                 <div class="col-md-2  col-md-pull-5">
                     <div id="product-imgs">
+                        <div class="product-preview">
+                            <img src="/storage/{{ $products->thumb }}" alt="">
+                        </div>
                         @if (!empty($products->products_images))
                             @foreach ($products->products_images as $images)
                                 <div class="product-preview">
-                                    <img src="{{ $images->image }}" alt="">
+                                    <img src="/storage/{{ $images->image }}" alt="">
                                 </div>
                             @endforeach
                         @endif
@@ -38,7 +44,7 @@
 
                 <!-- Product details -->
                 <div class="col-md-5">
-                    <div class="product-details">
+                    <div class="product-details" data-prd-id="{{ $products->id }}">
                         <h2 class="product-name">{{ $products->name }}</h2>
                         <div>
                             <div class="product-rating">
@@ -53,8 +59,7 @@
                             <a class="review-link" href="#">{{ $products->comment_products->count() }} Review(s) | Add your review</a>
                         </div>
                         <div>
-                            <h3 class="product-price">{{ number_format($products->price) }} <del class="product-old-price">{{ number_format($products->price) }}</del></h3>
-                            <span class="product-available">In Stock</span>
+                            <h3 class="product-price">{{ number_format($products->price) }} VND</h3>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
@@ -67,14 +72,6 @@
                                     <span class="qty-down">-</span>
                                 </div>
                             </div>
-                            <label>
-                                Color
-                                <select class="input-select">
-                                    @foreach($products->products_color as $color)
-                                        <option value="0">{{ $color->color }}</option>
-                                    @endforeach
-                                </select>
-                            </label>
                         </div>
 
                         <div class="add-to-cart">
@@ -136,8 +133,6 @@
                                                                 @for ($i = 0; $i < $comment->star; $i++) 
                                                                     <i class="fa fa-star"></i>
                                                                 @endfor
-
-                                                                {{ ($comment->star) }}
                                                             </div>
                                                         </div>
                                                         <div class="review-body">
@@ -224,7 +219,7 @@
                         <div class="product">
                             <div class="product-img">
                                 @if (count($relateds->products_images) > 0) 
-                                <img src="{{ $relateds->products_images[0]->image }}" alt="">
+                                <img src="/storage/{{ $relateds->thumb}}" alt="">
                                 @endif
                             </div>
                             <div class="product-body">

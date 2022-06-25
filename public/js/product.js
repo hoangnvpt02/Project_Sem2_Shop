@@ -28,3 +28,27 @@
 
     })
 })(jQuery);
+
+var imgInp = document.getElementById('upload-file-imagethumb');
+var preview_image = document.getElementById('preview-imagethumb');
+
+imgInp.onchange = evt => {
+const [file] = imgInp.files
+    if (file) {
+        preview_image.src = URL.createObjectURL(file)
+    }
+}
+
+function changeAmountUploadFileSubPhoto() {
+    var amount = $('#amount-upload-file-subphoto').val();
+
+    if (amount != 0 && amount >= 1) {
+        for (let i = 0; i < amount; i++) {
+            $('.image-subphoto').append(`
+                <div class="subphoto">
+                    <input type="file" name="subphoto[]" id="upload-file-subphoto" class="form-control-file" multiple>
+                </div>
+            `);
+        }
+    }
+}

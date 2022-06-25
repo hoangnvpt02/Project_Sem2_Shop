@@ -58,12 +58,14 @@
 					<div class="header-ctn">
 
 						<div class="dropdown">
-							<a class="dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown" aria-expanded="true">
+							@if (Auth::check())
+							<a href="/order">
 								{{-- <i class="fa fa-shopping-cart"></i> --}}
 								<img src="https://icon-library.com/images/view-details-icon/view-details-icon-7.jpg" style="width:16.72px;height:18px" alt="">
 								<span style="display: block;">Order Details</span>
 								{{-- <div class="qty">0</div> --}}
 							</a>
+							@endif
 							{{-- <div class="cart-dropdown">
 								<div class="cart-list">
 									<!-- <div class="product-widget">
@@ -132,15 +134,6 @@
 							</div>
 						</div>
 						<!-- /Cart -->
-
-						<!-- Menu Toogle -->
-						<div class="menu-toggle">
-							<a href="#">
-								<i class="fa fa-bars"></i>
-								<span>Menu</span>
-							</a>
-						</div>
-						<!-- /Menu Toogle -->
 					</div>
 				</div>
 				<!-- /ACCOUNT -->
@@ -153,8 +146,8 @@
 </header>
 <style>
 .showhint {
-  background-color: #fff;
-  height:400px;
+	background-color: #fff;
+	height:400px;
 	overflow: auto;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	/* z-index: 1; */
@@ -172,36 +165,32 @@
 <script type="text/javascript">
 	$('#search-product').on('keyup',function(){
 		var text = $(this).val();
+		console.log(text);
 		var html= '';
 		$('.showhint').css("display", "none");
 		$.ajax({
 			type: 'GET',
 			url: '/search-product/'+text,
 			success: function(res){
-				// console.log(res);
 				if (res.length > 0){
 					for (var data of res) {
-				// console.log(data.id);
-					let price = number_format(data.price);
-					$('.showhint').html(`
-						<a class="media-thumb" href="/product_detail/${data.id}">
-						<img src="https://hanoicomputercdn.com/media/product/250_63806_laptop_acer_gaming_aspire_7_a715_75g_18.jpeg" alt="logo" style="width:70px">
-						<p style="width: 60%">${data.name}</p>
-						<p style="width: 30%; font-style:italic;color:red">Price:&nbsp;${price}&nbsp;VND</p>
-						</a>
-						<hr>
-					`)
+						html+= '<a class="media-thumb" href="/product_detail/'+ data.id +'">';	
+						html+= '<img src="/storage/'+ data.thumb +'" alt="logo" style="width:70px">'
+						html+= '<p style="width: 60%">'+data.name+'</p>'
+						html+= '<p style="width: 30%; font-style:italic;color:red">Price:&nbsp;'+number_format(data.price)+'&nbsp;VND</p>'
+						html+= '</a>'
+						html+= '<hr>'
 					}
 				}
 				else {
-					$('.showhint').html(`<p style="padding:10px">No products found matching your search</p>`);
+					html= '<p style="padding:10px">No products found matching your search</p>';
 				}
 				$('.showhint').css("display", "block");
 				$('.showhint').css("width", "100%");
+				$('.showhint').html(html);
 			},
 		})
 	})
-
 
 	function number_format (number, decimals, dec_point, thousands_sep) {
     // Strip all characters but numerical ones.

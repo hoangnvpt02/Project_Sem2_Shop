@@ -21,18 +21,18 @@ Trang chủ
                 <div class="col-md-12">
                     <a href="{{ route('admin.product.add')}}" class="btn btn-success float-right m-2">Add</a>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 col-12">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên Sản Phẩm</th>
-                                <th scope="col">Giá</th>
-                                <th scope="col">Hình ảnh</th>
-                                <th scope="col">Mô tả</th>
-                                <th scope="col">Danh mục</th>
-                                <th scope="col">Trạng thái</th>
-                                <th scope="col">Action</th>
+                                <th>STT</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Giá</th>
+                                <th>Hình ảnh</th>
+                                <th>Mô tả</th>
+                                <th>Danh mục</th>
+                                <th>Trạng thái</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,9 +46,9 @@ Trang chủ
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->status == 0 ? 'không hoạt động' : 'hoạt động'}}</td>
                                 <td>
-                                    <a href="{{ route('admin.product.edit',['id'=>$product->id])}}"
+                                    <a style="width: 70px; margin-bottom: 10px;" href="{{ route('admin.product.edit',['id'=>$product->id])}}"
                                         class="btn btn-success">Edit</a>
-                                    <a href="" data-url="{{ route('admin.product.delete',['id'=>$product->id])}}"
+                                    <a style="width: 70px;" href="" data-url="{{ route('admin.product.delete',['id'=>$product->id])}}"
                                         class="btn btn-danger action_delete">Delete</a>
                                 </td>
                             </tr>

@@ -32,8 +32,6 @@
                                     <th scope="col">STT</th>
                                     <th scope="col">Tên danh mục</th>
                                     <th scope="col">Trạng thái</th>
-                                    <th scope="col">Người đăng</th>
-                                    <th scope="col">Người cập nhật</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -43,8 +41,6 @@
                                         <th scope="row">{{ $category->id }}</th>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->status == 0 ? 'không hoạt động' : 'hoạt động' }}</td>
-                                        <td>{{ $category->created_by }}</td>
-                                        <td>{{ $category->updated_by }}</td>
                                         <td>
                                             <a href="{{ route('admin.category.edit', ['id' => $category->id]) }}"
                                                 class="btn btn-success">Edit</a>

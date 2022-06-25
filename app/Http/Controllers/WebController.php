@@ -64,7 +64,8 @@ class WebController extends Controller
         $categories = Category::where('status',1)->take(5)->get();
         $category = Category::where('slug',$slug)->first();
         
-        $products = Product::where('category_id',$category->id)->paginate(9);
+        $products = Product::where('category_id',$category->id)->with('products_images')->paginate(9);
+        // dd($products);
        
         return view('test',compact('products','categories','category'));
     }
