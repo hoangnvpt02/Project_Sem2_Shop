@@ -126,7 +126,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="hot-deal">
-                        <ul class="hot-deal-countdown">
+                        {{-- <ul class="hot-deal-countdown">
                             <li>
                                 <div>
                                     <h3>02</h3>
@@ -151,10 +151,10 @@
                                     <span>Secs</span>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> --}}
                         <h2 class="text-uppercase">hot deal this week</h2>
-                        <p>New Collection Up to 50% OFF</p>
-                        <a class="primary-btn cta-btn" href="#">Shop now</a>
+                        <p>New Collection Up to 30% OFF</p>
+                        <a class="primary-btn cta-btn" href="/category">Shop now</a>
                     </div>
                 </div>
             </div>
