@@ -16,7 +16,7 @@ Trang chủ
 @endsection
 @section('content')
 <div class="content-wrapper">
-    @include('partials.content-header',['name'=>'User','key'=>'add'])
+    @include('partials.content-header',['name'=>'user','key'=>'add'])
     @if(count($errors) > 0)
     @foreach($errors->all() as $err)
     <div class="alert alert-danger col-md-4">
@@ -34,6 +34,11 @@ Trang chủ
                             <label>Name</label>
                             <input name="name" class="form-control" placeholder="Nhập tên">
                         </div>
+                        
+                        <div class="form-group">
+                            <label>Avatar</label>
+                            <input name="avatar" class="form-control" placeholder="Nhập tên">
+                        </div>
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" name="email" class="form-control" placeholder="Nhập Email">
@@ -43,13 +48,12 @@ Trang chủ
                             <input type="password" name="password" class="form-control" placeholder="Nhập Password">
                         </div>
                         <div class="form-group">
-                            <label>Chọn vai trò</label>
-                            <select name="role_id[]" class="form-control select2_init" multiple>
-                                <option value=""></option>
-                                @foreach($roles as $role)
-                                <option value="{{ $role->id}}">{{ $role->name}}</option>
-                                @endforeach
-                            </select>
+                            <label>Điện thoại</label>
+                            <input type="text" name="phone" class="form-control" placeholder="Nhập điện thoại">
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" name="address" class="form-control" placeholder="Nhập địa chỉ">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

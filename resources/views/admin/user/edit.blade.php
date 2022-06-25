@@ -16,7 +16,7 @@ Trang chủ
 @endsection
 @section('content')
 <div class="content-wrapper">
-    @include('partials.content-header',['name'=>'User','key'=>'add'])
+    @include('partials.content-header',['name'=>'Admin','key'=>'edit'])
     @if(count($errors) > 0)
     @foreach($errors->all() as $err)
     <div class="alert alert-danger col-md-4">
@@ -32,28 +32,30 @@ Trang chủ
                         @csrf
                         <div class="form-group">
                             <label>Name</label>
-                            <input name="name" class="form-control" value="{{ $user->name}}">
+                            <input name="name" class="form-control" value="{{ $user->name }}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Avatar</label>
+                            <input name="avatar" class="form-control" value="{{ $user->avatar }}">
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" name="email" class="form-control" value="{{ $user->email}}">
+                            <input type="email" name="email" class="form-control" value="{{ $user->email }}">
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="password" class="form-control" value="{{ $user->password}}">
+                            <input type="password" name="password" class="form-control" placeholder="Nhập Password">
                         </div>
                         <div class="form-group">
-                            <label>Chọn vai trò</label>
-                            <select name="role_id[]" class="form-control select2_init" multiple>
-                                <option value=""></option>
-                                @foreach($roles as $role)
-                                
-                                <option
-                                 {{ $rolesofuser->contains('id', $role->id) ? 'selected':''}}
-                                 value="{{ $role->id}}">{{ $role->name}}</option>
-                                @endforeach
-                            </select>
+                            <label>Điện thoại</label>
+                            <input type="text" name="phone" class="form-control" value="{{ $user->phone }}">
                         </div>
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" name="address" class="form-control" value="{{ $user->address }}">
+                        </div>
+                      
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
