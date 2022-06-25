@@ -114,7 +114,11 @@
 				product_widgets += `
 					<div class="product-widget" data-prd-id="${data_cart[prd_id].id}">
 						<div class="product-img">
+<<<<<<< HEAD
 							<img src="/storage/${data_cart[prd_id].image}" alt="">
+=======
+							<img src="${data_cart[prd_id].image}" alt="">
+>>>>>>> origin/manage-comment
 						</div>
 						<div class="product-body">
 							<h3 class="product-name"><a href="/product_detail/${data_cart[prd_id].id}">${data_cart[prd_id].name.substring(0, 30)}</a></h3>
@@ -200,7 +204,11 @@
 					
 					if (data_cart[`prd_${response.id}`]) {
 						// filterd_data_cart[`prd_${response.id}`].id = response.id
+<<<<<<< HEAD
 						data_cart[`prd_${response.id}`].qty = data_cart[`prd_${response.id}`].qty + qty
+=======
+						data_cart[`prd_${response.id}`].qty = data_cart[`prd_${response.id}`].qty + 1
+>>>>>>> origin/manage-comment
 						// data_cart[`prd_${response.id}`].name = response.name
 						// data_cart[`prd_${response.id}`].price = data_cart[`prd_${response.id}`].price + response.price
 					} else {
@@ -209,7 +217,11 @@
 						data_cart[`prd_${response.id}`].qty = 1
 						data_cart[`prd_${response.id}`].name = response.name
 						data_cart[`prd_${response.id}`].price = response.price
+<<<<<<< HEAD
 						data_cart[`prd_${response.id}`].image = response.thumb
+=======
+						data_cart[`prd_${response.id}`].image = response.products_images[0].image
+>>>>>>> origin/manage-comment
 					}
 
 					localStorage.setItem('data_cart', JSON.stringify(data_cart))

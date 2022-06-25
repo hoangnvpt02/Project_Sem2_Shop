@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderManagerController;
+use App\Http\Controllers\Admin\CommentProduct;
 use App\Http\Controllers\OrderClientController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SearchControllerClient;
@@ -149,6 +150,12 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
 
         Route::get('delete/{id}',[ProductController::class,'delete'])->name('admin.product.delete');
         Route::get('deleteImage/{id}',[ProductController::class,'deleteImage'])->name('admin.product.deleteImage');
+    });
+
+    Route::prefix('comment')->group(function(){
+        Route::get('/',[CommentProduct::class,'index'])->name('admin.comment.index');
+        Route::get('show/{id}',[CommentProduct::class,'show'])->name('admin.comment.show');
+        Route::get('delete/{id}',[CommentProduct::class,'delete'])->name('admin.comment.delete');
     });
 
     Route::prefix('discountcode')->group(function(){

@@ -16,7 +16,7 @@
                 contentType: false,
                 data: formData,
                 success: function (res) {
-                    Swal.fire("success!", "Cảm ơn bạn đã thêm bình luận về sản Phẩm!", "success").then(function(){
+                    Swal.fire("Good job!", "Cảm ơn bạn đã thêm bình luận về sản Phẩm!", "success").then(function(){
                         location.reload();
                     });
                 },

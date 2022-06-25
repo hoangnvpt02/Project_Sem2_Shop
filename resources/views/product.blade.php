@@ -121,27 +121,32 @@
                                     <div class="col-md-6" style="margin-left: 12em">
                                         <div id="reviews">
                                             <ul class="reviews">
-                                                @foreach ($products_comments as $comment)
-                                                    <li>
-                                                        <div class="review-heading">
-                                                            @if (empty($comment->fullname))
-                                                                <h5 class="name">{{ $comment->name }}</h5>
-                                                            @else 
-                                                                <h5 class="name">{{ $comment->fullname }}</h5>
-                                                            @endif
-                                                            <p class="date">{{ $comment->created_at }}</p>
-                                                            <div class="review-rating">
-                                                                @for ($i = 0; $i < $comment->star; $i++) 
-                                                                    <i class="fa fa-star"></i>
-                                                                @endfor
-                                                                {!! show_star_comment_product($comment->star) !!}
+                                                @if (count($products_comments) >= 1) 
+                                                    @foreach ($products_comments as $comment)
+                                                        <li>
+                                                            <div class="review-heading">
+                                                                @if (empty($comment->fullname))
+                                                                    <h5 class="name">{{ $comment->name }}</h5>
+                                                                @else 
+                                                                    <h5 class="name">{{ $comment->fullname }}</h5>
+                                                                @endif
+                                                                <p class="date">{{ $comment->created_at }}</p>
+                                                                <div class="review-rating">
+                                                                    @for ($i = 0; $i < $comment->star; $i++) 
+                                                                        <i class="fa fa-star"></i>
+                                                                    @endfor
+                                                                    {!! show_star_comment_product($comment->star) !!}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="review-body">
-                                                            <p>{{ $comment->content }}</p>
-                                                        </div>
-                                                    </li>
-                                                @endforeach
+                                                            <div class="review-body">
+                                                                <p>{{ $comment->content }}</p>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                @else 
+                                                    <span style="display:block;text-align: center;
+                                                    margin-left: 259px;">No reviews, Be the first to review</span>
+                                                @endif
                                             </ul>
                                             <div class="reviews-pagination">
                                                 {{ $products_comments->links() }}
