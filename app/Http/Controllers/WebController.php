@@ -16,7 +16,7 @@ class WebController extends Controller
     public function index(){
         $categories = Category::where('status',1)->take(5)->get();
         $products = Product::latest()->take(5)->get();
-        $banners = Banner::latest()->take(3)->get();
+        $banners = Banner::latest()->take(4)->get();
 
         $list_sell = [];
         $order_details = Order_detail::all();

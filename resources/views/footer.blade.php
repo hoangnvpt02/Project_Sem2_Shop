@@ -22,11 +22,7 @@
 						<h3 class="footer-title">Categories</h3>
 						<ul class="footer-links">
 							@foreach ($categories as $category)
-							<li><a href="#">{{ $category->name }}</a></li>
-							{{-- <li><a href="#">Laptops</a></li>
-							<li><a href="#">Smartphones</a></li>
-							<li><a href="#">Cameras</a></li>
-							<li><a href="#">Accessories</a></li> --}}
+							<li><a href="/category/{{ $category->slug }}">{{ $category->name }}</a></li>
 							@endforeach
 						</ul>
 					</div>
@@ -40,9 +36,6 @@
 						<ul class="footer-links">
 							<li><a href="#">About Us</a></li>
 							<li><a href="#">Contact Us</a></li>
-							<li><a href="#">Privacy Policy</a></li>
-							<li><a href="#">Orders and Returns</a></li>
-							<li><a href="#">Terms & Conditions</a></li>
 						</ul>
 					</div>
 				</div>

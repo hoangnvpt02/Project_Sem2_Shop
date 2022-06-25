@@ -38,7 +38,6 @@ function search_price(){
                     <div class="checkbox-filter">
                         @foreach($categories as $category)
                         <div class="input-checkbox">
-                            <input type="checkbox" id="category-{{ $category->id }}">
                             <label for="category-{{ $category->id }}">
                                 <span></span>
                                 <a href="javascript:" onclick="search_cat('{{ $category->slug }}')"> {{ $category->name }}</a>

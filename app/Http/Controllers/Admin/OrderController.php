@@ -47,10 +47,7 @@ class OrderController extends Controller
         $id = Order::create([
             'note'=> $info["order_note"],
             'status'=> 1,
-            'user_id'=> 1,
-            'information_user_id'=> 1,
-            'discounts_code_id'=> 1,
-            'delivery_time' => date('Y-m-d')
+            'user_id'=> Auth::user()->id,
         ])->id;
 
         // $data_cart = json_decode($info["data_cart"], true);

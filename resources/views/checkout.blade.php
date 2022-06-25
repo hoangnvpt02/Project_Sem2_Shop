@@ -19,22 +19,19 @@
                                 <input class="input" type="text" name="first-name" placeholder="Name" value="{{ Auth::user()->name }}">
                             </div>
                             <div class="form-group">
-                                <input class="input" type="email" name="email" placeholder="Email" value="{{ Auth::user()->email }}>
+                                <input class="input" type="email" name="email" placeholder="Email" value="{{ Auth::user()->email }}">
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="address" placeholder="Address" value="{{ Auth::user()-> }}>
+                                <input class="input" type="text" name="city" placeholder="City" value="{{ Auth::user()->phone }}">
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="city" placeholder="City" value="{{ Auth::user()->name }}>
+                                <input class="input" type="text" name="country" placeholder="Country" value="{{ Auth::user()->name }}">
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="country" placeholder="Country" value="{{ Auth::user()->name }}>
+                                <input class="input" type="text" name="zip-code" placeholder="ZIP Code" value="{{ Auth::user()->name }}">
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="zip-code" placeholder="ZIP Code" value="{{ Auth::user()->name }}>
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="tel" name="tel" placeholder="Telephone" value="{{ Auth::user()->name }}>
+                                <input class="input" type="tel" name="tel" placeholder="Telephone" value="{{ Auth::user()->name }}">
                             </div>
                         </div>
                         <!-- /Billing Details -->
