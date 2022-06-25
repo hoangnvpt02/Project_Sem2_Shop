@@ -64,12 +64,12 @@ class WebController extends Controller
         foreach ($list_sell as $key => $value) {
             $i++;
             $top_sell[] = $key;
-            if ($i == 6) {
+            if ($i == 8) {
                 break;
             }
         }
 
-        $products_top = Product::whereIn('id', $top_sell)->with('avg_rating_comment')->with('category')->take(8)->get();
+        $products_top = Product::whereIn('id', $top_sell)->where('status', 1)->with('avg_rating_comment')->with('category')->take(8)->get();
         
 
         // dd(json_encode($products_top));
@@ -89,7 +89,7 @@ class WebController extends Controller
         $categories = Category::where('status', 1)->take(5)->get();
         $category = Category::where('slug', $slug)->first();
 
-        $products = Product::where('category_id', $category->id)->with('avg_rating_comment')->with('products_images')->paginate(9);
+        $products = Product::where('category_id', $category->id)->where('status', 1)->with('avg_rating_comment')->with('products_images')->paginate(9);
         // dd($products);
 
         return view('test', compact('products', 'categories', 'category'));
@@ -101,7 +101,7 @@ class WebController extends Controller
         $categories = Category::where('status', 1)->take(5)->get();
         $category = Category::where('slug', $slug)->first();
 
-        $products = Product::where('category_id', $category->id)->with('avg_rating_comment')->paginate(9);
+        $products = Product::where('category_id', $category->id)->where('status', 1)->with('avg_rating_comment')->paginate(9);
 
         $xd = 0;
 
@@ -110,7 +110,7 @@ class WebController extends Controller
     public function category_search_price($price_min, $price_max)
     {
         $categories = Category::where('status', 1)->take(5)->get();
-        $products = Product::whereBetween('price', [$price_min, $price_max])->with('avg_rating_comment')->paginate(9);
+        $products = Product::whereBetween('price', [$price_min, $price_max])->where('status', 1)->with('avg_rating_comment')->paginate(9);
 
 
         $xd = 1;

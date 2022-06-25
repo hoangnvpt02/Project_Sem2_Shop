@@ -4,9 +4,8 @@
                     <div class="col-md-4"  style="height:600px">
                         <div class="product" data-prd-id="{{ $product->id }}">
                             <div class="product-img">
-                                <img src="/img/product01.png" alt="">
+                                <img src="/storage/{{ $product->thumb }}" alt="">
                                 <div class="product-label">
-                                    <span class="sale">-30%</span>
                                     <span class="new">  
                                         <?php
                                             $today = date("Y-m-d h:m:s");
@@ -18,9 +17,9 @@
                                 </div>
                             </div>
                             <div class="product-body">
-                                <p class="product-category">Category</p>
+                                <p class="product-category">{{ $product->category->name }}</p>
                                 <h3 class="product-name"><a href="#">{{ $product->name }}</a></h3>
-                                <h4 class="product-price">${{ $product->price }} <del class="product-old-price">$990.00</del></h4>
+                                <h4 class="product-price">{{ number_format($product->price) }} VND</h4>
                                 <div class="product-rating">
                                     @foreach($product->avg_rating_comment as $rating)
                                         @for ($i = 0; $i < $rating->average_star; $i++) 

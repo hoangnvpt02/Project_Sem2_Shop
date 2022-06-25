@@ -35,7 +35,7 @@
 						<h3 class="footer-title">Information</h3>
 						<ul class="footer-links">
 							<li><a href="#">About Us</a></li>
-							<li><a href="#">Contact Us</a></li>
+							{{-- <li><a href="#">Contact Us</a></li> --}}
 						</ul>
 					</div>
 				</div>
@@ -53,7 +53,7 @@
 					</div>
 				</div> --}}
 			</div>
-			<!-- /row -->z`
+			<!-- /row -->
 		</div>
 		<!-- /container -->
 	</div>
@@ -114,11 +114,7 @@
 				product_widgets += `
 					<div class="product-widget" data-prd-id="${data_cart[prd_id].id}">
 						<div class="product-img">
-<<<<<<< HEAD
 							<img src="/storage/${data_cart[prd_id].image}" alt="">
-=======
-							<img src="${data_cart[prd_id].image}" alt="">
->>>>>>> origin/manage-comment
 						</div>
 						<div class="product-body">
 							<h3 class="product-name"><a href="/product_detail/${data_cart[prd_id].id}">${data_cart[prd_id].name.substring(0, 30)}</a></h3>
@@ -198,17 +194,13 @@
 
 					var qty = 1
 
-					if($("input[type='number']").length) {
+					if($("input[type='number']").length ) {
 						qty = parseInt($("input[type='number']").val());
 					} 	
 					
 					if (data_cart[`prd_${response.id}`]) {
 						// filterd_data_cart[`prd_${response.id}`].id = response.id
-<<<<<<< HEAD
 						data_cart[`prd_${response.id}`].qty = data_cart[`prd_${response.id}`].qty + qty
-=======
-						data_cart[`prd_${response.id}`].qty = data_cart[`prd_${response.id}`].qty + 1
->>>>>>> origin/manage-comment
 						// data_cart[`prd_${response.id}`].name = response.name
 						// data_cart[`prd_${response.id}`].price = data_cart[`prd_${response.id}`].price + response.price
 					} else {
@@ -217,11 +209,7 @@
 						data_cart[`prd_${response.id}`].qty = 1
 						data_cart[`prd_${response.id}`].name = response.name
 						data_cart[`prd_${response.id}`].price = response.price
-<<<<<<< HEAD
 						data_cart[`prd_${response.id}`].image = response.thumb
-=======
-						data_cart[`prd_${response.id}`].image = response.products_images[0].image
->>>>>>> origin/manage-comment
 					}
 
 					localStorage.setItem('data_cart', JSON.stringify(data_cart))

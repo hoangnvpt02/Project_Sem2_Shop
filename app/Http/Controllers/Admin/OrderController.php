@@ -45,7 +45,7 @@ class OrderController extends Controller
         $info = $request->input("checkout_info");
         $address = $request->input("checkout_info")['address'];
         $address_two = $request->input("checkout_info")['address_two'];
-        if ($address_two == "" || $address_two == null) {
+        if (($address_two == "" || $address_two == null)) {
             $address_default = $address;
         } else {
             $address_default = $address_two;

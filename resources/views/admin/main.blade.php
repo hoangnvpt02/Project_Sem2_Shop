@@ -13,13 +13,13 @@ Trang chủ
 @section('content')
 <div class="content-wrapper">
     @include('partials.content-header',['name'=>'Home','key'=>'Dashboard'])
-    @if(session('success'))
-    <div class="alert alert-success col-md-3">
-        {{ session('success') }}
-    </div>
-    @endif
     <div class="content">
         <div class="container-fluid">
+            @if(session('success'))
+            <div class="alert alert-success col-md-3">
+                {{ session('success') }}
+            </div>
+            @endif
             <div class="row">
                 <div class="col-lg-4 col-6">
                 <!-- small box -->
@@ -62,7 +62,7 @@ Trang chủ
                     <div class="icon">
                     <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="/admin/user" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="/admin/users" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
                 </div>
             </div>

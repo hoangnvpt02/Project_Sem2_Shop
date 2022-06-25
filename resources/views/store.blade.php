@@ -75,7 +75,7 @@ function search_price() {
                     <div class="col-md-4" style="height:600px">
                         <div class="product" data-prd-id="{{ $product->id }}">
                             <div class="product-img">
-                                <img src="/img/product01.png" alt="">
+                                <img src="/storage/{{ $product->thumb }}" alt="">
                                 <div class="product-label">
                                     <span class="new">
                                         <?php
@@ -88,7 +88,7 @@ function search_price() {
                                 </div>
                             </div>
                             <div class="product-body">
-                                <p class="product-category">Category</p>
+                                <p class="product-category">{{ $product->category->name }}</p>
                                 <h3 class="product-name"><a href="/product_detail/{{ $product->id }}"><span
                                             height="300px">{{ $product->name }}</span></a></h3>
                                 <h4 class="product-price">{{ number_format($product->price) }} VND</h4>

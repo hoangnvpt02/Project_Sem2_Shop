@@ -14,18 +14,18 @@ Trang chủ
 @section('content')
 <div class="content-wrapper">
     @include('partials.content-header',['name'=>'Order','key'=>'List'])
-    @if(session('success'))
-        <div class="alert alert-success col-md-3">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if(session('danger'))
-        <div class="alert alert-danger col-md-3">
-            {{ session('danger') }}
-        </div>
-    @endif
     <div class="content">
         <div class="container-fluid">
+            @if(session('success'))
+                <div class="alert alert-success col-md-3">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session('danger'))
+                <div class="alert alert-danger col-md-3">
+                    {{ session('danger') }}
+                </div>
+            @endif
             <table class="table">
                 <thead>
                 <tr>
@@ -46,7 +46,7 @@ Trang chủ
                         <td>{{ $order->users->name }}</td>
                         <td>{{ $order->users->phone }}</td>
                         <td>{{ $order->users->email }}</td>
-                        <td>{{ $order->users->address }}</td>
+                        <td>{{ $order->address }}</td>
                         <td>{{ $order->users->created_at }}</td>
                         <td>
                             @if ($order->status == 1)

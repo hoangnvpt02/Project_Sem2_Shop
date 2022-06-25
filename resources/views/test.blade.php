@@ -34,7 +34,7 @@ function search_price(){
         <div class="row">
             <div id="aside" class="col-md-3">
                 <div class="aside">
-                    <h3 class="aside-title">Categories</h3>
+                    <h3 class="aside-title"></h3>
                     <div class="checkbox-filter">
                         @foreach($categories as $category)
                         <div class="input-checkbox">

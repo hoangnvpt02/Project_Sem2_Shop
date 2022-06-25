@@ -23,6 +23,8 @@ use App\Http\Controllers\ResetPasswordControllerClient;
 use App\Http\Controllers\ProductClientController;
 use App\Http\Controllers\WebController;
 
+use App\Models\Category;
+
 /*
 |--------------------------------------------------------------------------
 | W
@@ -34,6 +36,21 @@ use App\Http\Controllers\WebController;
 |
 */
 Auth::routes();
+
+
+Route::get("/about-us", function() {
+    $categories = Category::where('status',1)->take(5)->get();
+
+    return view('about-us', compact("categories"));
+})->name('aboutUs');
+
+
+Route::get("/contact-us", function() {
+    $categories = Category::where('status',1)->take(5)->get();
+
+    return view('contact-us', compact("categories"));
+})->name('contactUs');
+    
 
 Route::get('/user/login', function () {
     return view('login');
@@ -158,16 +175,16 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
         Route::get('delete/{id}',[CommentProduct::class,'delete'])->name('admin.comment.delete');
     });
 
-    Route::prefix('discountcode')->group(function(){
-        Route::get('/',[DiscountCodeController::class,'index'])->name('admin.discountcode.index');
-        Route::get('add',[DiscountCodeController::class,'create'])->name('admin.discountcode.add');
-        Route::post('store',[DiscountCodeController::class,'store'])->name('admin.discountcode.store');
+    // Route::prefix('discountcode')->group(function(){
+    //     Route::get('/',[DiscountCodeController::class,'index'])->name('admin.discountcode.index');
+    //     Route::get('add',[DiscountCodeController::class,'create'])->name('admin.discountcode.add');
+    //     Route::post('store',[DiscountCodeController::class,'store'])->name('admin.discountcode.store');
 
-        Route::get('edit/{id}',[DiscountCodeController::class,'edit'])->name('admin.discountcode.edit');
-        Route::post('update/{id}',[DiscountCodeController::class,'update'])->name('admin.discountcode.update');
+    //     Route::get('edit/{id}',[DiscountCodeController::class,'edit'])->name('admin.discountcode.edit');
+    //     Route::post('update/{id}',[DiscountCodeController::class,'update'])->name('admin.discountcode.update');
 
-        Route::get('delete/{id}',[DiscountCodeController::class,'delete'])->name('admin.discountcode.delete');
-    });
+    //     Route::get('delete/{id}',[DiscountCodeController::class,'delete'])->name('admin.discountcode.delete');
+    // });
 
     Route::prefix('users')->group(function(){
         Route::get('/',[AdminUserController::class,'index'])->name('admin.user.index');
@@ -189,6 +206,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
         Route::post('/destroy', [OrderManagerController::class, 'destroy']);
     });
 });
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

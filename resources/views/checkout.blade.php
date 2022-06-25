@@ -16,15 +16,19 @@
                                 <h3 class="title">Billing address</h3>
                             </div>
                             <div class="form-group">
+                                <label>Name</label>
                                 <input class="input" type="text" name="name" placeholder="Name" value="{{ Auth::user()->name }}">
                             </div>
                             <div class="form-group">
+                                <label>Email</label>
                                 <input class="input" type="email" name="email" placeholder="Email" value="{{ Auth::user()->email }}">
                             </div>
                             <div class="form-group">
+                                <label>Phone</label>
                                 <input class="input" type="text" name="phone" placeholder="Phone" value="{{ Auth::user()->phone }}">
                             </div>
                             <div class="form-group">
+                                <label>Address</label>
                                 <input class="input" type="text" name="address" placeholder="Address" value="{{ Auth::user()->address }}">
                             </div>
                         </div>
@@ -43,6 +47,7 @@
                                 </label>
                                 <div class="caption">
                                     <div class="form-group">
+                                        <label>Address</label>
                                         <input class="input" type="text" name="address_two" placeholder="Address">
                                     </div>
                                 </div>

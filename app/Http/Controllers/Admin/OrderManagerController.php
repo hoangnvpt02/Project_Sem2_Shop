@@ -21,9 +21,8 @@ class OrderManagerController extends Controller
     }
 
     public function orderDetail(Request $request) {
-        $user = Auth::user();
 
-        $orders = Order::where('user_id', 1)->where('id', $request->id)->with('order_details.products.products_images')->with('users');
+        $orders = Order::where('id', $request->id)->with('order_details.products.products_images')->with('users')->get();
 
         return view('admin.order.detail', [
             'orders' => $orders

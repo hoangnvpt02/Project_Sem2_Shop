@@ -10,13 +10,13 @@ Trang chủ
 @section('content')
 <div class="content-wrapper">
     @include('partials.content-header',['name'=>'Banner','key'=>'List'])
-    @if(session('success'))
-    <div class="alert alert-success col-md-3">
-        {{ session('success') }}
-    </div>
-    @endif
     <div class="content">
         <div class="container-fluid">
+            @if(session('success'))
+            <div class="alert alert-success col-md-3">
+                {{ session('success') }}
+            </div>
+            @endif
             <div class="row">
                 <div class="col-md-12">
                    
@@ -30,8 +30,6 @@ Trang chủ
                                 <th scope="col">STT</th>
                                 <th scope="col">Hình ảnh</th>
                                 <th scope="col">Danh mục</th>
-                                <th scope="col">Người đăng</th>
-                                <th scope="col">Người cập nhật</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -41,8 +39,6 @@ Trang chủ
                                 <th scope="row">{{ $banner->id }}</th>
                                 <td><img src="{{ $banner->urlImage() }}" width="50px" height="auto"></td>
                                 <td>{{ $banner->categories->name }}</td>
-                                <td>{{ $banner->created_by }}</td>
-                                <td>{{ $banner->updated_by }}</td>
                                 <td>
                                     <a href="{{ route('admin.banner.edit',['id'=>$banner->id])}}"
                                         class="btn btn-success">Edit</a>

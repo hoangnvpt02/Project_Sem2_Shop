@@ -10,13 +10,13 @@ Trang chủ
 @section('content')
 <div class="content-wrapper">
     @include('partials.content-header',['name'=>'Product','key'=>'List'])
-    @if(session('success'))
-    <div class="alert alert-success col-md-3">
-        {{ session('success') }}
-    </div>
-    @endif
     <div class="content">
         <div class="container-fluid">
+            @if(session('success'))
+            <div class="alert alert-success col-md-3">
+                {{ session('success') }}
+            </div>
+            @endif
             <div class="row">
                 <div class="col-md-12">
                     <a href="{{ route('admin.product.add')}}" class="btn btn-success float-right m-2">Add</a>

@@ -13,7 +13,7 @@ class OrderClientController extends Controller
     public function order() {
         $user = Auth::user();
         $id = $user->id;
-        $orders = Order::where('user_id', $id)->with('order_details.products')
+        $orders = Order::where('user_id', $id)->with('order_details.products')->orderBy('id', 'desc')
         ->paginate(10);
 
         $categories = Category::where('status',1)->take(5)->get();

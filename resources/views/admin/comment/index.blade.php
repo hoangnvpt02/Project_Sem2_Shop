@@ -11,6 +11,16 @@ Trang chủ
     @include('partials.content-header',['name'=>'Manage','key'=>'comment'])
     <div class="content">
         <div class="container-fluid">
+            @if(session('success'))
+                <div class="alert alert-success col-md-3">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session('danger'))
+                <div class="alert alert-danger col-md-3">
+                    {{ session('danger') }}
+                </div>
+            @endif
             <table class="table">
                 <thead>
                 <tr>
@@ -51,8 +61,6 @@ Trang chủ
                                 <a class="btn btn-primary btn-sm" href="{{ route('admin.comment.show', ['id' => $comment->id]) }}">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
-                            </td>
-                            <td>
                                 <a class="btn btn-danger btn-sm delete-comment" href="{{ route('admin.comment.delete', ['id' => $comment->id]) }}">
                                     <i class="fa-solid fa-xmark"></i>
                                 </a>

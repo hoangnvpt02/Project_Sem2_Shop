@@ -62,7 +62,7 @@
                             <h3 class="product-price">{{ number_format($products->price) }} <del class="product-old-price">{{ number_format($products->price) }}</del></h3>
                             <span class="product-available">In Stock</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p>{{ $products->description }}</p>
 
                         <div class="product-options add-to-cart">
                             <div class="qty-label">
@@ -160,24 +160,20 @@
                                         <div id="review-form">
                                             <form class="review-form" id="comment_product" enctype="multipart/form-data">
                                                 <input type="hidden" name="product_id" value="{{ $products->id }}">
-                                                @if (!Auth::check())
-                                                    <input class="input" type="text" name="name" placeholder="Your Name" require>
-                                                    <input class="input" type="email" name="email" placeholder="Your Email" require>
-                                                    <textarea class="input" style="min-height: 6.5em" name="content" placeholder="Your Review" require></textarea>
-                                                @else
-                                                    <textarea class="input content-comment_product" name="content" placeholder="Your Review" require></textarea>
-                                                @endif
-                                                <div class="input-rating">
-                                                    <span>Your Rating: </span>
-                                                    <div class="stars">
-                                                        <input id="star5" name="star" value="5" type="radio"><label for="star5"></label>
-                                                        <input id="star4" name="star" value="4" type="radio"><label for="star4"></label>
-                                                        <input id="star3" name="star" value="3" type="radio"><label for="star3"></label>
-                                                        <input id="star2" name="star" value="2" type="radio"><label for="star2"></label>
-                                                        <input id="star1" name="star" value="1" type="radio"><label for="star1"></label>
+                                                @if (Auth::check())
+                                                    <textarea class="input content-comment_product" name="content" placeholder="Your Review" required></textarea>
+                                                    <div class="input-rating">
+                                                        <span>Your Rating: </span>
+                                                        <div class="stars">
+                                                            <input id="star5" name="star" value="5" type="radio"><label for="star5"></label>
+                                                            <input id="star4" name="star" value="4" type="radio"><label for="star4"></label>
+                                                            <input id="star3" name="star" value="3" type="radio"><label for="star3"></label>
+                                                            <input id="star2" name="star" value="2" type="radio"><label for="star2"></label>
+                                                            <input id="star1" name="star" value="1" type="radio"><label for="star1"></label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <button class="primary-btn">Submit</button>
+                                                    <button class="primary-btn">Submit</button>
+                                                @endif
                                             </form>
                                         </div>
                                     </div>
