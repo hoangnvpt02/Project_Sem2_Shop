@@ -11,7 +11,9 @@
     <div class="content-wrapper">
         @include('partials.content-header', ['name' => 'Category', 'key' => 'List'])
         @if (session('success'))
-            <div class="alert alert-success col-md-3">
+            <div class="alert alert-success" style="height: 50px; width: 100px;width: 200px;
+            text-align: center;
+            margin-left: 20px;">
                 {{ session('success') }}
             </div>
         @endif

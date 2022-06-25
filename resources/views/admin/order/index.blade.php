@@ -13,7 +13,7 @@ Trang chủ
 @endsection
 @section('content')
 <div class="content-wrapper">
-    @include('partials.content-header',['name'=>'Product','key'=>'List'])
+    @include('partials.content-header',['name'=>'Order','key'=>'List'])
     @if(session('success'))
         <div class="alert alert-success col-md-3">
             {{ session('success') }}
@@ -55,20 +55,30 @@ Trang chủ
                                 <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
                             @elseif ($order->status == 3)
                                 <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
-                            @else
+                            @elseif ($order->status == 4)
+                                <span class="badge rounded-pill" style="background-color: green">Đã nhận hàng thành công</span>
+                            @elseif ($order->status == 0)
                                 <span class="badge rounded-pill" style="background-color: red">Đã hủy</span>
                             @endif
                         </td>
                         <td>
-                            <a class="btn btn-primary btn-sm" onclick="updateRow({{ $order->id }}, '/admin/order/confirm')">
-                                <i class="fa-solid fa-check"></i>
-                            </a>
+                            @if ($order->status == 1)
+                                <a class="btn btn-primary btn-sm" onclick="confirmOrder({{ $order->id }}, '/admin/order/confirm')">
+                                    <i class="fa-solid fa-check"></i>
+                                </a>
+                            @elseif ($order->status == 2)
+                                <a class="btn btn-primary btn-sm" onclick="ship({{ $order->id }}, '/admin/order/ship')">
+                                    <i class="fa-solid fa-truck-fast"></i>
+                                </a>
+                            @endif
                             <a class="btn btn-primary btn-sm" href="/admin/order/detail/{{ $order->id }}">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-                            <a class="btn btn-danger btn-sm" onclick="removeRow({{ $order->id }}, '/admin/order/destroy')">
+                            @if ($order->status == 1)
+                            <a class="btn btn-danger btn-sm" onclick="cancel({{ $order->id }}, '/admin/order/destroy')">
                                 <i class="fa-solid fa-xmark"></i>
                             </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

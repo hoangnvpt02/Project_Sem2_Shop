@@ -23,7 +23,7 @@ class OrderManagerController extends Controller
     public function orderDetail(Request $request) {
         $user = Auth::user();
 
-        $orders = Order::where('user_id', 1)->where('id', $request->id)->with('order_details.products')->with('users')
+        $orders = Order::where('user_id', 1)->where('id', $request->id)->with('order_details.products.products_images')->with('users')
         ->paginate(10);
 
         return view('admin.order.detail', [
@@ -33,12 +33,12 @@ class OrderManagerController extends Controller
 
     public function destroy(Request $request)
     {
-        $result = $this->deleteOrder($request);
+        $result = $this->cancelOrder($request);
 
         if ($result) {
             return response()->json([
                 'error' => false,
-                'message' => 'Xóa đơn hàng thành công'
+                'message' => 'Hủy đơn hàng thành công'
             ]);
         }
 
@@ -142,7 +142,7 @@ class OrderManagerController extends Controller
         $order = Order::where('id', $id)->first();
         try {
             if ($order) {
-                Order::where('id', $id)->update(['status' => 3]);
+                Order::where('id', $id)->update(['status' => 0]);
             }
         } catch (\Exception $err) {
             Log::error('Error updating ship order');

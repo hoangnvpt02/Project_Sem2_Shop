@@ -2,10 +2,10 @@
 	<!-- TOP HEADER -->
 	<div id="top-header">
 		<div class="container">
-			<ul class="header-links pull-left">
-				<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-				<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-				<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+			<ul class="header-links pull-left" style="color:#fff">
+				<li><i class="fa fa-phone"></i> +84373532666</a></li>
+				<li><i class="fa fa-envelope-o"></i> shoptechhn@gmail.com</a></li>
+				<li><i class="fa fa-map-marker"></i> 08 Ton That Thuyet,HaNoi</a></li>
 			</ul>
 			<ul class="header-links pull-right">
 				<!-- <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li> -->
@@ -43,7 +43,7 @@
 				<!-- /LOGO -->
 
 				<!-- SEARCH BAR -->
-				<div class="col-md-6">
+				<div class="col-md-7">
 					<div class="header-search">
 							<div style="position:relative">
 								<input class="form-control" id="search-product" placeholder="Search product here...">
@@ -54,16 +54,16 @@
 				<!-- /SEARCH BAR -->
 
 				<!-- ACCOUNT -->
-				<div class="col-md-3 clearfix">
+				<div class="col-md-2 clearfix">
 					<div class="header-ctn">
 						<!-- Wishlist -->
-						<div>
+						{{-- <div>
 							<a href="#">
 								<i class="fa fa-heart-o"></i>
 								<span>Your Wishlist</span>
 								<div class="qty">2</div>
 							</a>
-						</div>
+						</div> --}}
 						<!-- /Wishlist -->
 
 						<!-- Cart -->

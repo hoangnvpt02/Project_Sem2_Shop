@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\GiftController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ProductController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderManagerController;
+use App\Http\Controllers\Admin\CommentProduct;
 use App\Http\Controllers\OrderClientController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SearchControllerClient;
@@ -49,9 +51,6 @@ Route::get('/user/reset', function () {
 })->name('user.reset');
 Route::post('/user/reset', [ResetPasswordControllerClient::class, 'reset'])->name('user.reset');
 
-Route::get('/', function () {
-    return view('home');
-})->name('home.client');
 //home
 Route::get('/',[WebController::class,'index'])->name('web.home.index');
 
@@ -63,13 +62,9 @@ Route::get('category/{price_min}/{price_max}',[WebController::class,'category_se
 Route::get('category/{slug}',[WebController::class,'category_search'])->name('web.category.search');
 
 Route::prefix('product_detail')->group(function() {
-    Route::get('/{slug}', [ProductClientController::class, 'indexProduct'])->name('product_detail.index');
+    Route::get('/{id}', [ProductClientController::class, 'indexProduct'])->name('product_detail.index');
     Route::post('/comment_product', [ProductClientController::class,'commentProduct']);
 });
-
-Route::get('/checkout', function () {
-    return view('checkout');
-})->middleware('auth.user')->name('checkout');
 
 Route::get('/blank', function () {
     return view('blank');
@@ -80,13 +75,14 @@ Route::get('/order', [OrderClientController::class, 'order'])->name('order');
 
 Route::get('/order-detail/{id}', [OrderClientController::class, 'orderDetail'])->name('order-detail');
 Route::post('/order-cancel/{id}', [OrderClientController::class, 'cancelOrder'])->name('order-cancel');
+Route::post('/order-received', [OrderClientController::class, 'receivedOrder'])->name('order-received');
 
 
 
 Route::get("/show-cart-modal", [OrderController::class, 'showCartModal'])->name('showCartModal');
 Route::post("/add-to-cart", [OrderController::class, 'addToCart'])->name('addToCart');
 
-Route::get('/checkout', [OrderController::class, 'showCheckout'])->name("checkout");
+Route::get('/checkout', [OrderController::class, 'showCheckout'])->middleware('auth.user')->name('checkout');
 
 Route::post("/checkout", [OrderController::class, 'doCheckout'])->name('do.checkout');
 
@@ -94,6 +90,7 @@ Route::post("/checkout", [OrderController::class, 'doCheckout'])->name('do.check
 
 Route::prefix('admin')->middleware('auth:admin')->group(function(){
     Route::get('/',[HomeController::class,'index'])->name('admin.main');
+
     Route::prefix('admins')->group(function(){
         Route::get('/',[AdController::class,'index'])->name('admin.admins.index');
         
@@ -105,6 +102,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
 
         Route::get('delete/{id}',[AdController::class,'delete'])->name('admin.admins.delete');
     });
+
     Route::prefix('category')->group(function(){
         Route::get('/',[CategoryController::class,'index'])->name('admin.category.index');
         
@@ -116,6 +114,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
 
         Route::get('delete/{id}',[CategoryController::class,'delete'])->name('admin.category.delete');
     });
+
     Route::prefix('banner')->group(function(){
         Route::get('/',[BannerController::class,'index'])->name('admin.banner.index');
         
@@ -127,17 +126,18 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
 
         Route::get('delete/{id}',[BannerController::class,'delete'])->name('admin.banner.delete');
     });
-    Route::prefix('gift')->group(function(){
-        Route::get('/',[GiftController::class,'index'])->name('admin.gift.index');
+
+    // Route::prefix('gift')->group(function(){
+    //     Route::get('/',[GiftController::class,'index'])->name('admin.gift.index');
         
-        Route::get('add',[GiftController::class,'create'])->name('admin.gift.add');
-        Route::post('store',[GiftController::class,'store'])->name('admin.gift.store');
+    //     Route::get('add',[GiftController::class,'create'])->name('admin.gift.add');
+    //     Route::post('store',[GiftController::class,'store'])->name('admin.gift.store');
 
-        Route::get('edit/{id}',[GiftController::class,'edit'])->name('admin.gift.edit');
-        Route::post('update/{id}',[GiftController::class,'update'])->name('admin.gift.update');
+    //     Route::get('edit/{id}',[GiftController::class,'edit'])->name('admin.gift.edit');
+    //     Route::post('update/{id}',[GiftController::class,'update'])->name('admin.gift.update');
 
-        Route::get('delete/{id}',[GiftController::class,'delete'])->name('admin.gift.delete');
-    });
+    //     Route::get('delete/{id}',[GiftController::class,'delete'])->name('admin.gift.delete');
+    // });
 
     Route::prefix('product')->group(function(){
         Route::get('/',[ProductController::class,'index'])->name('admin.product.index');
@@ -151,16 +151,11 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
         Route::get('delete/{id}',[ProductController::class,'delete'])->name('admin.product.delete');
         Route::get('deleteImage/{id}',[ProductController::class,'deleteImage'])->name('admin.product.deleteImage');
     });
-    Route::prefix('discount')->group(function(){
-        Route::get('/',[DiscountController::class,'index'])->name('admin.discount.index');
-        
-        Route::get('add',[DiscountController::class,'create'])->name('admin.discount.add');
-        Route::post('store',[DiscountController::class,'store'])->name('admin.discount.store');
 
-        Route::get('edit/{id}',[DiscountController::class,'edit'])->name('admin.discount.edit');
-        Route::post('update/{id}',[DiscountController::class,'update'])->name('admin.discount.update');
-
-        Route::get('delete/{id}',[DiscountController::class,'delete'])->name('admin.discount.delete');
+    Route::prefix('comment')->group(function(){
+        Route::get('/',[CommentProduct::class,'index'])->name('admin.comment.index');
+        Route::get('show/{id}',[CommentProduct::class,'show'])->name('admin.comment.show');
+        Route::get('delete/{id}',[CommentProduct::class,'delete'])->name('admin.comment.delete');
     });
 
     Route::prefix('discountcode')->group(function(){
@@ -185,25 +180,13 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
 
         Route::get('delete/{id}',[AdminUserController::class,'delete'])->name('admin.user.delete')->middleware('can:delete_user');
     });
-    
-    Route::prefix('receipt')->group(function(){
-        Route::get('/',[AdminReceiptController::class,'index'])->name('admin.receipt.index');
-        Route::get('add',[AdminReceiptController::class,'create'])->name('admin.receipt.add');
-        Route::post('store',[AdminReceiptController::class,'store'])->name('admin.receipt.store');
-
-        Route::get('edit/{id}',[AdminReceiptController::class,'edit'])->name('admin.receipt.edit');
-        Route::post('update/{id}',[AdminReceiptController::class,'update'])->name('admin.receipt.update');
-
-        Route::get('delete/{id}',[AdminReceiptController::class,'delete'])->name('admin.receipt.delete');
-
-        Route::get('detailReceipt/{id}',[AdminReceiptController::class,'detailList'])->name('admin.detailReceipt.index');
-    });
 
     Route::prefix('order')->group(function(){
         Route::get('/',[OrderManagerController::class,'index'])->name('admin.order.index');
         Route::get('/detail/{id}',[OrderManagerController::class,'orderDetail'])->name('admin.order.detail');
         Route::post('/confirm', [OrderManagerController::class, 'updateConfirmOrder']);
-        Route::DELETE('/destroy', [OrderManagerController::class, 'destroy']);
+        Route::post('/ship', [OrderManagerController::class, 'updateShipOrder']);
+        Route::post('/destroy', [OrderManagerController::class, 'destroy']);
     });
 });
 Auth::routes();

@@ -13,9 +13,11 @@
                 <!-- Product main img -->
                 <div class="col-md-5 col-md-push-2">
                     <div id="product-main-img">
+                        @foreach($products->products_images as $images)
                         <div class="product-preview">
-                            <img src="{{ $products->thumb }}" alt="">
+                            <img src="{{ $images->image }}" alt="">
                         </div>
+                        @endforeach
                     </div>
                 </div>
                 <!-- /Product main img -->
@@ -45,13 +47,13 @@
                                         <i class="fa fa-star"></i>
                                     @endfor
 
-                                    {{ show_star_comment_product($rating->average_star) }}
+                                    {{ ($rating->average_star) }}
                                 @endforeach
                             </div>
                             <a class="review-link" href="#">{{ $products->comment_products->count() }} Review(s) | Add your review</a>
                         </div>
                         <div>
-                            <h3 class="product-price">{{ currency_format($products->price) }} <del class="product-old-price">{{ currency_format($products->price) }}</del></h3>
+                            <h3 class="product-price">{{ number_format($products->price) }} <del class="product-old-price">{{ number_format($products->price) }}</del></h3>
                             <span class="product-available">In Stock</span>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -134,8 +136,6 @@
                                                                 @for ($i = 0; $i < $comment->star; $i++) 
                                                                     <i class="fa fa-star"></i>
                                                                 @endfor
-
-                                                                {{ show_star_comment_product($comment->star) }}
                                                             </div>
                                                         </div>
                                                         <div class="review-body">
@@ -221,19 +221,21 @@
                     <div class="col-md-3 col-xs-6">
                         <div class="product">
                             <div class="product-img">
-                                <img src="{{ $relateds->thumb }}" alt="">
+                                @if (count($relateds->products_images) > 0) 
+                                <img src="{{ $relateds->products_images[0]->image }}" alt="">
+                                @endif
                             </div>
                             <div class="product-body">
                                 <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">{{ $relateds->name }}</a></h3>
-                                <h4 class="product-price">{{ currency_format($relateds->price) }} <del class="product-old-price">{{ currency_format($relateds->price) }}</del></h4>
+                                <h3 class="product-name"><a href="/product_detail/{{ $relateds->id }}">{{ $relateds->name }}</a></h3>
+                                <h4 class="product-price">{{ number_format($relateds->price) }} <del class="product-old-price">{{ number_format($relateds->price) }}</del></h4>
                                 <div class="product-rating">
                                 </div>
                                 <div class="product-btns">
                                     <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
                                     <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
                                     <button class="quick-view">
-                                        <a href="/product_detail/{{ $relateds->slug }}">
+                                        <a href="/product_detail/{{ $relateds->id }}">
                                             <i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
                                         </a>
                                     </button>

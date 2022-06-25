@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Order_detail;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -16,24 +18,27 @@ class OrderController extends Controller
     public function showCartModal(Request $request) {
         $prd_id = $request->input("prd_id");
 
-        $product = Product::find($prd_id);
+        $product = Product::find($prd_id)->with('products_images');
         
         return view('modal.showCartModal', compact('product'));
-        // return view('modal.showCartModal', compact('product'));
     }
 
     public function addToCart(Request $request) {
         $prd_id = $request->input("prd_id");
 
-        $product = Product::find($prd_id);
+        $product = Product::where(['id' => $prd_id])->with('products_images')->first();
         
         return $product;
     }
 
     public function showCheckout() {
         $categories = Category::where('status',1)->take(5)->get();
-
-        return view('checkout', compact("categories"));
+        $user_id = Auth::user()->id;
+        $user_information = User::where('id', $user_id)->with('information_users')->get();
+        return view('checkout', [
+            "categories" => $categories,
+            'user_information' => $user_information
+        ]);
     }
 
     public function doCheckout(Request $request) {
@@ -43,7 +48,8 @@ class OrderController extends Controller
             'note'=> $info["order_note"],
             'status'=> 1,
             'user_id'=> 1,
-            'infomation_user_id'=> 1,
+            'information_user_id'=> 1,
+            'discounts_code_id'=> 1,
             'delivery_time' => date('Y-m-d')
         ])->id;
 

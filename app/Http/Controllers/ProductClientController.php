@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
-use App\Models\Category;
 use App\Models\Comment_product;
 use App\Models\Products_color;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +15,8 @@ class ProductClientController extends Controller
 {
     public function indexProduct(Request $request)
     {
+        $categories = Category::where('status',1)->take(5)->get();
+
         $products = [];
         $products_colors = [];
         $products_relateds = [];
@@ -23,7 +25,7 @@ class ProductClientController extends Controller
         $categories = Category::take(5)->get();
 
         $products = Product::query()
-        ->where('slug', $request->slug)
+        ->where('id', $request->id)
         ->with('avg_rating_comment')
         ->with('products_images')
         ->with('products_color')
@@ -89,7 +91,7 @@ class ProductClientController extends Controller
         $comment_product->content = $request->content;
         $comment_product->star = $request->star;
         if (Auth::check()) {
-            $comment_product->user_id = 1;
+            $comment_product->user_id = Auth::id();
         } else {
             $comment_product->name = $request->name;
             $comment_product->email = $request->email;
