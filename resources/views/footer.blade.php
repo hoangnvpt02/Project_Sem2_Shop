@@ -1,4 +1,4 @@
-<footer id="footer">
+<footer style="margin-top: 60px;" id="footer">
 	<!-- top footer -->
 	<div class="section">
 		<!-- container -->
@@ -53,7 +53,7 @@
 					</div>
 				</div> --}}
 			</div>
-			<!-- /row -->
+			<!-- /row -->z`
 		</div>
 		<!-- /container -->
 	</div>
@@ -171,6 +171,10 @@
 
 			var prd_id = $(this).closest(".product").data("prd-id")
 
+			if(!prd_id) {
+				prd_id = $(this).closest(".product-details").data("prd-id")
+			}
+
 			$.ajax({
 				type: "POST",
 				url: "{{ route('addToCart') }}",
@@ -187,10 +191,16 @@
 					} else {
 						data_cart = JSON.parse(data_cart)
 					}
+
+					var qty = 1
+
+					if($("input[type='number']").length) {
+						qty = parseInt($("input[type='number']").val());
+					} 	
 					
 					if (data_cart[`prd_${response.id}`]) {
 						// filterd_data_cart[`prd_${response.id}`].id = response.id
-						data_cart[`prd_${response.id}`].qty = data_cart[`prd_${response.id}`].qty + 1
+						data_cart[`prd_${response.id}`].qty = data_cart[`prd_${response.id}`].qty + qty
 						// data_cart[`prd_${response.id}`].name = response.name
 						// data_cart[`prd_${response.id}`].price = data_cart[`prd_${response.id}`].price + response.price
 					} else {

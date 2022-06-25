@@ -33,7 +33,7 @@ Trang chủ
                     <th>Tên Khách Hàng</th>
                     <th>Số Điện Thoại</th>
                     <th>Email</th>
-                    {{-- <th>Địa Chỉ</th> --}}
+                    <th>Địa Chỉ</th>
                     <th>Ngày Đặt Hàng</th>
                     <th>Xác nhận</th>
                     <th>&nbsp;</th>
@@ -46,7 +46,7 @@ Trang chủ
                         <td>{{ $order->users->name }}</td>
                         <td>{{ $order->users->phone }}</td>
                         <td>{{ $order->users->email }}</td>
-                        {{-- <td>{{ $order->users->address }}</td> --}}
+                        <td>{{ $order->users->address }}</td>
                         <td>{{ $order->users->created_at }}</td>
                         <td>
                             @if ($order->status == 1)

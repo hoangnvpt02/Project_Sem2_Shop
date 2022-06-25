@@ -16,15 +16,14 @@ class OrderManagerController extends Controller
     private $order = Order::class;
     public function index()
     {
-        $orders = Order::with('users')->with('order_details')->paginate(10);
+        $orders = Order::with('users')->with('order_details')->orderBy('id','desc')->paginate(10);
         return view('admin.order.index', compact('orders'));
     }
 
     public function orderDetail(Request $request) {
         $user = Auth::user();
 
-        $orders = Order::where('user_id', 1)->where('id', $request->id)->with('order_details.products.products_images')->with('users')
-        ->paginate(10);
+        $orders = Order::where('user_id', 1)->where('id', $request->id)->with('order_details.products.products_images')->with('users');
 
         return view('admin.order.detail', [
             'orders' => $orders

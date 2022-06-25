@@ -44,6 +44,7 @@ class ProductClientController extends Controller
             $products_comments = Comment_product::query()
             ->leftJoin('users', 'users.id', 'comment_products.user_id')
             ->where('comment_products.product_id', $products->id)
+            ->orderBy('comment_products.id', 'desc')
             ->select([
                 'comment_products.id',
                 'comment_products.content',
@@ -91,7 +92,7 @@ class ProductClientController extends Controller
         $comment_product->content = $request->content;
         $comment_product->star = $request->star;
         if (Auth::check()) {
-            $comment_product->user_id = 1;
+            $comment_product->user_id = Auth::id();
         } else {
             $comment_product->name = $request->name;
             $comment_product->email = $request->email;

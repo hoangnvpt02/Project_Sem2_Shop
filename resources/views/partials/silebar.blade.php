@@ -57,19 +57,13 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.product.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
-                        <p>Sản Phẩm</p>
+                        <p>Quản lý sản phẩm</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.banner.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
-                        <p>Banner</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.user.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>Quản lý user</p>
+                        <p>Quản lý banner</p>
                     </a>
                 </li>
                 <li class="nav-item">

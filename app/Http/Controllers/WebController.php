@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Comment_product;
 use App\Models\Order_detail;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,31 @@ use Illuminate\Http\Request;
 class WebController extends Controller
 {
     //home
-    public function index(){
-        $categories = Category::where('status',1)->take(5)->get();
-        $products = Product::latest()->take(5)->get();
+    public function index()
+    {
+        $categories = Category::where('status', 1)->take(5)->get();
+        $products = Product::latest()
+        ->join('categories', 'categories.id', '=', 'products.category_id')
+        ->where('products.status', 1)
+        ->where('categories.status', 1)
+        ->with('avg_rating_comment')
+        ->take(8)
+        ->select(
+            'products.id',
+            'products.name',
+            'products.slug',
+            'products.price',
+            'products.thumb',
+            'products.description',
+            'products.status',
+            'products.category_id',
+            'products.created_by',
+            'products.updated_by',
+            'products.created_at',
+            'products.updated_at',
+        )
+        ->get();
+
         $banners = Banner::latest()->take(4)->get();
 
         $list_sell = [];
@@ -38,7 +61,7 @@ class WebController extends Controller
         arsort($list_sell);
         $top_sell = [];
         $i = 0;
-        foreach($list_sell as $key => $value) {
+        foreach ($list_sell as $key => $value) {
             $i++;
             $top_sell[] = $key;
             if ($i == 6) {
@@ -46,49 +69,51 @@ class WebController extends Controller
             }
         }
 
-        $products_top = Product::whereIn('id', $top_sell)->get();
+        $products_top = Product::whereIn('id', $top_sell)->with('avg_rating_comment')->with('category')->take(8)->get();
+        
 
-           
         // dd(json_encode($products_top));
-        return view('home',compact('categories','products','banners','products_top',));
+        return view('home', compact('categories', 'products', 'banners', 'products_top',));
     }
     //category
-    public function category(){
-        $categories = Category::where('status',1)->take(5)->get();
-        $products = Product::where('status',1)->paginate(9);
+    public function category()
+    {
+        $categories = Category::where('status', 1)->take(5)->get();
+        $products = Product::where('status', 1)->with('avg_rating_comment')->paginate(9);
         $today = date("Y-m-d h:m:s");
 
-        return view('store',compact('categories','products'));
+        return view('store', compact('categories', 'products'));
     }
-    public function category_search($slug){
-        $categories = Category::where('status',1)->take(5)->get();
-        $category = Category::where('slug',$slug)->first();
-        
-        $products = Product::where('category_id',$category->id)->with('products_images')->paginate(9);
+    public function category_search($slug)
+    {
+        $categories = Category::where('status', 1)->take(5)->get();
+        $category = Category::where('slug', $slug)->first();
+
+        $products = Product::where('category_id', $category->id)->with('avg_rating_comment')->with('products_images')->paginate(9);
         // dd($products);
-       
-        return view('test',compact('products','categories','category'));
+
+        return view('test', compact('products', 'categories', 'category'));
     }
 
 
-    public function category_search_test($slug){
-        $categories = Category::where('status',1)->take(5)->get();
-        $category = Category::where('slug',$slug)->first();
-        
-        $products = Product::where('category_id',$category->id)->paginate(9);
-        
+    public function category_search_test($slug)
+    {
+        $categories = Category::where('status', 1)->take(5)->get();
+        $category = Category::where('slug', $slug)->first();
+
+        $products = Product::where('category_id', $category->id)->with('avg_rating_comment')->paginate(9);
+
         $xd = 0;
-       
-        return view('strore_search',compact('products','categories','category','xd'));
+
+        return view('strore_search', compact('products', 'categories', 'category', 'xd'));
     }
-    public function category_search_price($price_min,$price_max){
-        $categories = Category::where('status',1)->take(5)->get();
-        $products = Product::whereBetween('price',[$price_min,$price_max])->paginate(9);
-      
+    public function category_search_price($price_min, $price_max)
+    {
+        $categories = Category::where('status', 1)->take(5)->get();
+        $products = Product::whereBetween('price', [$price_min, $price_max])->with('avg_rating_comment')->paginate(9);
+
 
         $xd = 1;
-        return view('strore_search',compact('products','categories','xd','price_min','price_max'));
+        return view('strore_search', compact('products', 'categories', 'xd', 'price_min', 'price_max'));
     }
-
-   
 }

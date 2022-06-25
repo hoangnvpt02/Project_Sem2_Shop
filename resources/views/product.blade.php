@@ -53,13 +53,14 @@
                                         <i class="fa fa-star"></i>
                                     @endfor
 
-                                    {{ ($rating->average_star) }}
+                                    {!! show_star_comment_product($rating->average_star) !!}
                                 @endforeach
                             </div>
                             <a class="review-link" href="#">{{ $products->comment_products->count() }} Review(s) | Add your review</a>
                         </div>
                         <div>
-                            <h3 class="product-price">{{ number_format($products->price) }} VND</h3>
+                            <h3 class="product-price">{{ number_format($products->price) }} <del class="product-old-price">{{ number_format($products->price) }}</del></h3>
+                            <span class="product-available">In Stock</span>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
@@ -133,6 +134,7 @@
                                                                 @for ($i = 0; $i < $comment->star; $i++) 
                                                                     <i class="fa fa-star"></i>
                                                                 @endfor
+                                                                {!! show_star_comment_product($comment->star) !!}
                                                             </div>
                                                         </div>
                                                         <div class="review-body">

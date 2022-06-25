@@ -16,22 +16,16 @@
                                 <h3 class="title">Billing address</h3>
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="first-name" placeholder="Name" value="{{ Auth::user()->name }}">
+                                <input class="input" type="text" name="name" placeholder="Name" value="{{ Auth::user()->name }}">
                             </div>
                             <div class="form-group">
                                 <input class="input" type="email" name="email" placeholder="Email" value="{{ Auth::user()->email }}">
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="city" placeholder="City" value="{{ Auth::user()->phone }}">
+                                <input class="input" type="text" name="phone" placeholder="Phone" value="{{ Auth::user()->phone }}">
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="country" placeholder="Country" value="{{ Auth::user()->name }}">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="zip-code" placeholder="ZIP Code" value="{{ Auth::user()->name }}">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="tel" name="tel" placeholder="Telephone" value="{{ Auth::user()->name }}">
+                                <input class="input" type="text" name="address" placeholder="Address" value="{{ Auth::user()->address }}">
                             </div>
                         </div>
                         <!-- /Billing Details -->
@@ -45,32 +39,11 @@
                                 <input type="checkbox" name="shipping_address" id="shiping-address">
                                 <label for="shiping-address">
                                     <span></span>
-                                    Ship to a diffrent address?
+                                    Ship to a diffrent address ?
                                 </label>
                                 <div class="caption">
                                     <div class="form-group">
-                                        <input class="input" type="text" name="first_name" placeholder="First Name">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="input" type="text" name="last_name" placeholder="Last Name">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="input" type="email" name="_email" placeholder="Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="input" type="text" name="_address" placeholder="Address">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="input" type="text" name="_city" placeholder="City">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="input" type="text" name="_country" placeholder="Country">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="input" type="text" name="_zip_code" placeholder="ZIP Code">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="input" type="tel" name="_tel" placeholder="Telephone">
+                                        <input class="input" type="text" name="address_two" placeholder="Address">
                                     </div>
                                 </div>
                             </div>

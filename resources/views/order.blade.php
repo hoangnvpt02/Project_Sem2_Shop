@@ -14,7 +14,7 @@
             </div>
         @endif
         @foreach($orders as $order)
-        <div class="panel panel-default" style="margin-top: 25px; margin-bottom: 0;">
+        <div class="panel panel-default" style="margin-top: 25px; margin-bottom: 20px;">
             <div class="panel-body">
                 <!-- Title -->
                 <div class="d-flex justify-content-between align-items-center py-3">

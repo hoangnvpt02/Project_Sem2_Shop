@@ -43,11 +43,19 @@ class OrderController extends Controller
 
     public function doCheckout(Request $request) {
         $info = $request->input("checkout_info");
+        $address = $request->input("checkout_info")['address'];
+        $address_two = $request->input("checkout_info")['address_two'];
+        if ($address_two == "" || $address_two == null) {
+            $address_default = $address;
+        } else {
+            $address_default = $address_two;
+        }
 
         $id = Order::create([
             'note'=> $info["order_note"],
             'status'=> 1,
             'user_id'=> Auth::user()->id,
+            'address' => $address_default
         ])->id;
 
         // $data_cart = json_decode($info["data_cart"], true);

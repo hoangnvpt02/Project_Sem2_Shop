@@ -16,7 +16,7 @@ class ProductController extends Controller
     use DeleteModelTrait;
     private $pro = Product::class;
     public function index(){
-        $products = Product::latest()->paginate(10);
+        $products = Product::latest()->orderBy('id', 'desc')->paginate(10);
         return view('admin.product.index',compact('products'));
     }
     public function create(){

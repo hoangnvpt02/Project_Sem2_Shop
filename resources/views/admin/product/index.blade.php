@@ -41,7 +41,7 @@ Trang chủ
                                 <th scope="row">{{ $product->id }}</th>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->price }}</td>
-                                <td>{{ $product->thumb}}</td>
+                                <td><img style="width: 100px" src="/storage/{{ $product->thumb}}" alt=""></td>
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->status == 0 ? 'không hoạt động' : 'hoạt động'}}</td>

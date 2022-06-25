@@ -2,27 +2,28 @@
     if (! function_exists('show_star_comment_product')) {
         function show_star_comment_product($star)
         {
+            $star = round($star);
             switch ($star) {
                 case 1:
-                    echo '
+                    return '
                         <i class="fa fa-star-o empty"></i>
                         <i class="fa fa-star-o empty"></i>
                         <i class="fa fa-star-o empty"></i>
                         <i class="fa fa-star-o empty"></i>';
                     break;
                 case 2:
-                    echo '
+                    return '
                         <i class="fa fa-star-o empty"></i>
                         <i class="fa fa-star-o empty"></i>
                         <i class="fa fa-star-o empty"></i>';
                     break;
                 case 3:
-                    echo '
+                    return '
                         <i class="fa fa-star-o empty"></i>
                         <i class="fa fa-star-o empty"></i>';
                     break;
                 case 4:
-                    echo '
+                    return '
                         <i class="fa fa-star-o empty"></i>';
                     break;
             }
