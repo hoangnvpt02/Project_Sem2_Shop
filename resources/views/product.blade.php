@@ -13,9 +13,12 @@
                 <!-- Product main img -->
                 <div class="col-md-5 col-md-push-2">
                     <div id="product-main-img">
+                        <div class="product-preview">
+                            <img src="/storage/{{ $products->thumb }}" alt="">
+                        </div>
                         @foreach($products->products_images as $images)
                         <div class="product-preview">
-                            <img src="{{ $images->image }}" alt="">
+                            <img src="/storage/{{ $images->image }}" alt="">
                         </div>
                         @endforeach
                     </div>
@@ -25,10 +28,13 @@
                 <!-- Product thumb imgs -->
                 <div class="col-md-2  col-md-pull-5">
                     <div id="product-imgs">
+                        <div class="product-preview">
+                            <img src="/storage/{{ $products->thumb }}" alt="">
+                        </div>
                         @if (!empty($products->products_images))
                             @foreach ($products->products_images as $images)
                                 <div class="product-preview">
-                                    <img src="{{ $images->image }}" alt="">
+                                    <img src="/storage/{{ $images->image }}" alt="">
                                 </div>
                             @endforeach
                         @endif
@@ -224,7 +230,7 @@
                         <div class="product">
                             <div class="product-img">
                                 @if (count($relateds->products_images) > 0) 
-                                <img src="{{ $relateds->products_images[0]->image }}" alt="">
+                                <img src="/storage/{{ $relateds->products_images[0]->image }}" alt="">
                                 @endif
                             </div>
                             <div class="product-body">

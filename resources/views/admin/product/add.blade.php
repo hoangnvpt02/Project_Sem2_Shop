@@ -24,41 +24,48 @@ Trang chủ
                     <div class="col-md-6">
                         @csrf
                         <div class="form-group">
-                            <label>Tên Sản Phẩm</label>
-                            <input name="name" class="form-control" placeholder="Nhập tên Sản phẩm" value="{{ old('name')}}">
-                            
-                        </div>
-                        <div class="form-group">
-                            <label>Giá sản phẩm</label>
-                            <input name="price" class="form-control" value="{{ old('name')}}" placeholder="Nhập giá Sản phẩm">
-                        </div>
-                        <div class="form-group">
-                            <label>Ảnh đại diện SP</label>
-                            <input type="file" name="thumb" id="upload-file-imagethumb" class="form-control-file" multiple>
-                            <img id="preview-imagethumb" src="#" alt="your image" />
-                        </div>
-                        <div class="form-group">
-                            <label>Thêm ảnh phụ SP
-                                <input type="number" value="1" id="amount-upload-file-subphoto" oninput="changeAmountUploadFileSubPhoto()">
-                            </label>
-                            <div class="image-subphoto">
-                                <div class="subphoto">
-                                    <input type="file" name="subphoto[]" id="upload-file-subphoto" class="form-control-file" multiple>
-                                    <img id="preview-subphoto" src="#" alt="your image" />
-                                </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <label class="col-form-label" for="name">Tên sản phẩm</label>
+                                <input id="name" name="name" class="form-control" value="{{ old('name') }}" type="text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Chọn danh mục</label>
-                            <select name="category_id" id="" class="form-control select2_init">
-                               
-                                <option value="">Chọn danh mục</option>
-                                @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <label class="col-form-label" for="price">Giá sản phẩm</label>
+                                <input id="price" name="price" class="form-control" type="text">
+                            </div>
                         </div>
-                        
+                        <div class="form-group">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <label class="col-form-label" for="category_id">Chọn danh mục</label>
+                                <select name="category_id" class="form-control">
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <label>Ảnh đại diện SP</label>
+                                <input type="file" name="thumb" id="upload-file-imagethumb" class="form-control-file" multiple>
+                                <img style="display: none; width: 20vw" class="mt-3 mb-1" id="preview-imagethumb" src="#" alt="your image" />
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <label>Thêm ảnh phụ SP
+                                    <input type="number" value="1" id="amount-upload-file-subphoto">
+                                    <button onclick="changeAmountUploadFileSubPhoto()" type="button">Thêm</button>
+                                </label>
+                                <div class="image-subphoto">
+                                    <div class="subphoto" style="margin-top: 5px">
+                                        <input type="file" name="subphoto[]" id="upload-file-subphoto" class="form-control-file" multiple>
+                                        <img style="display: none; width: 20vw" class="mt-3 mb-1" id="preview-subphoto" src="#" alt="your image" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
@@ -97,35 +104,9 @@ Trang chủ
 </aside>
 @endsection
 @section('js')
-<script src="/vendors/select2/select2.min.js"></script>
-<script src="https://cdn.tiny.cloud/1/2q5uk7z5qukawqm3hr88calcjg059jjdxuwxmlw5n1qheali/tinymce/5/tinymce.min.js"
-    referrerpolicy="origin"></script>
-<script src="/adminpb/product/add/add.js"></script>
-<script>
-    var imgInp = document.getElementById('upload-file-imagethumb');
-    var preview_image = document.getElementById('preview-imagethumb');
-
-    imgInp.onchange = evt => {
-    const [file] = imgInp.files
-        if (file) {
-            preview_image.src = URL.createObjectURL(file)
-        }
-    }
-
-    function changeAmountUploadFileSubPhoto() {
-        var amount = $('#amount-upload-file-subphoto').val();
-
-        if (amount != 0 && amount >= 1) {
-            for (let i = 1; i < amount; i++) {
-                $('.image-subphoto').append(`
-                    <div class="subphoto">
-                        <input type="file" name="subphoto[]" id="upload-file-subphoto" class="form-control-file" multiple>
-                        <img id="preview-subphoto${i}" src="#" alt="your image" />
-                    </div>
-                `);
-            }
-        }
-    }
-
-</script>
+    <script src="/vendors/select2/select2.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/2q5uk7z5qukawqm3hr88calcjg059jjdxuwxmlw5n1qheali/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    <script src="/adminpb/product/add/add.js"></script>
+    <script src="/js/product.js"></script>
 @endsection

@@ -36,7 +36,7 @@
 				<div class="col-md-3">
 					<div class="header-logo">
 						<a href="#" class="logo">
-							<img style="width:200px" src="./img/shop_tech.png" alt="">
+							<img style="width:200px" src="/img/shop_tech.png" alt="">
 						</a>
 					</div>
 				</div>

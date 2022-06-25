@@ -88,16 +88,18 @@ class ProductController extends Controller
         }
 
         $product = Product::find($id);
-        $product->update([
-            'name'=>$request->name,
-            'slug'=>$slug,
-            'price'=>$request->price,
-            'description'=>$request->description,
-            'status'=>$request->status,
-            'category_id'=>$request->category_id,
-            'created_by'=>8,
-            'updated_by'=>9,
-        ]);
+        $product->name = $request->name;
+
+        if (isset($request->thumb)) {
+            $product->thumb = $imageName_thumb;
+        }
+
+        $product->slug = $slug;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        $product->status = $request->status;
+        $product->category_id = $request->category_id;
+        $product->update();
 
         if (isset($request->subphoto)) {
             foreach ($request->subphoto as $subphoto) {
