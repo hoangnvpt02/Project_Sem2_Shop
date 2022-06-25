@@ -58,7 +58,7 @@
                                         <td style="width: 38vw;">
                                             <div style="display: flex;">
                                                 <div>
-                                                    <img src="https://via.placeholder.com/280x280/87CEFA/000000" alt=""
+                                                    <img src="/storage/{{ $order_details->products->thumb }}" alt=""
                                                         width="100" class="img-fluid">
                                                 </div>
                                                 <div style="margin-left: 20px">
@@ -142,6 +142,7 @@
                 </div>
             </div>
             @endforeach
+            {!! $orders->links() !!}
         </div>
     </div>
     <!-- NEWSLETTER -->

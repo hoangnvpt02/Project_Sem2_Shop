@@ -12,13 +12,11 @@ class OrderClientController extends Controller
 {
     public function order() {
         $user = Auth::user();
-
-        $orders = Order::where('user_id', 1)->with('order_details.products')
+        $id = $user->id;
+        $orders = Order::where('user_id', $id)->with('order_details.products')
         ->paginate(10);
 
         $categories = Category::where('status',1)->take(5)->get();
-    
-        // dd($orders);
 
         return view('order', [
             'orders' => $orders,
@@ -28,8 +26,9 @@ class OrderClientController extends Controller
 
     public function orderDetail(Request $request) {
         $user = Auth::user();
+        $id = $user->id;
 
-        $orders = Order::where('user_id', 1)->where('id', $request->id)->with('order_details.products')
+        $orders = Order::where('user_id', $id)->where('id', $request->id)->with('order_details.products')
         ->paginate(10);
 
         $categories = Category::where('status', 1)->take(5)->get();

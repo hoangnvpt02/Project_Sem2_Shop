@@ -915,7 +915,13 @@ textarea.input {
 }
 
 .product .product-body .product-name {
-  text-transform: uppercase;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 25px;
+  height: 75px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   font-size: 14px;
 }
 

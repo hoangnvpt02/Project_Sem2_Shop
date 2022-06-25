@@ -70,11 +70,11 @@ Route::get('/blank', function () {
 });
 
 Route::get('/search-product/{text}', [SearchControllerClient::class, 'search'])->name('search-product');
-Route::get('/order', [OrderClientController::class, 'order'])->name('order');
 
-Route::get('/order-detail/{id}', [OrderClientController::class, 'orderDetail'])->name('order-detail');
-Route::post('/order-cancel/{id}', [OrderClientController::class, 'cancelOrder'])->name('order-cancel');
-Route::post('/order-received', [OrderClientController::class, 'receivedOrder'])->name('order-received');
+Route::get('/order', [OrderClientController::class, 'order'])->middleware('auth.user')->name('order');
+Route::get('/order-detail/{id}', [OrderClientController::class, 'orderDetail'])->middleware('auth.user')->name('order-detail');
+Route::post('/order-cancel/{id}', [OrderClientController::class, 'cancelOrder'])->middleware('auth.user')->name('order-cancel');
+Route::post('/order-received', [OrderClientController::class, 'receivedOrder'])->middleware('auth.user')->name('order-received');
 
 
 

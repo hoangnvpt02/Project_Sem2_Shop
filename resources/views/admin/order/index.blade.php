@@ -52,13 +52,13 @@ Trang chủ
                             @if ($order->status == 1)
                                 <span class="badge rounded-pill">Đang chờ xác nhận</span>
                             @elseif ($order->status == 2)
-                                <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
+                                <span class="badge rounded-pill" style="background-color: green; color: white;">Đơn hàng đã xác nhận</span>
                             @elseif ($order->status == 3)
-                                <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
+                                <span class="badge rounded-pill" style="background-color: blue; color: white;">Đang vận chuyển</span>
                             @elseif ($order->status == 4)
-                                <span class="badge rounded-pill" style="background-color: green">Đã nhận hàng thành công</span>
+                                <span class="badge rounded-pill" style="background-color: green; color: white;">Đã nhận hàng thành công</span>
                             @elseif ($order->status == 0)
-                                <span class="badge rounded-pill" style="background-color: red">Đã hủy</span>
+                                <span class="badge rounded-pill" style="background-color: red; color: white;">Đã hủy</span>
                             @endif
                         </td>
                         <td>

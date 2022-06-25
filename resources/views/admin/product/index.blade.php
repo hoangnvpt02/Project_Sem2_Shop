@@ -46,9 +46,9 @@ Trang chủ
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->status == 0 ? 'không hoạt động' : 'hoạt động'}}</td>
                                 <td>
-                                    <a href="{{ route('admin.product.edit',['id'=>$product->id])}}"
+                                    <a style="width: 70px; margin-bottom: 10px;" href="{{ route('admin.product.edit',['id'=>$product->id])}}"
                                         class="btn btn-success">Edit</a>
-                                    <a href="" data-url="{{ route('admin.product.delete',['id'=>$product->id])}}"
+                                    <a style="width: 70px;" href="" data-url="{{ route('admin.product.delete',['id'=>$product->id])}}"
                                         class="btn btn-danger action_delete">Delete</a>
                                 </td>
                             </tr>
