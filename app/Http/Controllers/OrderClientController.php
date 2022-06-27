@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,25 +12,30 @@ class OrderClientController extends Controller
 {
     public function order() {
         $user = Auth::user();
-
-        $orders = Order::where('user_id', 1)->with('order_details.products')
+        $id = $user->id;
+        $orders = Order::where('user_id', $id)->with('order_details.products')
         ->paginate(10);
-    
-        // dd($orders);
+
+        $categories = Category::where('status',1)->take(5)->get();
 
         return view('order', [
-            'orders' => $orders
+            'orders' => $orders,
+            'categories' => $categories
         ]);
     }
 
     public function orderDetail(Request $request) {
         $user = Auth::user();
+        $id = $user->id;
 
-        $orders = Order::where('user_id', 1)->where('id', $request->id)->with('order_details.products')
+        $orders = Order::where('user_id', $id)->where('id', $request->id)->with('order_details.products')
         ->paginate(10);
 
+        $categories = Category::where('status', 1)->take(5)->get();
+
         return view('order_detail', [
-            'orders' => $orders
+            'orders' => $orders,
+            'categories' => $categories
         ]);
     }
 
@@ -40,6 +46,7 @@ class OrderClientController extends Controller
         }
         return redirect()->route('order')->with('danger','Xảy ra lỗi hãy thử lại');
     }
+
     public static function updateStatusOrder($request) {
         try {
             Order::where('id', $request->id)->update([
@@ -48,6 +55,37 @@ class OrderClientController extends Controller
         } catch (\Throwable $th) {
             Log::error('Order cancel update failed');
             Log::error($th);
+            return false;
+        }
+        return true;
+    }
+
+    public function receivedOrder(Request $request) {
+        $result = $this->receivedStatusOrder($request);
+
+        if ($result == true) {
+            return response()->json([
+                'error' => false,
+                'message' => 'Nhận hàng thành công'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Xảy ra lỗi xin vui lòng thử lại'
+        ]);
+    }
+
+    public static function receivedStatusOrder($request) {
+        $id = $request->input('id');
+        $order = Order::where('id', $id)->first();
+        try {
+            if ($order) {
+                Order::where('id', $id)->update(['status' => 4]);
+            }
+        } catch (\Exception $err) {
+            Log::error('Error updating received order');
+            Log::error($err);
             return false;
         }
         return true;

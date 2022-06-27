@@ -25,7 +25,7 @@ class LoginControllerClient extends Controller
  
         if (Auth::guard('user')->attempt($credentials)) {
             // Authentication passed...
-            return redirect()->route('home.client');
+            return redirect()->route('web.home.index');
         }
         else {
             return \Redirect::back()->withErrors(

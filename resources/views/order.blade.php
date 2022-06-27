@@ -7,6 +7,12 @@
     {{-- @include('breadcrumb') --}}
     <!-- /BREADCRUMB -->
     <div class="container">
+        @if (count($orders) == 0)
+            <div style="margin: auto; width: 50%; padding: 20px;">
+                <img style="display: block; margin: auto; width: 30%; padding: 10px;" src="/img/order_none.png" alt="">
+                <p style="margin: auto; width: 50%; padding: 10px; text-align: center; font-size: 18px;">Chưa có đơn hàng</p>
+            </div>
+        @endif
         @foreach($orders as $order)
         <div class="panel panel-default" style="margin-top: 25px; margin-bottom: 0;">
             <div class="panel-body">
@@ -27,9 +33,11 @@
                                         @if ($order->status == 1)
                                             <span class="badge rounded-pill">Đang chờ xác nhận</span>
                                         @elseif ($order->status == 2)
-                                        <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
+                                            <span class="badge rounded-pill" style="background-color: green">Đơn hàng đã xác nhận</span>
                                         @elseif ($order->status == 3)
-                                        <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
+                                            <span class="badge rounded-pill" style="background-color: blue">Đang vận chuyển</span>
+                                        @elseif ($order->status == 4)
+                                            <span class="badge rounded-pill" style="background-color: green">Đã nhận hàng thành công</span>
                                         @else
                                             <span class="badge rounded-pill" style="background-color: red">Đã hủy</span>
                                         @endif
@@ -48,7 +56,7 @@
                                             <td style="width: 60vw;">
                                                 <div style="display: flex;">
                                                     <div>
-                                                        <img src="https://via.placeholder.com/280x280/87CEFA/000000" alt=""
+                                                        <img src="/storage/{{ $order_details->products->thumb }}" alt=""
                                                             width="100" class="img-fluid">
                                                     </div>
                                                     <div style="margin-left: 20px">
@@ -77,6 +85,7 @@
             </div>
         </div>
         @endforeach
+        {!! $orders->links() !!}
     </div>
     <!-- NEWSLETTER -->
     @include('newsletter')

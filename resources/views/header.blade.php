@@ -2,10 +2,10 @@
 	<!-- TOP HEADER -->
 	<div id="top-header">
 		<div class="container">
-			<ul class="header-links pull-left">
-				<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-				<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-				<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+			<ul class="header-links pull-left" style="color:#fff">
+				<li><i class="fa fa-phone"></i> +84373532666</a></li>
+				<li><i class="fa fa-envelope-o"></i> shoptechhn@gmail.com</a></li>
+				<li><i class="fa fa-map-marker"></i> 08 Ton That Thuyet,HaNoi</a></li>
 			</ul>
 			<ul class="header-links pull-right">
 				<!-- <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li> -->
@@ -36,7 +36,7 @@
 				<div class="col-md-3">
 					<div class="header-logo">
 						<a href="#" class="logo">
-							<img style="width:200px" src="./img/shop_tech.png" alt="">
+							<img style="width:200px" src="/img/shop_tech.png" alt="">
 						</a>
 					</div>
 				</div>
@@ -56,19 +56,50 @@
 				<!-- ACCOUNT -->
 				<div class="col-md-3 clearfix">
 					<div class="header-ctn">
-						<!-- Wishlist -->
-						<!-- <div>
-							<a href="#">
-								<i class="fa fa-heart-o"></i>
-								<span>Your Wishlist</span>
-								<div class="qty">2</div>
+
+						<div class="dropdown">
+							@if (Auth::check())
+							<a href="/order">
+								{{-- <i class="fa fa-shopping-cart"></i> --}}
+								<img src="https://icon-library.com/images/view-details-icon/view-details-icon-7.jpg" style="width:16.72px;height:18px" alt="">
+								<span style="display: block;">Order Details</span>
+								{{-- <div class="qty">0</div> --}}
 							</a>
-						</div> -->
-						<!-- /Wishlist -->
+							@endif
+							{{-- <div class="cart-dropdown">
+								<div class="cart-list">
+									<!-- <div class="product-widget">
+										<div class="product-img">
+											<img src="./img/product01.png" alt="">
+										</div>
+										<div class="product-body">
+											<h3 class="product-name"><a href="#">product name goes here</a></h3>
+											<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+										</div>
+										<button class="delete"><i class="fa fa-close"></i></button>
+									</div> -->
+
+									<div class="product-widget">
+										<h4 class="text-center">
+											<span class="text-muted">Empty</span>
+										</h4>
+									</div>
+								</div>
+								<div class="cart-summary">
+									<small>0 Item(s) selected</small>
+									<h5>SUBTOTAL: 0 VNĐ</h5>
+								</div>
+								<div class="cart-btns">
+									<a href="#">View Cart</a>
+									<a href="{{ route('checkout') }}">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+								</div>
+							</div> --}}
+						</div>
+
 
 						<!-- Cart -->
 						<div class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+							<a class="dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown" aria-expanded="true">
 								<i class="fa fa-shopping-cart"></i>
 								<span>Your Cart</span>
 								<div class="qty">0</div>
@@ -103,15 +134,6 @@
 							</div>
 						</div>
 						<!-- /Cart -->
-
-						<!-- Menu Toogle -->
-						<div class="menu-toggle">
-							<a href="#">
-								<i class="fa fa-bars"></i>
-								<span>Menu</span>
-							</a>
-						</div>
-						<!-- /Menu Toogle -->
 					</div>
 				</div>
 				<!-- /ACCOUNT -->
@@ -124,8 +146,8 @@
 </header>
 <style>
 .showhint {
-  background-color: #fff;
-  height:400px;
+	background-color: #fff;
+	height:400px;
 	overflow: auto;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	/* z-index: 1; */
@@ -152,10 +174,10 @@
 			success: function(res){
 				if (res.length > 0){
 					for (var data of res) {
-						html+= '<a class="media-thumb" href="#">';	
-						html+= '<img src="https://hanoicomputercdn.com/media/product/250_63806_laptop_acer_gaming_aspire_7_a715_75g_18.jpeg" alt="logo" style="width:70px">'
+						html+= '<a class="media-thumb" href="/product_detail/'+ data.id +'">';	
+						html+= '<img src="/storage/'+ data.thumb +'" alt="logo" style="width:70px">'
 						html+= '<p style="width: 60%">'+data.name+'</p>'
-						html+= '<p style="width: 30%; font-style:italic;color:red">Price:&nbsp;'+data.price+'&nbsp;VND</p>'
+						html+= '<p style="width: 30%; font-style:italic;color:red">Price:&nbsp;'+number_format(data.price)+'&nbsp;VND</p>'
 						html+= '</a>'
 						html+= '<hr>'
 					}
@@ -169,4 +191,28 @@
 			},
 		})
 	})
+
+	function number_format (number, decimals, dec_point, thousands_sep) {
+    // Strip all characters but numerical ones.
+    number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+    var n = !isFinite(+number) ? 0 : +number,
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+        s = '',
+        toFixedFix = function (n, prec) {
+            var k = Math.pow(10, prec);
+            return '' + Math.round(n * k) / k;
+        };
+    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+    if (s[0].length > 3) {
+        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+    }
+    if ((s[1] || '').length < prec) {
+        s[1] = s[1] || '';
+        s[1] += new Array(prec - s[1].length + 1).join('0');
+    }
+    return s.join(dec);
+}
 </script>

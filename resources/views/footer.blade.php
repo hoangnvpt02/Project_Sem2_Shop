@@ -5,34 +5,36 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<div class="col-md-3 col-xs-6">
+				<div class="col-md-4 col-xs-6">
 					<div class="footer">
 						<h3 class="footer-title">About Us</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
-						<ul class="footer-links">
-							<li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-							<li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-							<li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+						{{-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p> --}}
+						<ul class="footer-links" style="color:#fff">
+							<li><i class="fa fa-map-marker"></i>08 Ton That Thuyet,HaNoi</a></li>
+							<li><i class="fa fa-phone"></i>+84373532666</a></li>
+							<li><i class="fa fa-envelope-o"></i>shoptechhn@gmail.com</a></li>
 						</ul>
 					</div>
 				</div>
 
-				<div class="col-md-3 col-xs-6">
+				<div class="col-md-4 col-xs-6">
 					<div class="footer">
 						<h3 class="footer-title">Categories</h3>
 						<ul class="footer-links">
-							<li><a href="#">Hot deals</a></li>
-							<li><a href="#">Laptops</a></li>
+							@foreach ($categories as $category)
+							<li><a href="#">{{ $category->name }}</a></li>
+							{{-- <li><a href="#">Laptops</a></li>
 							<li><a href="#">Smartphones</a></li>
 							<li><a href="#">Cameras</a></li>
-							<li><a href="#">Accessories</a></li>
+							<li><a href="#">Accessories</a></li> --}}
+							@endforeach
 						</ul>
 					</div>
 				</div>
 
 				<div class="clearfix visible-xs"></div>
 
-				<div class="col-md-3 col-xs-6">
+				<div class="col-md-4 col-xs-6">
 					<div class="footer">
 						<h3 class="footer-title">Information</h3>
 						<ul class="footer-links">
@@ -44,7 +46,7 @@
 						</ul>
 					</div>
 				</div>
-
+{{-- 
 				<div class="col-md-3 col-xs-6">
 					<div class="footer">
 						<h3 class="footer-title">Service</h3>
@@ -56,7 +58,7 @@
 							<li><a href="#">Help</a></li>
 						</ul>
 					</div>
-				</div>
+				</div> --}}
 			</div>
 			<!-- /row -->
 		</div>
@@ -65,7 +67,7 @@
 	<!-- /top footer -->
 
 	<!-- bottom footer -->
-	<div id="bottom-footer" class="section">
+	{{-- <div id="bottom-footer" class="section">
 		<div class="container">
 			<!-- row -->
 			<div class="row">
@@ -88,7 +90,7 @@
 				<!-- /row -->
 		</div>
 		<!-- /container -->
-	</div>
+	</div> --}}
 	<!-- /bottom footer -->
 </footer>
 
@@ -100,7 +102,7 @@
 <script src="/js/jquery.zoom.min.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/product.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/main.js"></script>
 <script>
 	// $(document).ready(function() {
@@ -119,10 +121,10 @@
 				product_widgets += `
 					<div class="product-widget" data-prd-id="${data_cart[prd_id].id}">
 						<div class="product-img">
-							<img src="./img/product02.png" alt="">
+							<img src="/storage/${data_cart[prd_id].image}" alt="">
 						</div>
 						<div class="product-body">
-							<h3 class="product-name"><a href="#">${data_cart[prd_id].name.substring(0, 30)}</a></h3>
+							<h3 class="product-name"><a href="/product_detail/${data_cart[prd_id].id}">${data_cart[prd_id].name.substring(0, 30)}</a></h3>
 							<h4 class="product-price"><span class="qty">${data_cart[prd_id].qty}x</span>${formatStringToCurrency(data_cart[prd_id].qty * data_cart[prd_id].price, " VNĐ")}</h4>
 						</div>
 						<button class="delete" onclick="removeCart(this)"><i class="fa fa-close"></i></button>
@@ -196,7 +198,7 @@
 					if (data_cart[`prd_${response.id}`]) {
 						// filterd_data_cart[`prd_${response.id}`].id = response.id
 						data_cart[`prd_${response.id}`].qty = data_cart[`prd_${response.id}`].qty + 1
-						data_cart[`prd_${response.id}`].name = response.name
+						// data_cart[`prd_${response.id}`].name = response.name
 						// data_cart[`prd_${response.id}`].price = data_cart[`prd_${response.id}`].price + response.price
 					} else {
 						data_cart[`prd_${response.id}`] = {}
@@ -204,6 +206,7 @@
 						data_cart[`prd_${response.id}`].qty = 1
 						data_cart[`prd_${response.id}`].name = response.name
 						data_cart[`prd_${response.id}`].price = response.price
+						data_cart[`prd_${response.id}`].image = response.thumb
 					}
 
 					localStorage.setItem('data_cart', JSON.stringify(data_cart))

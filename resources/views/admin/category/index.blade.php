@@ -11,7 +11,9 @@
     <div class="content-wrapper">
         @include('partials.content-header', ['name' => 'Category', 'key' => 'List'])
         @if (session('success'))
-            <div class="alert alert-success col-md-3">
+            <div class="alert alert-success" style="height: 50px; width: 100px;width: 200px;
+            text-align: center;
+            margin-left: 20px;">
                 {{ session('success') }}
             </div>
         @endif
@@ -30,8 +32,6 @@
                                     <th scope="col">STT</th>
                                     <th scope="col">Tên danh mục</th>
                                     <th scope="col">Trạng thái</th>
-                                    <th scope="col">Người đăng</th>
-                                    <th scope="col">Người cập nhật</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -41,8 +41,6 @@
                                         <th scope="row">{{ $category->id }}</th>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->status == 0 ? 'không hoạt động' : 'hoạt động' }}</td>
-                                        <td>{{ $category->created_by }}</td>
-                                        <td>{{ $category->updated_by }}</td>
                                         <td>
                                             <a href="{{ route('admin.category.edit', ['id' => $category->id]) }}"
                                                 class="btn btn-success">Edit</a>
