@@ -147,6 +147,7 @@
 	}
 
 	// Price Slider
+	var max = 9999999;
 	var priceSlider = document.getElementById('price-slider');
 	if (priceSlider) {
 		noUiSlider.create(priceSlider, {
@@ -155,7 +156,7 @@
 			step: 1,
 			range: {
 				'min': 1,
-				'max': 9999999
+				'max': 99999999,
 			}
 		});
 
